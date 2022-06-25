@@ -1,0 +1,91 @@
+{
+  "project_info": {
+    "project_number": "572898112377",
+    "firebase_url": "https://bigboyz-3f8ca-default-rtdb.firebaseio.com",
+    "project_id": "bigboyz-3f8ca",
+    "storage_bucket": "bigboyz-3f8ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572898112377:android:90e708c0ebebd466f075a8",
+        "android_client_info": {
+          "package_name": "com.bigboyz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572898112377-8imfapg7bneekca8ubafcia9ku651u2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bigboyz",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "572898112377-9rerjimebd9a23kde80pbscre2tcumv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4_2Sivz4nP4jLyyFrQRe7vkNNK9Pw-Pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572898112377-9rerjimebd9a23kde80pbscre2tcumv6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "572898112377-rhnoeakuk5u4p8io5r0c8pbkls5jujfd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bigboyz.bigboyzadmin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572898112377:android:626c60212853e146f075a8",
+        "android_client_info": {
+          "package_name": "com.bigboyzadmin.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572898112377-9rerjimebd9a23kde80pbscre2tcumv6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4_2Sivz4nP4jLyyFrQRe7vkNNK9Pw-Pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572898112377-9rerjimebd9a23kde80pbscre2tcumv6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "572898112377-rhnoeakuk5u4p8io5r0c8pbkls5jujfd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bigboyz.bigboyzadmin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

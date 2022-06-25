@@ -1,5 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId:
+    '572898112377-9rerjimebd9a23kde80pbscre2tcumv6.apps.googleusercontent.com',
+});
 
 export default function App() {
   return (

@@ -22,6 +22,7 @@ export default {
     },
     android: {
       package: IS_DEV ? 'com.bigboyzadmin.dev' : 'com.bigboyzadmin',
+      googleServicesFile: './google-services.json',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
         backgroundColor: '#FFFFFF',
@@ -30,5 +31,9 @@ export default {
     web: {
       favicon: './assets/favicon.png',
     },
+    plugins: [
+      '@react-native-firebase/app',
+      '@react-native-google-signin/google-signin',
+    ],
   },
 };
