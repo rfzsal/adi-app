@@ -21,7 +21,7 @@ const useProvideAuth = () => {
   const signOut = async () => {
     try {
       await GoogleSignin.signOut();
-      auth().signOut();
+      await auth().signOut();
     } catch (error) {
       return { error };
     }
