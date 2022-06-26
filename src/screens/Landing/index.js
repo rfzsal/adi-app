@@ -2,13 +2,17 @@ import { ScrollView, StyleSheet } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Landing = ({ route, navigation }) => {
+import { useAuth } from '../../hooks/useAuth';
+
+const Landing = ({ route }) => {
+  const auth = useAuth();
+
   return (
     <SafeAreaView>
       <ScrollView style={styles.mainContainer}>
         <Text style={styles.centeredText}>{route.name}</Text>
         <Button
-          onPress={() => navigation.navigate('Tabs')}
+          onPress={auth.signIn}
           style={styles.loginButton}
           mode="contained"
         >
