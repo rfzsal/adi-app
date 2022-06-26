@@ -11,6 +11,7 @@ import {
 } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { ProvideAuth } from './src/hooks/useAuth';
 import Stacks from './src/navigations/Stacks';
 
 GoogleSignin.configure({
@@ -35,7 +36,9 @@ const App = () => {
       <SafeAreaProvider>
         <PaperProvider theme={combinedDefaultTheme}>
           <NavigationContainer theme={combinedDefaultTheme}>
-            <Stacks />
+            <ProvideAuth>
+              <Stacks />
+            </ProvideAuth>
           </NavigationContainer>
         </PaperProvider>
       </SafeAreaProvider>
