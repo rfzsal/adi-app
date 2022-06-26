@@ -1,6 +1,6 @@
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 GoogleSignin.configure({
   webClientId:
