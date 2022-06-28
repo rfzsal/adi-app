@@ -28,9 +28,18 @@ const useProvideAuth = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged((authState) => {
+    const unsubscribe = auth().onAuthStateChanged(async (authState) => {
+      setUser('authenticating');
+
       if (authState) {
-        setUser(authState);
+        const userClaims = (await authState.getIdTokenResult()).claims;
+
+        setUser({
+          name: userClaims.name,
+          email: userClaims.email,
+          avatar: userClaims.picture,
+          role: userClaims.admin ? 'admin' : 'user',
+        });
       } else {
         setUser(null);
       }

@@ -11,10 +11,16 @@ const Stacks = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {auth.user ? (
-        <Stack.Screen name="Tabs" component={Tabs} />
-      ) : (
+      {(!auth.user || auth.user === 'authenticating') && (
         <Stack.Screen name="Landing" component={Landing} />
+      )}
+
+      {auth.user?.role === 'user' && (
+        <Stack.Screen name="Main" component={Tabs.User} />
+      )}
+
+      {auth.user?.role === 'admin' && (
+        <Stack.Screen name="Main" component={Tabs.Admin} />
       )}
     </Stack.Navigator>
   );

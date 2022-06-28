@@ -15,6 +15,7 @@ const Landing = ({ route }) => {
           onPress={auth.signIn}
           style={styles.loginButton}
           mode="contained"
+          loading={auth.user === 'authenticating'}
         >
           Lanjutkan Dengan Google
         </Button>
