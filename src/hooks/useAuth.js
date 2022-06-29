@@ -2,6 +2,14 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { createContext, useContext, useEffect, useState } from 'react';
 
+import { getFCMToken, deleteFCMToken } from '../utils/notifications';
+import {
+  saveUser,
+  updateUser,
+  addFCMToken,
+  removeFCMToken,
+} from '../utils/users';
+
 const AuthContext = createContext();
 
 const useProvideAuth = () => {
@@ -12,7 +20,26 @@ const useProvideAuth = () => {
       const { idToken } = await GoogleSignin.signIn();
       const credential = auth.GoogleAuthProvider.credential(idToken);
 
-      return await auth().signInWithCredential(credential);
+      const { user } = await auth().signInWithCredential(credential);
+
+      const updateStatus = await updateUser(user.uid, {
+        name: user.displayName,
+        email: user.email,
+        avatar: user.photoURL,
+      });
+
+      if (updateStatus.error) {
+        await saveUser(user.uid, {
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+        });
+      }
+
+      const FCMToken = await getFCMToken();
+      addFCMToken(user.uid, FCMToken);
+
+      return true;
     } catch (error) {
       return { error };
     }
@@ -20,8 +47,14 @@ const useProvideAuth = () => {
 
   const signOut = async () => {
     try {
+      const FCMToken = await getFCMToken();
+      deleteFCMToken();
+      removeFCMToken(user.id, FCMToken);
+
       await GoogleSignin.signOut();
       await auth().signOut();
+
+      return true;
     } catch (error) {
       return { error };
     }
