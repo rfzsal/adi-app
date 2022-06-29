@@ -35,7 +35,7 @@ const Checkout = ({ route, navigation }) => {
 
     setIsPressed(true);
 
-    const { uid, displayName, email } = auth.user;
+    const { id, name, email } = auth.user;
 
     const item_details = discount
       ? [
@@ -73,7 +73,7 @@ const Checkout = ({ route, navigation }) => {
       },
       item_details,
       customer_details: {
-        first_name: displayName,
+        first_name: name,
         email,
       },
       enabled_payments: [payments[selectedPayment].value],
@@ -90,8 +90,8 @@ const Checkout = ({ route, navigation }) => {
         image: product.image,
       },
       user: {
-        id: uid,
-        name: displayName,
+        id,
+        name,
         email,
       },
       payment: {
