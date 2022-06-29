@@ -35,6 +35,7 @@ const useProvideAuth = () => {
         const userClaims = (await authState.getIdTokenResult()).claims;
 
         setUser({
+          id: userClaims.user_id,
           name: userClaims.name,
           email: userClaims.email,
           avatar: userClaims.picture,
