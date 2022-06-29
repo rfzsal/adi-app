@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { RefreshControl } from 'react-native';
 import { ActivityIndicator, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -15,6 +15,8 @@ const Home = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(true);
   const [products, setProducts] = useState(null);
 
+  const isLoaded = useRef(true);
+
   const promos =
     products &&
     products[0]?.data.filter((product) => product.discounts.length > 1);
@@ -22,17 +24,23 @@ const Home = ({ navigation }) => {
   const loadProducts = async () => {
     const productsData = await getProducts();
 
-    if (!productsData.error && productsData.length > 0) {
-      setProducts([{ index: 0, title: 'Layanan kami', data: productsData }]);
-    }
+    if (isLoaded.current) {
+      if (!productsData.error && productsData.length > 0) {
+        setProducts([{ index: 0, title: 'Layanan kami', data: productsData }]);
+      }
 
-    setRefreshing(false);
+      setRefreshing(false);
+    }
   };
 
   useEffect(() => {
     if (refreshing) {
       loadProducts();
     }
+
+    return () => {
+      isLoaded.current = false;
+    };
   }, [refreshing]);
 
   const renderSectionHeader = ({ section }) => {
