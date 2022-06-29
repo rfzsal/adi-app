@@ -1,14 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { RefreshControl } from 'react-native';
-import { ActivityIndicator, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ActivityIndicator, useTheme, Appbar } from 'react-native-paper';
 import { SectionGrid } from 'react-native-super-grid';
 
 import Divider from '../../components/Divider';
 import { getProducts } from '../../utils/products';
-import HorizontalProducts from './components/HorizontalProducts';
 import ProductCard from './components/ProductCard';
-import SectionHeader from './components/SectionHeader';
 
 const Home = ({ navigation }) => {
   const { colors } = useTheme();
@@ -17,12 +14,8 @@ const Home = ({ navigation }) => {
 
   const isLoaded = useRef(true);
 
-  const promos =
-    products &&
-    products[0]?.data.filter((product) => product.discounts.length > 1);
-
   const loadProducts = async () => {
-    const productsData = await getProducts(6);
+    const productsData = await getProducts();
 
     if (isLoaded.current) {
       if (!productsData.error && productsData.length > 0) {
@@ -45,31 +38,6 @@ const Home = ({ navigation }) => {
     };
   }, []);
 
-  const renderSectionHeader = ({ section }) => {
-    return (
-      <>
-        {section.index === 0 && promos && (
-          <>
-            <Divider height={16} />
-
-            <SectionHeader
-              title="Lagi promo nih"
-              onPress={() => navigation.navigate('Dummy')}
-            />
-            <HorizontalProducts products={promos} />
-          </>
-        )}
-
-        {section.index === 0 && promos && <Divider height={24} />}
-
-        <SectionHeader
-          title={section.title}
-          onPress={() => navigation.navigate('Products')}
-        />
-      </>
-    );
-  };
-
   const renderItem = ({ item }) => {
     return (
       <ProductCard
@@ -87,8 +55,18 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView>
-      {!products && <ActivityIndicator />}
+    <>
+      <Appbar.Header>
+        <Appbar.BackAction onPress={navigation.goBack} />
+        <Appbar.Content title="Semua Layanan" />
+      </Appbar.Header>
+
+      {!products && (
+        <>
+          <Divider height={16} />
+          <ActivityIndicator />
+        </>
+      )}
 
       {products && (
         <SectionGrid
@@ -96,7 +74,6 @@ const Home = ({ navigation }) => {
           spacing={16}
           sections={products}
           renderItem={renderItem}
-          renderSectionHeader={renderSectionHeader}
           refreshControl={
             <RefreshControl
               colors={[colors.primary]}
@@ -106,7 +83,7 @@ const Home = ({ navigation }) => {
           }
         />
       )}
-    </SafeAreaView>
+    </>
   );
 };
 

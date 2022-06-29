@@ -10,9 +10,11 @@ export const getProduct = async (id) => {
   }
 };
 
-export const getProducts = async () => {
+export const getProducts = async (limit) => {
   try {
-    const data = await firestore().collection('products').limit(6).get();
+    const ref = firestore().collection('products');
+
+    const data = limit ? await ref.limit(limit).get() : await ref.get();
     if (data.empty) return [];
 
     return data.docs.map((product) => {

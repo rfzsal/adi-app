@@ -5,6 +5,7 @@ import Checkout from '../screens/Checkout';
 import Landing from '../screens/Landing';
 import Midtrans from '../screens/Midtrans';
 import Product from '../screens/Product';
+import Products from '../screens/Products';
 import Tabs from './Tabs';
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +21,10 @@ const Stacks = () => {
 
       {auth.user?.role === 'user' && (
         <Stack.Screen name="Main" component={Tabs.User} />
+      )}
+
+      {auth.user?.role === 'user' && (
+        <Stack.Screen name="Products" component={Products} />
       )}
 
       {auth.user?.role === 'user' && (
