@@ -1,9 +1,11 @@
+import messaging from '@react-native-firebase/messaging';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {
   NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import {
   Provider as PaperProvider,
   DefaultTheme as PaperDefaultTheme,
@@ -14,6 +16,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ProvideAuth } from './src/hooks/useAuth';
 import { ProvideOrders } from './src/hooks/useOrders';
 import Stacks from './src/navigations/Stacks';
+
+messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+  // console.log('A new FCM message handled in the background!', remoteMessage);
+});
 
 GoogleSignin.configure({
   webClientId:
@@ -33,6 +39,18 @@ const combinedDefaultTheme = {
   },
 };
 
+const NotificationHandlerContainer = ({ children }) => {
+  useEffect(() => {
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      // console.log('A new FCM message handled in the foreground!', remoteMessage);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  return children;
+};
+
 const App = () => {
   return (
     <>
@@ -41,7 +59,9 @@ const App = () => {
           <NavigationContainer theme={combinedDefaultTheme}>
             <ProvideAuth>
               <ProvideOrders>
-                <Stacks />
+                <NotificationHandlerContainer>
+                  <Stacks />
+                </NotificationHandlerContainer>
               </ProvideOrders>
             </ProvideAuth>
           </NavigationContainer>
