@@ -50,7 +50,7 @@ const Container = ({ children }) => {
 };
 
 const styles = StyleSheet.create({
-  header: { fontWeight: 'bold' },
+  header: { fontWeight: 'bold', fontSize: 16, letterSpacing: 0.4 },
   selectorContainer: {
     flexDirection: 'row',
     marginTop: 8,

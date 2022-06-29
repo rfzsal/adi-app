@@ -13,7 +13,12 @@ const ProductDetails = ({ children }) => {
 };
 
 const styles = StyleSheet.create({
-  header: { fontSize: 16, marginBottom: 4, fontWeight: 'bold' },
+  header: {
+    fontSize: 16,
+    marginBottom: 4,
+    fontWeight: 'bold',
+    letterSpacing: 0.4,
+  },
 });
 
 ProductDetails.propTypes = {
