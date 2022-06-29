@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 8,
     fontSize: 16,
+    fontWeight: 'bold',
     letterSpacing: 0.4,
     paddingHorizontal: 16,
   },
