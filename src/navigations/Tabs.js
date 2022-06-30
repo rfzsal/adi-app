@@ -3,6 +3,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { useTheme, Colors } from 'react-native-paper';
 
 import { useMessages } from '../hooks/useMessages';
+import { useOrders } from '../hooks/useOrders';
+import { useTransactions } from '../hooks/useTransactions';
 import Home from '../screens/Home';
 import Messages from '../screens/Messages';
 import Orders from '../screens/Orders';
@@ -31,8 +33,12 @@ const Tabs = ({ children }) => {
 
 const Admin = () => {
   const messages = useMessages();
+  const orders = useOrders();
+
   const isNewMessagesExist =
     messages?.filter((message) => message.counter > 0).length > 0;
+
+  const isNewOrdersExist = orders?.length > 0;
 
   return (
     <Tabs>
@@ -64,7 +70,7 @@ const Admin = () => {
               size={24}
             />
           ),
-          tabBarBadge: true,
+          tabBarBadge: isNewOrdersExist,
         }}
       />
 
@@ -88,8 +94,15 @@ const Admin = () => {
 
 const User = () => {
   const messages = useMessages();
+  const transactions = useTransactions();
+
   const isNewMessagesExist =
     messages?.filter((message) => message.counter > 0).length > 0;
+
+  const isNewTransactionsExist =
+    transactions?.filter(
+      (transaction) => transaction.payment.status === 'Menunggu Pembayaran'
+    ).length > 0;
 
   return (
     <Tabs>
@@ -136,7 +149,7 @@ const User = () => {
               size={24}
             />
           ),
-          tabBarBadge: true,
+          tabBarBadge: isNewTransactionsExist,
         }}
       />
 
