@@ -15,6 +15,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ProvideAuth } from './src/hooks/useAuth';
 import { ProvideMessages } from './src/hooks/useMessages';
+import { ProvideTransactions } from './src/hooks/useTransactions';
 import Stacks from './src/navigations/Stacks';
 
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
@@ -59,9 +60,11 @@ const App = () => {
           <NavigationContainer theme={combinedDefaultTheme}>
             <ProvideAuth>
               <ProvideMessages>
-                <NotificationHandlerContainer>
-                  <Stacks />
-                </NotificationHandlerContainer>
+                <ProvideTransactions>
+                  <NotificationHandlerContainer>
+                    <Stacks />
+                  </NotificationHandlerContainer>
+                </ProvideTransactions>
               </ProvideMessages>
             </ProvideAuth>
           </NavigationContainer>
