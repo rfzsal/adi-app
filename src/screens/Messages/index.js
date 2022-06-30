@@ -1,7 +1,16 @@
+import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { Text, Appbar } from 'react-native-paper';
+import { Appbar, ActivityIndicator } from 'react-native-paper';
 
-const Messages = ({ route }) => {
+import Divider from '../../components/Divider';
+import { useAuth } from '../../hooks/useAuth';
+import { useMessages } from '../../hooks/useMessages';
+import RippleMessage from './components/RippleMessage';
+
+const Messages = ({ navigation, route }) => {
+  const auth = useAuth();
+  const chatRooms = useMessages();
+
   return (
     <>
       <Appbar.Header>
@@ -9,15 +18,39 @@ const Messages = ({ route }) => {
       </Appbar.Header>
 
       <ScrollView style={styles.mainContainer}>
-        <Text style={styles.centeredText}>{route.name}</Text>
+        {!chatRooms && auth.user && (
+          <>
+            <Divider height={16} />
+            <ActivityIndicator />
+          </>
+        )}
+
+        {chatRooms &&
+          chatRooms.map((chatRoom, index) => {
+            return (
+              <React.Fragment key={chatRoom.id}>
+                <RippleMessage
+                  title={chatRoom.name}
+                  text={chatRoom.latestMessage.text}
+                  timestamp={chatRoom.latestMessage.timestamp}
+                  counter={chatRoom.counter}
+                  onPress={() =>
+                    navigation.navigate('Message', {
+                      chatRoom,
+                    })
+                  }
+                />
+                <Divider line />
+              </React.Fragment>
+            );
+          })}
       </ScrollView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: { padding: 16 },
-  centeredText: { textAlign: 'center' },
+  mainContainer: { paddingTop: 0 },
 });
 
 export default Messages;
