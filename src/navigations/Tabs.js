@@ -2,6 +2,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useTheme, Colors } from 'react-native-paper';
 
+import { useMessages } from '../hooks/useMessages';
 import { ProvideOrders } from '../hooks/useOrders';
 import Home from '../screens/Home';
 import Messages from '../screens/Messages';
@@ -30,6 +31,10 @@ const Tabs = ({ children }) => {
 };
 
 const Admin = () => {
+  const messages = useMessages();
+  const isNewMessagesExist =
+    messages?.filter((message) => message.counter > 0).length > 0;
+
   return (
     <ProvideOrders>
       <Tabs>
@@ -45,7 +50,7 @@ const Admin = () => {
                 size={24}
               />
             ),
-            tabBarBadge: true,
+            tabBarBadge: isNewMessagesExist,
           }}
         />
 
@@ -85,6 +90,10 @@ const Admin = () => {
 };
 
 const User = () => {
+  const messages = useMessages();
+  const isNewMessagesExist =
+    messages?.filter((message) => message.counter > 0).length > 0;
+
   return (
     <Tabs>
       <Tab.Screen
@@ -114,7 +123,7 @@ const User = () => {
               size={24}
             />
           ),
-          tabBarBadge: true,
+          tabBarBadge: isNewMessagesExist,
         }}
       />
 
