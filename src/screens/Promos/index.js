@@ -7,10 +7,10 @@ import Divider from '../../components/Divider';
 import { getProducts } from '../../utils/products';
 import ProductCard from './components/ProductCard';
 
-const Products = ({ navigation }) => {
+const Promos = ({ navigation }) => {
   const { colors } = useTheme();
   const [refreshing, setRefreshing] = useState(true);
-  const [products, setProducts] = useState(null);
+  const [promos, setPromos] = useState(null);
 
   const isLoaded = useRef(true);
 
@@ -19,7 +19,11 @@ const Products = ({ navigation }) => {
 
     if (isLoaded.current) {
       if (!productsData.error && productsData.length > 0) {
-        setProducts([{ index: 0, title: 'Semua Layanan', data: productsData }]);
+        const promosData = productsData.filter(
+          (product) => product.discounts.length > 1
+        );
+
+        setPromos([{ index: 0, title: 'Sedang Promo', data: promosData }]);
       }
 
       setRefreshing(false);
@@ -58,21 +62,21 @@ const Products = ({ navigation }) => {
     <>
       <Appbar.Header>
         <Appbar.BackAction onPress={navigation.goBack} />
-        <Appbar.Content title="Semua Layanan" />
+        <Appbar.Content title="Sedang Promo" />
       </Appbar.Header>
 
-      {!products && (
+      {!promos && (
         <>
           <Divider height={16} />
           <ActivityIndicator />
         </>
       )}
 
-      {products && (
+      {promos && (
         <SectionGrid
           itemDimension={160}
           spacing={16}
-          sections={products}
+          sections={promos}
           renderItem={renderItem}
           refreshControl={
             <RefreshControl
@@ -87,4 +91,4 @@ const Products = ({ navigation }) => {
   );
 };
 
-export default Products;
+export default Promos;

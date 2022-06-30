@@ -54,7 +54,7 @@ const Home = ({ navigation }) => {
 
             <SectionHeader
               title="Lagi promo nih"
-              onPress={() => navigation.navigate('Dummy')}
+              onPress={() => navigation.navigate('Promos')}
             />
             <HorizontalProducts products={promos} />
           </>
