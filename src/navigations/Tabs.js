@@ -3,7 +3,6 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { useTheme, Colors } from 'react-native-paper';
 
 import { useMessages } from '../hooks/useMessages';
-import { ProvideOrders } from '../hooks/useOrders';
 import Home from '../screens/Home';
 import Messages from '../screens/Messages';
 import Orders from '../screens/Orders';
@@ -36,56 +35,54 @@ const Admin = () => {
     messages?.filter((message) => message.counter > 0).length > 0;
 
   return (
-    <ProvideOrders>
-      <Tabs>
-        <Tab.Screen
-          name="Messages"
-          component={Messages}
-          options={{
-            tabBarLabel: 'Pesan',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="message-outline"
-                color={color}
-                size={24}
-              />
-            ),
-            tabBarBadge: isNewMessagesExist,
-          }}
-        />
+    <Tabs>
+      <Tab.Screen
+        name="Messages"
+        component={Messages}
+        options={{
+          tabBarLabel: 'Pesan',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="message-outline"
+              color={color}
+              size={24}
+            />
+          ),
+          tabBarBadge: isNewMessagesExist,
+        }}
+      />
 
-        <Tab.Screen
-          name="Orders"
-          component={Orders}
-          options={{
-            tabBarLabel: 'Pesanan',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="clipboard-outline"
-                color={color}
-                size={24}
-              />
-            ),
-            tabBarBadge: true,
-          }}
-        />
+      <Tab.Screen
+        name="Orders"
+        component={Orders}
+        options={{
+          tabBarLabel: 'Pesanan',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="clipboard-outline"
+              color={color}
+              size={24}
+            />
+          ),
+          tabBarBadge: true,
+        }}
+      />
 
-        <Tab.Screen
-          name="Profile"
-          component={Profile}
-          options={{
-            tabBarLabel: 'Profil',
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="account-outline"
-                color={color}
-                size={24}
-              />
-            ),
-          }}
-        />
-      </Tabs>
-    </ProvideOrders>
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Profil',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="account-outline"
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+    </Tabs>
   );
 };
 
