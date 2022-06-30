@@ -15,6 +15,11 @@ const useProvideOrders = () => {
       return;
     }
 
+    if (auth.user === 'authenticating') {
+      setData(null);
+      return;
+    }
+
     if (auth.user.role !== 'admin') {
       setData(null);
       return;

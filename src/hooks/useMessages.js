@@ -27,6 +27,11 @@ const useProvideMessages = () => {
       return;
     }
 
+    if (auth.user === 'authenticating') {
+      setData(null);
+      return;
+    }
+
     const unsubscribe = firestore()
       .collection('users')
       .doc(auth.user.id)

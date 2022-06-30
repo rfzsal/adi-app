@@ -27,6 +27,11 @@ const useProvideTransactions = () => {
       return;
     }
 
+    if (auth.user === 'authenticating') {
+      setData(null);
+      return;
+    }
+
     const unsubscribe = firestore()
       .collection('transactions')
       .where('user.id', '==', auth.user.id)
