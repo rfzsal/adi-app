@@ -15,6 +15,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ProvideAuth } from './src/hooks/useAuth';
 import { ProvideMessages } from './src/hooks/useMessages';
+import { ProvideOrders } from './src/hooks/useOrders';
 import { ProvideTransactions } from './src/hooks/useTransactions';
 import Stacks from './src/navigations/Stacks';
 
@@ -60,11 +61,13 @@ const App = () => {
           <NavigationContainer theme={combinedDefaultTheme}>
             <ProvideAuth>
               <ProvideMessages>
-                <ProvideTransactions>
-                  <NotificationHandlerContainer>
-                    <Stacks />
-                  </NotificationHandlerContainer>
-                </ProvideTransactions>
+                <ProvideOrders>
+                  <ProvideTransactions>
+                    <NotificationHandlerContainer>
+                      <Stacks />
+                    </NotificationHandlerContainer>
+                  </ProvideTransactions>
+                </ProvideOrders>
               </ProvideMessages>
             </ProvideAuth>
           </NavigationContainer>
