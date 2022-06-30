@@ -10,7 +10,10 @@ const SectionHeader = ({ title, onPress }) => {
     <View style={styles.headerContainer}>
       <Text style={[styles.title, { color: colors.primary }]}>{title}</Text>
 
-      <Text onPress={onPress} style={{ color: colors.primaryLight }}>
+      <Text
+        onPress={onPress}
+        style={[styles.link, { color: colors.primaryLight }]}
+      >
         Lihat Semua
       </Text>
     </View>
@@ -25,6 +28,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: { fontWeight: 'bold', fontSize: 18, letterSpacing: 0.4 },
+  link: { paddingVertical: 2 },
 });
 
 SectionHeader.propTypes = {
