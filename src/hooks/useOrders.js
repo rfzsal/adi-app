@@ -10,7 +10,15 @@ const useProvideOrders = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    if (!auth.user) return;
+    if (!auth.user) {
+      setData(null);
+      return;
+    }
+
+    if (auth.user.role !== 'admin') {
+      setData(null);
+      return;
+    }
 
     const onResult = (snapshot) => {
       const _data = snapshot.docs.map((doc) => {
