@@ -7,6 +7,7 @@ import Midtrans from '../screens/Midtrans';
 import Product from '../screens/Product';
 import Products from '../screens/Products';
 import Promos from '../screens/Promos';
+import Transaction from '../screens/Transaction';
 import Tabs from './Tabs';
 
 const Stack = createNativeStackNavigator();
@@ -42,6 +43,10 @@ const Stacks = () => {
 
       {auth.user?.role === 'user' && (
         <Stack.Screen name="Midtrans" component={Midtrans} />
+      )}
+
+      {auth.user?.role === 'user' && (
+        <Stack.Screen name="Transaction" component={Transaction} />
       )}
 
       {auth.user?.role === 'admin' && (
