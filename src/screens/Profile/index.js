@@ -64,16 +64,18 @@ const Profile = ({ navigation }) => {
         {auth.user && (
           <>
             <Divider height={48} />
-            <View style={styles.logoutButtonContainer}>
-              <TouchableRipple onPress={handleSignOut}>
-                <View style={styles.logoutButton}>
-                  <Text
-                    style={[styles.logoutButtonText, { color: colors.error }]}
-                  >
-                    KELUAR
-                  </Text>
-                </View>
-              </TouchableRipple>
+            <View style={styles.container}>
+              <View style={styles.logoutButtonContainer}>
+                <TouchableRipple onPress={handleSignOut}>
+                  <View style={styles.logoutButton}>
+                    <Text
+                      style={[styles.logoutButtonText, { color: colors.error }]}
+                    >
+                      KELUAR
+                    </Text>
+                  </View>
+                </TouchableRipple>
+              </View>
             </View>
           </>
         )}
@@ -92,7 +94,13 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
   },
   loginButtonContainer: { paddingHorizontal: 16 },
-  logoutButtonContainer: { paddingHorizontal: 16 },
+  container: {
+    paddingHorizontal: 16,
+  },
+  logoutButtonContainer: {
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
   logoutButton: {
     height: 36,
     alignItems: 'center',

@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
   },
   container: { paddingHorizontal: 16 },
   buttonContainer: {
-    borderRadius: 8,
+    borderRadius: 4,
     overflow: 'hidden',
   },
   cancelButton: {
