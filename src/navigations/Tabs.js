@@ -38,7 +38,8 @@ const Admin = () => {
   const isNewMessagesExist =
     messages?.filter((message) => message.counter > 0).length > 0;
 
-  const isNewOrdersExist = orders?.length > 0;
+  const isNewOrdersExist =
+    orders?.filter((order) => order.status !== 'accept').length > 0;
 
   return (
     <Tabs>
