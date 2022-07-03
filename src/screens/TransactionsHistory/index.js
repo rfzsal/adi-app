@@ -1,31 +1,21 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
-import { Appbar, Text, useTheme, ActivityIndicator } from 'react-native-paper';
+import { ScrollView } from 'react-native';
+import { Appbar, ActivityIndicator } from 'react-native-paper';
 
 import Divider from '../../components/Divider';
 import { useAuth } from '../../hooks/useAuth';
 import { useTransactions } from '../../hooks/useTransactions';
 import RippleTransaction from './components/RippleTransaction';
 
-const Transactions = ({ route, navigation }) => {
+const TransactionsHistory = ({ route, navigation }) => {
   const auth = useAuth();
   const transactions = useTransactions();
-  const { colors } = useTheme();
 
   return (
     <>
       <Appbar.Header>
+        <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title={route.name} />
-        {transactions && (
-          <View style={styles.appbarMenuContainer}>
-            <Text
-              onPress={() => navigation.navigate('TransactionsHistory')}
-              style={[styles.appBarMenu, { color: colors.background }]}
-            >
-              Riwayat Transaksi
-            </Text>
-          </View>
-        )}
       </Appbar.Header>
 
       <ScrollView>
@@ -38,10 +28,6 @@ const Transactions = ({ route, navigation }) => {
 
         {transactions &&
           transactions.map((transaction) => {
-            if (transaction.payment.status !== 'Menunggu Pembayaran') {
-              return null;
-            }
-
             return (
               <React.Fragment key={transaction.id}>
                 <RippleTransaction
@@ -63,9 +49,4 @@ const Transactions = ({ route, navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  appbarMenuContainer: { paddingRight: 12 },
-  appBarMenu: { paddingVertical: 4 },
-});
-
-export default Transactions;
+export default TransactionsHistory;

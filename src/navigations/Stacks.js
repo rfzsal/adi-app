@@ -8,6 +8,7 @@ import Product from '../screens/Product';
 import Products from '../screens/Products';
 import Promos from '../screens/Promos';
 import Transaction from '../screens/Transaction';
+import TransactionsHistory from '../screens/TransactionsHistory';
 import Tabs from './Tabs';
 
 const Stack = createNativeStackNavigator();
@@ -47,6 +48,13 @@ const Stacks = () => {
 
       {auth.user?.role === 'user' && (
         <Stack.Screen name="Transaction" component={Transaction} />
+      )}
+
+      {auth.user?.role === 'user' && (
+        <Stack.Screen
+          name="TransactionsHistory"
+          component={TransactionsHistory}
+        />
       )}
 
       {auth.user?.role === 'admin' && (
