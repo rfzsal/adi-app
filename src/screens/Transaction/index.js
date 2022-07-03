@@ -40,7 +40,7 @@ const Transaction = ({ route, navigation }) => {
         'payment.status': 'cancel',
       });
     } catch (error) {
-      console.log(error);
+      return { error };
     }
   };
 
