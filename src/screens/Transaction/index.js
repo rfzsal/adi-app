@@ -32,8 +32,17 @@ const Transaction = ({ route, navigation }) => {
   const isFailed = paymentStatus === 'Transaksi Gagal';
   const isPaid = paymentStatus === 'Transaksi Berhasil';
   const isPending = paymentStatus === 'Menunggu Pembayaran';
+  const isCancel = paymentStatus === 'cancel';
 
-  const cancelTransaction = () => {};
+  const cancelTransaction = async () => {
+    try {
+      await firestore().collection('transactions').doc(transaction.id).update({
+        'payment.status': 'cancel',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -61,7 +70,9 @@ const Transaction = ({ route, navigation }) => {
           ]}
         >
           <Text style={[styles.bannerTitle, { color: colors.background }]}>
-            {paymentStatus || payment.status}
+            {paymentStatus === 'cancel'
+              ? 'Transaksi Gagal'
+              : paymentStatus || payment.status}
           </Text>
 
           {paymentStatus === 'Menunggu Pembayaran' && (
@@ -151,7 +162,7 @@ const Transaction = ({ route, navigation }) => {
         </View>
       )}
 
-      {(isPaid || isFailed || isExpired) && (
+      {(isPaid || isFailed || isExpired || isCancel) && (
         <View
           style={[
             styles.bottomContainer,

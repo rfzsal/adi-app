@@ -28,6 +28,11 @@ const TransactionsHistory = ({ route, navigation }) => {
 
         {transactions &&
           transactions.map((transaction) => {
+            const status =
+              transaction.payment.status === 'cancel'
+                ? 'Transaksi Gagal'
+                : transaction.payment.status;
+
             return (
               <React.Fragment key={transaction.id}>
                 <RippleTransaction
@@ -35,7 +40,7 @@ const TransactionsHistory = ({ route, navigation }) => {
                   price={transaction.product.price}
                   discount={transaction.product.discount}
                   timestamp={transaction.payment.createdAt}
-                  status={transaction.payment.status}
+                  status={status}
                   onPress={() =>
                     navigation.navigate('Transaction', { transaction })
                   }
