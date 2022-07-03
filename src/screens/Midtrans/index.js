@@ -33,10 +33,12 @@ const Midtrans = ({ route, navigation }) => {
 
     if (navState.url.includes('#/406')) {
       setStatusBarColor('#E3EDFF');
+      setCanGoBack(false);
     }
 
     if (navState.url.includes('#/success')) {
       setStatusBarColor('#E8FBF7');
+      setCanGoBack(false);
     }
 
     if (navState.url.includes('&transaction_status=pending')) {
