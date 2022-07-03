@@ -95,6 +95,21 @@ const Message = ({ navigation, route }) => {
     }
   }, [expiredAt]);
 
+  useEffect(() => {
+    const clearCounter = async () => {
+      firestore()
+        .collection('users')
+        .doc(auth.user.id)
+        .collection('chatRooms')
+        .doc(chatRoom.id)
+        .update({
+          counter: 0,
+        });
+    };
+
+    return () => clearCounter();
+  }, []);
+
   return (
     <>
       <Appbar.Header>
