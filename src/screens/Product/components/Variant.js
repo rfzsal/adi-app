@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, useTheme, TouchableRipple } from 'react-native-paper';
+import { Text, useTheme, TouchableRipple, Colors } from 'react-native-paper';
 
 const Spacing = () => {
   return <View style={styles.spacing} />;
@@ -10,7 +10,7 @@ const Spacing = () => {
 const Button = ({ children, selected, disabled, onPress }) => {
   const { colors } = useTheme();
 
-  const borderColor = selected ? colors.primary : colors.disabled;
+  const borderColor = selected ? colors.primary : Colors.grey400;
   const color = selected ? colors.primary : colors.text;
 
   return (
