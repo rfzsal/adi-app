@@ -38,6 +38,8 @@ const combinedDefaultTheme = {
     notification: Colors.indigo300,
     background: Colors.white,
     surface: Colors.grey100,
+    bubbleIn: Colors.grey300,
+    bubbleOut: Colors.indigo50,
   },
 };
 
