@@ -29,7 +29,32 @@ const Message = ({ navigation, route }) => {
   const isPending = expiredAt === 0;
   const isExpired = !isPending && expiredAt < Date.now();
 
-  const sendMessage = async () => {};
+  const sendMessage = async () => {
+    try {
+      firestore()
+        .collection('messages')
+        .doc(chatRoom.id)
+        .collection('message')
+        .doc()
+        .set({
+          sender: auth.user,
+          text: newMessage,
+          timestamp: Date.now(),
+        });
+
+      firestore()
+        .collection('notifications')
+        .doc()
+        .set({
+          receiver: chatRoom.users[1].id,
+          message: { text: newMessage, title },
+        });
+
+      setNewMessage('');
+    } catch (error) {
+      return { error };
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = firestore()
@@ -135,12 +160,12 @@ const Message = ({ navigation, route }) => {
                   )}
 
                   {message.sender !== 'System' &&
-                    message.sender.id === auth.user.uid && (
+                    message.sender.id === auth.user.id && (
                       <Bubble position="right">{message.text}</Bubble>
                     )}
 
                   {message.sender !== 'System' &&
-                    message.sender.id !== auth.user.uid && (
+                    message.sender.id !== auth.user.id && (
                       <Bubble position="left">{message.text}</Bubble>
                     )}
                 </View>

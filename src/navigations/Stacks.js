@@ -65,6 +65,10 @@ const Stacks = () => {
       {auth.user?.role === 'admin' && (
         <Stack.Screen name="Main" component={Tabs.Admin} />
       )}
+
+      {auth.user?.role === 'admin' && (
+        <Stack.Screen name="Message" component={Message} />
+      )}
     </Stack.Navigator>
   );
 };
