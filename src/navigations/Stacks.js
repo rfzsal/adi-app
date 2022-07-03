@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../hooks/useAuth';
 import Checkout from '../screens/Checkout';
 import Landing from '../screens/Landing';
+import Message from '../screens/Message';
 import Midtrans from '../screens/Midtrans';
 import Product from '../screens/Product';
 import Products from '../screens/Products';
@@ -44,6 +45,10 @@ const Stacks = () => {
 
       {auth.user?.role === 'user' && (
         <Stack.Screen name="Midtrans" component={Midtrans} />
+      )}
+
+      {auth.user?.role === 'user' && (
+        <Stack.Screen name="Message" component={Message} />
       )}
 
       {auth.user?.role === 'user' && (
