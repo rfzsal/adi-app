@@ -14,7 +14,7 @@ import {
 } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { ProvideAuth } from './src/hooks/useAuth';
+import { ProvideAuth, useAuth } from './src/hooks/useAuth';
 import { ProvideMessages } from './src/hooks/useMessages';
 import { ProvideOrders } from './src/hooks/useOrders';
 import { ProvideTransactions } from './src/hooks/useTransactions';
@@ -51,6 +51,8 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 });
 
 const NotificationHandlerContainer = ({ children }) => {
+  const auth = useAuth();
+
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       const notification = JSON.parse(remoteMessage.data.notification);
@@ -59,6 +61,18 @@ const NotificationHandlerContainer = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (auth.user.role === 'admin') {
+      messaging()
+        .subscribeToTopic('new-orders')
+        .catch(() => {});
+    } else {
+      messaging()
+        .unsubscribeFromTopic('new-orders')
+        .catch(() => {});
+    }
+  }, [auth.user]);
 
   return children;
 };
