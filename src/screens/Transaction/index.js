@@ -132,21 +132,23 @@ const Transaction = ({ route, navigation }) => {
       </ScrollView>
 
       {isPending && (
-        <View
-          style={[
-            styles.bottomContainer,
-            { backgroundColor: colors.background },
-          ]}
-        >
-          <View style={styles.totalPaymentContainer}>
-            <Text style={styles.totalPayment}>Total Pembayaran</Text>
+        <>
+          <View
+            style={[
+              styles.bottomContainer,
+              { backgroundColor: colors.background },
+            ]}
+          >
+            <View style={styles.totalPaymentContainer}>
+              <Text style={styles.totalPayment}>Total Pembayaran</Text>
 
-            <Text style={styles.totalPrice}>
-              {currency(totalPrice, {
-                symbol: 'Rp ',
-                precision: 0,
-              }).format()}
-            </Text>
+              <Text style={styles.totalPrice}>
+                {currency(totalPrice, {
+                  symbol: 'Rp ',
+                  precision: 0,
+                }).format()}
+              </Text>
+            </View>
           </View>
 
           <Button
@@ -159,7 +161,7 @@ const Transaction = ({ route, navigation }) => {
           >
             BAYAR SEKARANG
           </Button>
-        </View>
+        </>
       )}
 
       {(isPaid || isFailed || isExpired || isCancel) && (
@@ -225,7 +227,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   bottomContainer: {
-    position: 'absolute',
+    position: 'relative',
     bottom: 0,
     elevation: 4,
     left: 0,
@@ -240,7 +242,7 @@ const styles = StyleSheet.create({
   },
   totalPayment: { fontWeight: 'bold', letterSpacing: 0.4 },
   totalPrice: { fontSize: 22, fontWeight: 'bold', letterSpacing: 0.4 },
-  paymentButton: { borderRadius: 0, flex: 1 },
+  paymentButton: { borderRadius: 0, position: 'relative', bottom: 0 },
   paymentLabel: { paddingVertical: 8 },
 });
 
