@@ -1,4 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
+import { formatDistanceToNow } from 'date-fns';
+import { id } from 'date-fns/locale';
 import React, { useState, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, TextInput } from 'react-native';
 import {
@@ -20,6 +22,7 @@ const Message = ({ navigation, route }) => {
   const [expiredAt, setExpiredAt] = useState(null);
   const [messages, setMessages] = useState(null);
   const [newMessage, setNewMessage] = useState('');
+  const [durationLeft, setDurationLeft] = useState(null);
   const { chatRoom } = route.params;
 
   const dummyAvatar = `https://avatars.dicebear.com/api/initials/${
@@ -138,6 +141,22 @@ const Message = ({ navigation, route }) => {
   }, [expiredAt]);
 
   useEffect(() => {
+    const currentTimestamp = Date.now();
+
+    if (expiredAt > 0 && expiredAt > currentTimestamp) {
+      setDurationLeft(formatDistanceToNow(expiredAt, { locale: id }));
+
+      const unsubscribe = setInterval(() => {
+        setDurationLeft(formatDistanceToNow(expiredAt, { locale: id }));
+      }, 60 * 1000);
+
+      return () => clearInterval(unsubscribe);
+    }
+
+    setDurationLeft(null);
+  }, [expiredAt]);
+
+  useEffect(() => {
     const clearCounter = async () => {
       firestore()
         .collection('users')
@@ -161,7 +180,10 @@ const Message = ({ navigation, route }) => {
           size={42}
           source={{ uri: avatar || dummyAvatar }}
         />
-        <Appbar.Content title={title || chatRoom.name} subtitle="Online" />
+        <Appbar.Content
+          title={title || chatRoom.name}
+          subtitle={durationLeft ? `Waktu tersisa ${durationLeft}` : null}
+        />
       </Appbar.Header>
 
       <ScrollView
