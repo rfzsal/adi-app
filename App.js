@@ -1,3 +1,4 @@
+import notifee from '@notifee/react-native';
 import messaging from '@react-native-firebase/messaging';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {
@@ -18,10 +19,7 @@ import { ProvideMessages } from './src/hooks/useMessages';
 import { ProvideOrders } from './src/hooks/useOrders';
 import { ProvideTransactions } from './src/hooks/useTransactions';
 import Stacks from './src/navigations/Stacks';
-
-messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  // console.log('A new FCM message handled in the background!', remoteMessage);
-});
+import { handleNotification } from './src/utils/notifications';
 
 GoogleSignin.configure({
   webClientId:
@@ -43,10 +41,20 @@ const combinedDefaultTheme = {
   },
 };
 
+notifee.onBackgroundEvent(async ({ type, detail }) => {
+  //
+});
+
+messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+  const notification = JSON.parse(remoteMessage.data.notification);
+  handleNotification(notification);
+});
+
 const NotificationHandlerContainer = ({ children }) => {
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      // console.log('A new FCM message handled in the foreground!', remoteMessage);
+      const notification = JSON.parse(remoteMessage.data.notification);
+      handleNotification(notification);
     });
 
     return () => unsubscribe();
