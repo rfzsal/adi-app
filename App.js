@@ -63,7 +63,7 @@ const NotificationHandlerContainer = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (auth.user.role === 'admin') {
+    if (auth.user?.role === 'admin') {
       messaging()
         .subscribeToTopic('new-orders')
         .catch(() => {});
