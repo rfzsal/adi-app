@@ -92,7 +92,6 @@ const Home = ({ navigation }) => {
 
       {products && (
         <SectionGrid
-          itemDimension={160}
           spacing={16}
           sections={products}
           renderItem={renderItem}
