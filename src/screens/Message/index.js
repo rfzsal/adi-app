@@ -31,6 +31,8 @@ const Message = ({ navigation, route }) => {
 
   const sendMessage = async () => {
     try {
+      const currentTimestamp = Date.now();
+
       firestore()
         .collection('messages')
         .doc(chatRoom.id)
@@ -39,15 +41,30 @@ const Message = ({ navigation, route }) => {
         .set({
           sender: auth.user,
           text: newMessage,
-          timestamp: Date.now(),
+          timestamp: currentTimestamp,
+        });
+
+      firestore()
+        .collection('users')
+        .doc(auth.user.id)
+        .collection('chatRooms')
+        .doc(chatRoom.id)
+        .update({
+          latestMessage: {
+            sender: auth.user,
+            text: newMessage,
+            timestamp: currentTimestamp,
+          },
         });
 
       firestore()
         .collection('notifications')
         .doc()
         .set({
+          id: chatRoom.id,
+          sender: auth.user,
           receiver: chatRoom.users[1].id,
-          message: { text: newMessage, title },
+          message: { text: newMessage, title, timestamp: currentTimestamp },
         });
 
       setNewMessage('');
