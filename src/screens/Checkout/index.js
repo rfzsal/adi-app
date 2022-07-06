@@ -197,18 +197,19 @@ const Checkout = ({ route, navigation }) => {
       </ScrollView>
 
       {payments && (
-        <View style={[styles.bottomContainer]}>
-          <View style={styles.totalPaymentContainer}>
-            <Text style={styles.totalPayment}>Total Pembayaran</Text>
+        <>
+          <View style={[styles.bottomContainer]}>
+            <View style={styles.totalPaymentContainer}>
+              <Text style={styles.totalPayment}>Total Pembayaran</Text>
 
-            <Text style={styles.totalPrice}>
-              {currency(totalPrice, {
-                symbol: 'Rp ',
-                precision: 0,
-              }).format()}
-            </Text>
+              <Text style={styles.totalPrice}>
+                {currency(totalPrice, {
+                  symbol: 'Rp ',
+                  precision: 0,
+                }).format()}
+              </Text>
+            </View>
           </View>
-
           <Button
             loading={isPressed}
             onPress={handleCheckout}
@@ -218,7 +219,7 @@ const Checkout = ({ route, navigation }) => {
           >
             LANJUTKAN PEMBAYARAN
           </Button>
-        </View>
+        </>
       )}
     </>
   );
@@ -235,7 +236,7 @@ const styles = StyleSheet.create({
   },
   container: { paddingHorizontal: 16 },
   bottomContainer: {
-    position: 'absolute',
+    position: 'relative',
     bottom: 0,
     left: 0,
     right: 0,
@@ -251,7 +252,7 @@ const styles = StyleSheet.create({
   },
   totalPayment: { fontWeight: 'bold', letterSpacing: 0.4 },
   totalPrice: { fontSize: 22, fontWeight: 'bold', letterSpacing: 0.4 },
-  paymentButton: { borderRadius: 0, flex: 1 },
+  paymentButton: { borderRadius: 0, position: 'relative', bottom: 0 },
   paymentLabel: { paddingVertical: 8 },
 });
 
