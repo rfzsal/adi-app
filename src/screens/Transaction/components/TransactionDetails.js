@@ -13,7 +13,13 @@ const TransactionDetails = ({ transaction }) => {
     <>
       <View style={styles.container}>
         <Text>No. Pesanan</Text>
-        <Text>{transaction.id}</Text>
+        <Text
+          ellipsizeMode="middle"
+          style={{ maxWidth: '50%' }}
+          numberOfLines={1}
+        >
+          {transaction.id}
+        </Text>
       </View>
 
       <Divider height={6} />
