@@ -82,53 +82,53 @@ const Transaction = ({ route, navigation }) => {
             </Text>
           )}
         </View>
-        <Divider height={16} />
+        <View style={styles.mainContainer}>
+          <Text style={styles.header}>Rincian Pesanan</Text>
+          <TransactionDetails transaction={transaction} />
 
-        <Text style={styles.header}>Rincian Pesanan</Text>
-        <TransactionDetails transaction={transaction} />
+          <Divider height={16} />
+          <Divider line />
+          <Divider height={16} />
 
-        <Divider height={16} />
-        <Divider line />
-        <Divider height={16} />
+          <OrderDetails product={product} />
 
-        <OrderDetails product={product} />
+          <Divider height={16} />
+          <Divider line />
+          <Divider height={16} />
 
-        <Divider height={16} />
-        <Divider line />
-        <Divider height={16} />
+          <PriceDetails product={product} />
 
-        <PriceDetails product={product} />
-
-        <Divider height={16} />
-        <View style={{ backgroundColor: colors.surface }}>
-          <Divider height={8} />
-        </View>
-        <Divider height={16} />
-
-        <Text style={styles.header}>Metode Pembayaran</Text>
-        <Text style={styles.container}>{payment.name}</Text>
-
-        <Divider height={16} />
-        <View style={{ backgroundColor: colors.surface }}>
-          <Divider height={8} />
-        </View>
-        <Divider height={16} />
-
-        {isPending && (
-          <View style={styles.container}>
-            <View style={styles.buttonContainer}>
-              <TouchableRipple onPress={cancelTransaction}>
-                <View style={styles.cancelButton}>
-                  <Text
-                    style={[styles.cancelButtonText, { color: colors.error }]}
-                  >
-                    BATALKAN PESANAN
-                  </Text>
-                </View>
-              </TouchableRipple>
-            </View>
+          <Divider height={16} />
+          <View style={{ backgroundColor: colors.surface }}>
+            <Divider height={8} />
           </View>
-        )}
+          <Divider height={16} />
+
+          <Text style={styles.header}>Metode Pembayaran</Text>
+          <Text style={styles.container}>{payment.name}</Text>
+
+          <Divider height={16} />
+          <View style={{ backgroundColor: colors.surface }}>
+            <Divider height={8} />
+          </View>
+          <Divider height={500} />
+
+          {isPending && (
+            <View style={styles.container}>
+              <View style={styles.buttonContainer}>
+                <TouchableRipple onPress={cancelTransaction}>
+                  <View style={styles.cancelButton}>
+                    <Text
+                      style={[styles.cancelButtonText, { color: colors.error }]}
+                    >
+                      BATALKAN PESANAN
+                    </Text>
+                  </View>
+                </TouchableRipple>
+              </View>
+            </View>
+          )}
+        </View>
       </ScrollView>
 
       {isPending && (
@@ -194,6 +194,7 @@ const Transaction = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   bannerContainer: { padding: 16 },
+  mainContainer: { paddingVertical: 16 },
   bannerTitle: {
     fontSize: 16,
     fontWeight: 'bold',
