@@ -111,7 +111,7 @@ const Transaction = ({ route, navigation }) => {
           <View style={{ backgroundColor: colors.surface }}>
             <Divider height={8} />
           </View>
-          <Divider height={500} />
+          <Divider height={16} />
 
           {isPending && (
             <View style={styles.container}>
