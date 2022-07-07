@@ -138,62 +138,64 @@ const Checkout = ({ route, navigation }) => {
         <Appbar.Content title="Ringkasan Pembayaran" />
       </Appbar.Header>
 
-      <ScrollView style={styles.mainContainer}>
-        <Text style={styles.header}>Rincian Pesanan</Text>
-        <OrderDetails product={product} />
+      <ScrollView>
+        <View style={styles.mainContainer}>
+          <Text style={styles.header}>Rincian Pesanan</Text>
+          <OrderDetails product={product} />
 
-        <Divider height={16} />
-        <Divider line />
-        <Divider height={16} />
+          <Divider height={16} />
+          <Divider line />
+          <Divider height={16} />
 
-        <PriceDetails product={product} />
+          <PriceDetails product={product} />
 
-        <Divider height={16} />
-        <View style={{ backgroundColor: colors.surface }}>
-          <Divider height={8} />
-        </View>
-        <Divider height={16} />
+          <Divider height={16} />
+          <View style={{ backgroundColor: colors.surface }}>
+            <Divider height={8} />
+          </View>
+          <Divider height={16} />
 
-        <Text style={styles.header}>Pilih Metode Pembayaran</Text>
-        {!payments && (
-          <>
-            <Divider height={4} />
-            <ActivityIndicator />
-          </>
-        )}
+          <Text style={styles.header}>Pilih Metode Pembayaran</Text>
+          {!payments && (
+            <>
+              <Divider height={4} />
+              <ActivityIndicator />
+            </>
+          )}
 
-        {payments && (
-          <>
-            <View style={styles.container}>
-              <Payments.Container>
-                {payments.map((payment, index) => {
-                  if (index === selectedPayment) {
+          {payments && (
+            <>
+              <View style={styles.container}>
+                <Payments.Container>
+                  {payments.map((payment, index) => {
+                    if (index === selectedPayment) {
+                      return (
+                        <Payments.Button
+                          disabled={isPressed}
+                          onPress={() => setSelectedPayment(index)}
+                          key={payment.value}
+                          selected
+                        >
+                          {payment.name}
+                        </Payments.Button>
+                      );
+                    }
+
                     return (
                       <Payments.Button
                         disabled={isPressed}
                         onPress={() => setSelectedPayment(index)}
                         key={payment.value}
-                        selected
                       >
                         {payment.name}
                       </Payments.Button>
                     );
-                  }
-
-                  return (
-                    <Payments.Button
-                      disabled={isPressed}
-                      onPress={() => setSelectedPayment(index)}
-                      key={payment.value}
-                    >
-                      {payment.name}
-                    </Payments.Button>
-                  );
-                })}
-              </Payments.Container>
-            </View>
-          </>
-        )}
+                  })}
+                </Payments.Container>
+              </View>
+            </>
+          )}
+        </View>
       </ScrollView>
 
       {payments && (
@@ -210,6 +212,7 @@ const Checkout = ({ route, navigation }) => {
               </Text>
             </View>
           </View>
+
           <Button
             loading={isPressed}
             onPress={handleCheckout}
@@ -226,7 +229,7 @@ const Checkout = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  mainContainer: { paddingTop: 16 },
+  mainContainer: { paddingVertical: 16 },
   header: {
     marginBottom: 8,
     fontSize: 16,
