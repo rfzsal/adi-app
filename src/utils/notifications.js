@@ -44,33 +44,58 @@ export const handleNotification = async (notification) => {
     await createChannel();
 
     if (notification.type === 'information') {
-      await notifee.displayNotification({
-        title: notification.title,
-        body: notification.body,
-        android: {
-          channelId: 'information',
-          pressAction: {
-            id: 'default',
-          },
-        },
-      });
+      const notificationData = notification.id
+        ? {
+            id: notification.id,
+            title: notification.title,
+            body: notification.body,
+            android: {
+              channelId: 'information',
+              pressAction: {
+                id: 'default',
+              },
+            },
+          }
+        : {
+            title: notification.title,
+            body: notification.body,
+            android: {
+              channelId: 'information',
+              pressAction: {
+                id: 'default',
+              },
+            },
+          };
 
+      await notifee.displayNotification(notificationData);
       return true;
     }
 
     if (notification.type === 'message') {
-      await notifee.displayNotification({
-        id: notification.id,
-        title: notification.title,
-        body: notification.body,
-        android: {
-          channelId: 'message',
-          pressAction: {
-            id: 'default',
-          },
-        },
-      });
+      const notificationData = notification.id
+        ? {
+            id: notification.id,
+            title: notification.title,
+            body: notification.body,
+            android: {
+              channelId: 'message',
+              pressAction: {
+                id: 'default',
+              },
+            },
+          }
+        : {
+            title: notification.title,
+            body: notification.body,
+            android: {
+              channelId: 'message',
+              pressAction: {
+                id: 'default',
+              },
+            },
+          };
 
+      await notifee.displayNotification(notificationData);
       return true;
     }
   } catch (error) {
