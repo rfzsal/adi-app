@@ -30,6 +30,7 @@ const Messages = ({ navigation, route }) => {
             return (
               <React.Fragment key={chatRoom.id}>
                 <RippleMessage
+                  avatar={chatRoom.image || null}
                   title={chatRoom.name}
                   text={chatRoom.latestMessage.text}
                   timestamp={chatRoom.latestMessage.timestamp}

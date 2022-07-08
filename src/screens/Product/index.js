@@ -181,7 +181,7 @@ const Product = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  image: { height: 480 },
+  image: { height: 240 },
   container: {
     flex: 1,
     paddingHorizontal: 16,
