@@ -36,7 +36,7 @@ const TransactionsHistory = ({ route, navigation }) => {
             return (
               <React.Fragment key={transaction.id}>
                 <RippleTransaction
-                  avatar={transaction.product.image || null}
+                  image={transaction.product.image || null}
                   name={transaction.product.name}
                   price={transaction.product.price}
                   discount={transaction.product.discount}
