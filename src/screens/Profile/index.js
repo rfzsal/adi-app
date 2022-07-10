@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert, Linking } from 'react-native';
 import { TouchableRipple, Button, Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Divider from '../../components/Divider';
+import contacts from '../../configs/contacts';
 import { useAuth } from '../../hooks/useAuth';
 import ProfileAvatar from './components/ProfileAvatar';
 import RippleMenu from './components/RippleMenu';
@@ -18,6 +19,31 @@ const Profile = ({ navigation }) => {
       'Apakah kamu yakin ingin keluar dari akun?',
       [{ text: 'Keluar', onPress: auth.signOut }, { text: 'Tidak' }]
     );
+  };
+
+  const handleOpenContact = async (contact) => {
+    let app;
+    switch (contact) {
+      case 'whatsapp':
+        app = 'WhatsApp';
+        break;
+      case 'instagram':
+        app = 'Instagram';
+        break;
+      case 'email':
+        app = 'Email';
+        break;
+    }
+
+    try {
+      await Linking.openURL(contacts(contact));
+    } catch (error) {
+      Alert.alert(
+        `Gagal membuka ${app}`,
+        `Pastikan aplikasi ${app} sudah terinstal pada perangkat kamu`
+      );
+      return { error };
+    }
   };
 
   return (
@@ -56,9 +82,16 @@ const Profile = ({ navigation }) => {
         <Divider height={36} />
 
         <Text style={styles.menuHeadingText}>Hubungi Kami</Text>
-        <RippleMenu text="Whatsapp" />
+        <RippleMenu
+          onPress={() => handleOpenContact('whatsapp')}
+          text="Whatsapp"
+        />
         <Divider line />
-        <RippleMenu text="Instagram" />
+        <RippleMenu
+          onPress={() => handleOpenContact('instagram')}
+          text="Instagram"
+        />
+        <RippleMenu onPress={() => handleOpenContact('email')} text="Email" />
         <Divider line />
 
         {auth.user && (
