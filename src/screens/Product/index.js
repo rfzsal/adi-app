@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState, useEffect, useRef } from 'react';
 import { ScrollView, Image, View, StyleSheet } from 'react-native';
 import {
@@ -67,14 +68,22 @@ const Product = ({ route, navigation }) => {
   return (
     <>
       <ScrollView>
-        <Image
-          style={styles.image}
-          source={{
-            uri: product
-              ? product.image || dummyImage(product.name)
-              : dummyImage(productName),
-          }}
-        />
+        <View>
+          <Image
+            style={styles.image}
+            source={{
+              uri: product
+                ? product.image || dummyImage(product.name)
+                : dummyImage(productName),
+            }}
+          />
+          {product?.image && (
+            <LinearGradient
+              colors={['transparent', 'rgba(0,0,0,0.16)']}
+              style={styles.imageGradient}
+            />
+          )}
+        </View>
 
         <View
           style={[styles.container, { backgroundColor: colors.background }]}
@@ -181,6 +190,13 @@ const Product = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  imageGradient: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: '25%',
+  },
   image: { height: 240 },
   container: {
     flex: 1,
