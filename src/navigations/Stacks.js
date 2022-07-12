@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useAuth } from '../hooks/useAuth';
+import About from '../screens/About';
 import Checkout from '../screens/Checkout';
 import Landing from '../screens/Landing';
 import Message from '../screens/Message';
@@ -69,6 +70,8 @@ const Stacks = () => {
       {auth.user?.role === 'admin' && (
         <Stack.Screen name="Message" component={Message} />
       )}
+
+      <Stack.Screen name="About" component={About} />
     </Stack.Navigator>
   );
 };

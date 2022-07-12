@@ -76,7 +76,10 @@ const Profile = ({ navigation }) => {
         <Divider line />
         <RippleMenu text="Blog" />
         <Divider line />
-        <RippleMenu text="Tentang BigBoyz" />
+        <RippleMenu
+          onPress={() => navigation.navigate('About')}
+          text="Tentang BigBoyz"
+        />
         <Divider line />
 
         <Divider height={36} />
