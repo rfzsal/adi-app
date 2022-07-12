@@ -27,11 +27,20 @@ const Messages = ({ navigation, route }) => {
 
         {chatRooms &&
           chatRooms.map((chatRoom, index) => {
+            if (auth.user.role === 'admin') {
+              if (chatRoom.expiredAt < Date.now()) {
+                return null;
+              }
+            }
+
             return (
               <React.Fragment key={chatRoom.id}>
                 <RippleMessage
                   avatar={chatRoom.image || null}
                   title={chatRoom.name}
+                  subtitle={
+                    auth.user.role === 'admin' ? chatRoom.users[1].name : null
+                  }
                   text={chatRoom.latestMessage.text}
                   timestamp={chatRoom.latestMessage.timestamp}
                   counter={chatRoom.counter}

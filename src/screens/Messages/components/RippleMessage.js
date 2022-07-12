@@ -6,6 +6,7 @@ import { useTheme, TouchableRipple, Avatar, Text } from 'react-native-paper';
 
 const RippleMessage = ({
   title,
+  subtitle,
   avatar,
   text,
   timestamp,
@@ -18,12 +19,14 @@ const RippleMessage = ({
     colors.primary.split('#')[1]
   }`;
 
+  const position = subtitle ? 4.8 : 1.6;
+
   return (
     <TouchableRipple onPress={onPress}>
       <View style={styles.mainContainer}>
         <Avatar.Image size={48} source={{ uri: avatar || dummyAvatar }} />
 
-        <View style={styles.messageContainer}>
+        <View style={[styles.messageContainer, { bottom: position }]}>
           <View style={styles.messageTitleContainer}>
             <Text style={styles.messageTitleText}>{title}</Text>
 
@@ -31,6 +34,8 @@ const RippleMessage = ({
               {format(timestamp, 'HH:mm')}
             </Text>
           </View>
+
+          {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
 
           <View style={styles.messageTextContainer}>
             <Text numberOfLines={1} style={styles.messageText}>
@@ -58,6 +63,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
+  subtitle: { marginLeft: 16 },
   messageContainer: { flex: 1 },
   messageTitleContainer: {
     marginLeft: 16,
@@ -80,6 +86,7 @@ const styles = StyleSheet.create({
 
 RippleMessage.propTypes = {
   title: propTypes.string.isRequired,
+  subtitle: propTypes.string,
   avatar: propTypes.string,
   text: propTypes.string,
   timestamp: propTypes.number.isRequired,
