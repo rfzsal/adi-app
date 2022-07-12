@@ -1,5 +1,6 @@
 import currency from 'currency.js';
 import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
 import propTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -36,7 +37,7 @@ const RippleTransaction = ({
           </View>
 
           <Text style={[styles.date, { color: colors.textLight }]}>
-            {format(timestamp, 'dd MMMM yyyy, HH:mm')}
+            {format(timestamp, 'dd MMMM yyyy, HH:mm', { locale: id })}
           </Text>
           <Text>{status}</Text>
         </View>

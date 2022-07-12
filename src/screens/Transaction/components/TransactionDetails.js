@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
 import propTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -19,7 +20,9 @@ const TransactionDetails = ({ transaction }) => {
       <Divider height={6} />
       <View style={styles.container}>
         <Text>Waktu Pemesanan</Text>
-        <Text>{format(payment.createdAt, 'dd MMMM yyyy, HH:mm')}</Text>
+        <Text>
+          {format(payment.createdAt, 'dd MMMM yyyy, HH:mm', { locale: id })}
+        </Text>
       </View>
     </>
   );

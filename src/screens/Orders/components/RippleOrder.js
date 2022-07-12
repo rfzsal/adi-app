@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
 import propTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -25,7 +26,9 @@ const RippleOrder = ({ name, client, duration, image, timestamp, onPress }) => {
           <Text style={[styles.date, { color: colors.textLight }]}>
             {client}
           </Text>
-          <Text>{format(timestamp, 'dd MMMM yyyy, HH:mm')}</Text>
+          <Text>
+            {format(timestamp, 'dd MMMM yyyy, HH:mm', { locale: id })}
+          </Text>
         </View>
       </View>
     </TouchableRipple>
