@@ -33,7 +33,7 @@ const useProvideOrders = () => {
         };
       });
 
-      setData(_data);
+      setData(_data.sort((a, b) => b.timestamp - a.timestamp));
     };
 
     const onError = (error) => {
