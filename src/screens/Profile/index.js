@@ -48,80 +48,85 @@ const Profile = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <ScrollView style={styles.mainContainer}>
-        {auth.user && (
-          <>
-            <ProfileAvatar
-              name={auth.user.name}
-              avatar={auth.user.avatar}
-              onPress={() => navigation.navigate('Dummy')}
-            />
-            <Divider height={36} />
-          </>
-        )}
+      <ScrollView>
+        <View style={styles.mainContainer}>
+          {auth.user && (
+            <>
+              <ProfileAvatar
+                name={auth.user.name}
+                avatar={auth.user.avatar}
+                onPress={() => navigation.navigate('Dummy')}
+              />
+              <Divider height={36} />
+            </>
+          )}
 
-        {!auth.user && (
-          <>
-            <View style={styles.loginButtonContainer}>
-              <Button onPress={auth.login} mode="contained">
-                Masuk
-              </Button>
-            </View>
-            <Divider height={24} />
-          </>
-        )}
-
-        <Text style={styles.menuHeadingText}>Bantuan</Text>
-        <RippleMenu text="FAQ" />
-        <Divider line />
-        <RippleMenu text="Blog" />
-        <Divider line />
-        <RippleMenu
-          onPress={() => navigation.navigate('About')}
-          text="Tentang BigBoyz"
-        />
-        <Divider line />
-
-        <Divider height={36} />
-
-        <Text style={styles.menuHeadingText}>Hubungi Kami</Text>
-        <RippleMenu
-          onPress={() => handleOpenContact('whatsapp')}
-          text="Whatsapp"
-        />
-        <Divider line />
-        <RippleMenu
-          onPress={() => handleOpenContact('instagram')}
-          text="Instagram"
-        />
-        <RippleMenu onPress={() => handleOpenContact('email')} text="Email" />
-        <Divider line />
-
-        {auth.user && (
-          <>
-            <Divider height={48} />
-            <View style={styles.container}>
-              <View style={styles.logoutButtonContainer}>
-                <TouchableRipple onPress={handleSignOut}>
-                  <View style={styles.logoutButton}>
-                    <Text
-                      style={[styles.logoutButtonText, { color: colors.error }]}
-                    >
-                      KELUAR
-                    </Text>
-                  </View>
-                </TouchableRipple>
+          {!auth.user && (
+            <>
+              <View style={styles.loginButtonContainer}>
+                <Button onPress={auth.login} mode="contained">
+                  Masuk
+                </Button>
               </View>
-            </View>
-          </>
-        )}
+              <Divider height={24} />
+            </>
+          )}
+
+          <Text style={styles.menuHeadingText}>Bantuan</Text>
+          <RippleMenu text="FAQ" />
+          <Divider line />
+          <RippleMenu text="Blog" />
+          <Divider line />
+          <RippleMenu
+            onPress={() => navigation.navigate('About')}
+            text="Tentang BigBoyz"
+          />
+          <Divider line />
+
+          <Divider height={36} />
+
+          <Text style={styles.menuHeadingText}>Hubungi Kami</Text>
+          <RippleMenu
+            onPress={() => handleOpenContact('whatsapp')}
+            text="Whatsapp"
+          />
+          <Divider line />
+          <RippleMenu
+            onPress={() => handleOpenContact('instagram')}
+            text="Instagram"
+          />
+          <RippleMenu onPress={() => handleOpenContact('email')} text="Email" />
+          <Divider line />
+
+          {auth.user && (
+            <>
+              <Divider height={48} />
+              <View style={styles.container}>
+                <View style={styles.logoutButtonContainer}>
+                  <TouchableRipple onPress={handleSignOut}>
+                    <View style={styles.logoutButton}>
+                      <Text
+                        style={[
+                          styles.logoutButtonText,
+                          { color: colors.error },
+                        ]}
+                      >
+                        KELUAR
+                      </Text>
+                    </View>
+                  </TouchableRipple>
+                </View>
+              </View>
+            </>
+          )}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: { paddingTop: 16 },
+  mainContainer: { paddingVertical: 16 },
   menuHeadingText: {
     fontWeight: 'bold',
     fontSize: 18,
