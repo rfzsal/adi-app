@@ -34,7 +34,7 @@ const Orders = ({ route }) => {
   return (
     <>
       <Appbar.Header>
-        <Appbar.Content title={route.name} />
+        <Appbar.Content title="Pesanan" />
       </Appbar.Header>
 
       <ScrollView style={styles.mainContainer}>

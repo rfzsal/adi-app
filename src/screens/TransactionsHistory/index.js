@@ -15,7 +15,7 @@ const TransactionsHistory = ({ route, navigation }) => {
     <>
       <Appbar.Header>
         <Appbar.BackAction onPress={navigation.goBack} />
-        <Appbar.Content title={route.name} />
+        <Appbar.Content title="Riwayat Transaksi" />
       </Appbar.Header>
 
       <ScrollView>

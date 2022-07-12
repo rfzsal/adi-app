@@ -14,7 +14,7 @@ const Messages = ({ navigation, route }) => {
   return (
     <>
       <Appbar.Header>
-        <Appbar.Content title={route.name} />
+        <Appbar.Content title="Pesan" />
       </Appbar.Header>
 
       <ScrollView style={styles.mainContainer}>

@@ -15,7 +15,7 @@ const Transactions = ({ route, navigation }) => {
   return (
     <>
       <Appbar.Header>
-        <Appbar.Content title={route.name} />
+        <Appbar.Content title="Transaksi" />
         {transactions && (
           <View style={styles.appbarMenuContainer}>
             <Text
