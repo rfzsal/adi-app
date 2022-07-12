@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, isToday, isYesterday } from 'date-fns';
 import propTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
@@ -31,7 +31,13 @@ const RippleMessage = ({
             <Text style={styles.messageTitleText}>{title}</Text>
 
             <Text style={styles.messageDateText}>
-              {format(timestamp, 'HH:mm')}
+              {isToday(timestamp) && format(timestamp, 'HH:mm')}
+
+              {isYesterday(timestamp) && 'Kemarin'}
+
+              {!isToday(timestamp) &&
+                !isYesterday(timestamp) &&
+                format(timestamp, 'd/M/yy')}
             </Text>
           </View>
 
