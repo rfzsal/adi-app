@@ -13,33 +13,33 @@ const Orders = ({ route }) => {
   const orders = useOrders();
 
   const handleAccept = (order) => {
+    const acceptOrder = async () => {
+      try {
+        const client = order.users[0];
+        const admin = {
+          email: auth.user.email,
+          id: auth.user.id,
+          name: auth.user.name,
+        };
+
+        await firestore()
+          .collection('pendingChatRooms')
+          .doc(order.id)
+          .update({
+            id: order.id,
+            status: 'accept',
+            users: [admin, client],
+          });
+      } catch (error) {
+        return { error };
+      }
+    };
+
     Alert.alert(
       'Terima Pesanan?',
       'Apakah kamu yakin ingin keluar menerima pesanan?',
-      [{ text: 'Tidak' }, { text: 'Terima', onPress: () => acceptOrder(order) }]
+      [{ text: 'Tidak' }, { text: 'Terima', onPress: acceptOrder }]
     );
-  };
-
-  const acceptOrder = async (order) => {
-    try {
-      const client = order.users[0];
-      const admin = {
-        email: auth.user.email,
-        id: auth.user.id,
-        name: auth.user.name,
-      };
-
-      await firestore()
-        .collection('pendingChatRooms')
-        .doc(order.id)
-        .update({
-          id: order.id,
-          status: 'accept',
-          users: [admin, client],
-        });
-    } catch (error) {
-      return { error };
-    }
   };
 
   return (
