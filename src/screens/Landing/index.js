@@ -1,33 +1,55 @@
-import { ScrollView, StyleSheet } from 'react-native';
+import { View, StyleSheet, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import landing from '../../../assets/landing.png';
 import { useAuth } from '../../hooks/useAuth';
 
-const Landing = ({ route }) => {
+const Landing = () => {
   const auth = useAuth();
 
   return (
-    <SafeAreaView>
-      <ScrollView style={styles.mainContainer}>
-        <Text style={styles.centeredText}>{route.name}</Text>
+    <SafeAreaView style={styles.mainContainer}>
+      <Text style={styles.title}>BigBoyz</Text>
+      <Text style={styles.subtitle}>Konsultasi masalah IT dengan mudah</Text>
+
+      <Image style={styles.vectorImage} source={landing} />
+
+      <View style={styles.container}>
         <Button
           onPress={auth.signIn}
           style={styles.loginButton}
           mode="contained"
           loading={auth.user === 'authenticating'}
+          icon="google"
         >
           Lanjutkan Dengan Google
         </Button>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: { padding: 16 },
-  centeredText: { textAlign: 'center' },
-  loginButton: { marginTop: 8 },
+  mainContainer: { flex: 1, paddingTop: 72 },
+  title: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 32,
+    letterSpacing: 1,
+    marginBottom: 8,
+  },
+  subtitle: { textAlign: 'center', fontSize: 16 },
+  vectorImage: {
+    height: 320,
+    resizeMode: 'contain',
+    right: 1,
+    bottom: 24,
+  },
+  container: { paddingHorizontal: 48 },
+  loginButton: {
+    bottom: 24,
+  },
 });
 
 export default Landing;
