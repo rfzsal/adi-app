@@ -23,9 +23,15 @@ const Messages = ({ navigation }) => {
           <Image style={styles.vectorImage} source={noMessages} />
 
           <Text style={styles.vectorText}>Belum ada pesan saat ini</Text>
-          <Button onPress={() => navigation.navigate('Home')} mode="contained">
-            Konsultasi Sekarang
-          </Button>
+
+          {auth.user.role !== 'admin' && (
+            <Button
+              onPress={() => navigation.navigate('Home')}
+              mode="contained"
+            >
+              Konsultasi Sekarang
+            </Button>
+          )}
         </View>
       )}
 

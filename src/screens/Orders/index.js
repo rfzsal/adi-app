@@ -1,16 +1,19 @@
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
-import { ScrollView, Alert } from 'react-native';
-import { Appbar, ActivityIndicator } from 'react-native-paper';
+import { ScrollView, View, Text, Alert, Image, StyleSheet } from 'react-native';
+import { Appbar } from 'react-native-paper';
 
+import noTransactions from '../../../assets/no-transactions.png';
 import Divider from '../../components/Divider';
 import { useAuth } from '../../hooks/useAuth';
 import { useOrders } from '../../hooks/useOrders';
 import RippleOrder from './components/RippleOrder';
 
-const Orders = ({ route }) => {
+const Orders = () => {
   const auth = useAuth();
   const orders = useOrders();
+
+  const pendingOrders = orders?.filter((order) => order.status !== 'accept');
 
   const handleAccept = (order) => {
     const acceptOrder = async () => {
@@ -48,37 +51,51 @@ const Orders = ({ route }) => {
         <Appbar.Content title="Pesanan" />
       </Appbar.Header>
 
-      <ScrollView>
-        {!orders && auth.user && (
-          <>
-            <Divider height={16} />
-            <ActivityIndicator />
-          </>
-        )}
+      {(!orders || pendingOrders?.length === 0) && (
+        <View style={styles.vectorContainer}>
+          <Image style={styles.vectorImage} source={noTransactions} />
 
-        {orders &&
-          orders.map((order) => {
-            if (order.status === 'accept') {
-              return null;
-            }
+          <Text style={styles.vectorText}>Belum ada pesanan saat ini</Text>
+        </View>
+      )}
 
-            return (
-              <React.Fragment key={order.id}>
-                <RippleOrder
-                  name={order.name}
-                  client={order.users[0].name}
-                  duration={order.duration}
-                  image={order.image}
-                  timestamp={order.timestamp}
-                  onPress={() => handleAccept(order)}
-                />
-                <Divider line />
-              </React.Fragment>
-            );
-          })}
-      </ScrollView>
+      {pendingOrders?.length > 0 && (
+        <ScrollView>
+          {orders &&
+            orders.map((order) => {
+              if (order.status === 'accept') {
+                return null;
+              }
+
+              return (
+                <React.Fragment key={order.id}>
+                  <RippleOrder
+                    name={order.name}
+                    client={order.users[0].name}
+                    duration={order.duration}
+                    image={order.image}
+                    timestamp={order.timestamp}
+                    onPress={() => handleAccept(order)}
+                  />
+                  <Divider line />
+                </React.Fragment>
+              );
+            })}
+        </ScrollView>
+      )}
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  vectorContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 48,
+  },
+  vectorImage: { height: 240, resizeMode: 'contain' },
+  vectorText: { fontSize: 16, marginTop: 16, marginBottom: 24 },
+});
 
 export default Orders;
