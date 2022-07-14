@@ -1,13 +1,14 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Appbar, ActivityIndicator } from 'react-native-paper';
+import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
+import { Appbar, Button } from 'react-native-paper';
 
+import noMessages from '../../../assets/no-messages.png';
 import Divider from '../../components/Divider';
 import { useAuth } from '../../hooks/useAuth';
 import { useMessages } from '../../hooks/useMessages';
 import RippleMessage from './components/RippleMessage';
 
-const Messages = ({ navigation, route }) => {
+const Messages = ({ navigation }) => {
   const auth = useAuth();
   const chatRooms = useMessages();
 
@@ -17,16 +18,20 @@ const Messages = ({ navigation, route }) => {
         <Appbar.Content title="Pesan" />
       </Appbar.Header>
 
-      <ScrollView style={styles.mainContainer}>
-        {!chatRooms && auth.user && (
-          <>
-            <Divider height={16} />
-            <ActivityIndicator />
-          </>
-        )}
+      {(!chatRooms || chatRooms?.length === 0) && (
+        <View style={styles.vectorContainer}>
+          <Image style={styles.vectorImage} source={noMessages} />
 
-        {chatRooms &&
-          chatRooms.map((chatRoom, index) => {
+          <Text style={styles.vectorText}>Belum ada pesan saat ini</Text>
+          <Button onPress={() => navigation.navigate('Home')} mode="contained">
+            Konsultasi Sekarang
+          </Button>
+        </View>
+      )}
+
+      {chatRooms?.length > 0 && (
+        <ScrollView>
+          {chatRooms?.map((chatRoom, index) => {
             if (auth.user.role === 'admin') {
               if (chatRoom.expiredAt < Date.now()) {
                 return null;
@@ -54,13 +59,21 @@ const Messages = ({ navigation, route }) => {
               </React.Fragment>
             );
           })}
-      </ScrollView>
+        </ScrollView>
+      )}
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: { paddingTop: 0 },
+  vectorContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 48,
+  },
+  vectorImage: { height: 240, resizeMode: 'contain' },
+  vectorText: { fontSize: 16, marginTop: 16, marginBottom: 24 },
 });
 
 export default Messages;

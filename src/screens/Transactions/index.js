@@ -1,16 +1,19 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
-import { Appbar, Text, useTheme, ActivityIndicator } from 'react-native-paper';
+import { ScrollView, View, StyleSheet, Image } from 'react-native';
+import { Appbar, Text, useTheme, Button } from 'react-native-paper';
 
+import noTransactions from '../../../assets/no-transactions.png';
 import Divider from '../../components/Divider';
-import { useAuth } from '../../hooks/useAuth';
 import { useTransactions } from '../../hooks/useTransactions';
 import RippleTransaction from './components/RippleTransaction';
 
-const Transactions = ({ route, navigation }) => {
-  const auth = useAuth();
-  const transactions = useTransactions();
+const Transactions = ({ navigation }) => {
   const { colors } = useTheme();
+  const transactions = useTransactions();
+
+  const pendingTransactions = transactions?.filter(
+    (transaction) => transaction.payment.status === 'Menunggu Pembayaran'
+  );
 
   return (
     <>
@@ -28,20 +31,20 @@ const Transactions = ({ route, navigation }) => {
         )}
       </Appbar.Header>
 
-      <ScrollView>
-        {!transactions && auth.user && (
-          <>
-            <Divider height={16} />
-            <ActivityIndicator />
-          </>
-        )}
+      {(!transactions || pendingTransactions?.length === 0) && (
+        <View style={styles.vectorContainer}>
+          <Image style={styles.vectorImage} source={noTransactions} />
 
-        {transactions &&
-          transactions.map((transaction) => {
-            if (transaction.payment.status !== 'Menunggu Pembayaran') {
-              return null;
-            }
+          <Text style={styles.vectorText}>Belum ada transaksi saat ini</Text>
+          <Button onPress={() => navigation.navigate('Home')} mode="contained">
+            Konsultasi Sekarang
+          </Button>
+        </View>
+      )}
 
+      {pendingTransactions?.length > 0 && (
+        <ScrollView>
+          {pendingTransactions?.map((transaction) => {
             return (
               <React.Fragment key={transaction.id}>
                 <RippleTransaction
@@ -59,7 +62,8 @@ const Transactions = ({ route, navigation }) => {
               </React.Fragment>
             );
           })}
-      </ScrollView>
+        </ScrollView>
+      )}
     </>
   );
 };
@@ -67,6 +71,14 @@ const Transactions = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   appbarMenuContainer: { paddingRight: 12 },
   appBarMenu: { paddingVertical: 4 },
+  vectorContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 48,
+  },
+  vectorImage: { height: 240, resizeMode: 'contain' },
+  vectorText: { fontSize: 16, marginTop: 16, marginBottom: 24 },
 });
 
 export default Transactions;
