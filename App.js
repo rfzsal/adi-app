@@ -32,7 +32,7 @@ const combinedDefaultTheme = {
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
-    primary: Colors.indigo400,
+    primary: Colors.indigo600,
     notification: Colors.indigo300,
     background: Colors.white,
     surface: Colors.grey100,

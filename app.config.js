@@ -27,7 +27,7 @@ export default {
         : './google-services.json',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
-        backgroundColor: '#5C6BC0',
+        backgroundColor: '#3949AB', // Indigo 600
       },
     },
     web: {
