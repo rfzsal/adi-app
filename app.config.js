@@ -11,7 +11,7 @@ export default {
     splash: {
       image: './assets/splash.png',
       resizeMode: 'contain',
-      backgroundColor: '#5C6BC0',
+      backgroundColor: '#3949AB', // Indigo 600
     },
     updates: {
       fallbackToCacheTimeout: 0,
