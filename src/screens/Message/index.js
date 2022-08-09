@@ -173,7 +173,7 @@ const Message = ({ navigation, route }) => {
 
   return (
     <>
-      <Appbar.Header>
+      <Appbar.Header style={{ backgroundColor: colors.background }}>
         <Appbar.BackAction onPress={navigation.goBack} />
         <Avatar.Image
           style={styles.appbarAvatar}

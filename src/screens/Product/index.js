@@ -77,12 +77,10 @@ const Product = ({ route, navigation }) => {
                 : dummyImage(productName),
             }}
           />
-          {product?.image && (
-            <LinearGradient
-              colors={['transparent', 'rgba(0,0,0,0.16)']}
-              style={styles.imageGradient}
-            />
-          )}
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,0.16)']}
+            style={styles.imageGradient}
+          />
         </View>
 
         <View

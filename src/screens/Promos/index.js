@@ -60,7 +60,7 @@ const Promos = ({ navigation }) => {
 
   return (
     <>
-      <Appbar.Header>
+      <Appbar.Header style={{ backgroundColor: colors.background }}>
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Sedang Promo" />
       </Appbar.Header>

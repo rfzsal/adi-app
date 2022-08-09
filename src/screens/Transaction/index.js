@@ -57,7 +57,7 @@ const Transaction = ({ route, navigation }) => {
 
   return (
     <>
-      <Appbar.Header>
+      <Appbar.Header style={{ backgroundColor: colors.background }}>
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Ringkasan Transaksi" />
       </Appbar.Header>

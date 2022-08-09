@@ -56,7 +56,7 @@ const Products = ({ navigation }) => {
 
   return (
     <>
-      <Appbar.Header>
+      <Appbar.Header style={{ backgroundColor: colors.background }}>
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Semua Layanan" />
       </Appbar.Header>

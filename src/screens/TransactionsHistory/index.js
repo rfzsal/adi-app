@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { Appbar, ActivityIndicator } from 'react-native-paper';
+import { Appbar, ActivityIndicator, useTheme } from 'react-native-paper';
 
 import Divider from '../../components/Divider';
 import { useAuth } from '../../hooks/useAuth';
@@ -8,12 +8,13 @@ import { useTransactions } from '../../hooks/useTransactions';
 import RippleTransaction from './components/RippleTransaction';
 
 const TransactionsHistory = ({ route, navigation }) => {
+  const { colors } = useTheme();
   const auth = useAuth();
   const transactions = useTransactions();
 
   return (
     <>
-      <Appbar.Header>
+      <Appbar.Header style={{ backgroundColor: colors.background }}>
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Riwayat Transaksi" />
       </Appbar.Header>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
-import { Appbar, Button } from 'react-native-paper';
+import { Appbar, Button, useTheme } from 'react-native-paper';
 
 import noMessages from '../../../assets/no-messages.png';
 import Divider from '../../components/Divider';
@@ -9,12 +9,13 @@ import { useMessages } from '../../hooks/useMessages';
 import RippleMessage from './components/RippleMessage';
 
 const Messages = ({ navigation }) => {
+  const { colors } = useTheme();
   const auth = useAuth();
   const chatRooms = useMessages();
 
   return (
     <>
-      <Appbar.Header>
+      <Appbar.Header style={{ backgroundColor: colors.background }}>
         <Appbar.Content title="Pesan" />
       </Appbar.Header>
 
