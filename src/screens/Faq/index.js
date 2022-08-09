@@ -5,7 +5,7 @@ import { View, StyleSheet } from 'react-native';
 import { ActivityIndicator, useTheme } from 'react-native-paper';
 import { WebView } from 'react-native-webview';
 
-const About = ({ route, navigation }) => {
+const Faq = ({ route, navigation }) => {
   const { colors } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
@@ -50,7 +50,7 @@ const About = ({ route, navigation }) => {
     <>
       <StatusBar translucent={false} backgroundColor={colors.background} />
       <WebView
-        source={{ uri: 'https://bigboyz-blog.vercel.app/about' }}
+        source={{ uri: 'https://bigboyz-blog.vercel.app/faq' }}
         ref={webViewRef}
         injectedJavaScriptBeforeContentLoaded={injectedScript}
         bounces={false}
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default About;
+export default Faq;

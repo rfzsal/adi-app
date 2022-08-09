@@ -73,9 +73,9 @@ const Profile = ({ navigation }) => {
           )}
 
           <Text style={styles.menuHeadingText}>Bantuan</Text>
-          <RippleMenu text="FAQ" />
+          <RippleMenu onPress={() => navigation.navigate('FAQ')} text="FAQ" />
           <Divider line />
-          <RippleMenu text="Blog" />
+          <RippleMenu onPress={() => navigation.navigate('Blog')} text="Blog" />
           <Divider line />
           <RippleMenu
             onPress={() => navigation.navigate('About')}

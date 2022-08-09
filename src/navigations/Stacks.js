@@ -2,7 +2,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useAuth } from '../hooks/useAuth';
 import About from '../screens/About';
+import Blog from '../screens/Blog';
 import Checkout from '../screens/Checkout';
+import Faq from '../screens/Faq';
 import Landing from '../screens/Landing';
 import Message from '../screens/Message';
 import Midtrans from '../screens/Midtrans';
@@ -71,7 +73,9 @@ const Stacks = () => {
         <Stack.Screen name="Message" component={Message} />
       )}
 
+      <Stack.Screen name="FAQ" component={Faq} />
       <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="Blog" component={Blog} />
     </Stack.Navigator>
   );
 };

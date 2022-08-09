@@ -5,7 +5,7 @@ import { View, StyleSheet } from 'react-native';
 import { ActivityIndicator, useTheme } from 'react-native-paper';
 import { WebView } from 'react-native-webview';
 
-const About = ({ route, navigation }) => {
+const Blog = ({ route, navigation }) => {
   const { colors } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
@@ -14,10 +14,17 @@ const About = ({ route, navigation }) => {
   const isLoaded = useRef(true);
 
   const injectedScript = `
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('sticky-nav').remove();
-    document.getElementById('bottom-nav').remove();
-    document.getElementById('footer').remove();
+  document.addEventListener('DOMContentLoaded', () => {    
+    let previousUrl = '';
+    const observer = new MutationObserver(function(mutations) {
+      if (location.href !== previousUrl) {
+        previousUrl = location.href;
+        window.ReactNativeWebView.postMessage(location.href)
+      }
+    });
+
+    const config = {subtree: true, childList: true};
+    observer.observe(document, config);
   });
   `;
 
@@ -49,8 +56,9 @@ const About = ({ route, navigation }) => {
   return (
     <>
       <StatusBar translucent={false} backgroundColor={colors.background} />
+
       <WebView
-        source={{ uri: 'https://bigboyz-blog.vercel.app/about' }}
+        source={{ uri: 'https://bigboyz-blog.vercel.app' }}
         ref={webViewRef}
         injectedJavaScriptBeforeContentLoaded={injectedScript}
         bounces={false}
@@ -65,6 +73,15 @@ const About = ({ route, navigation }) => {
         allowFileAccessFromFileURLS
         allowUniversalAccessFromFileURLs
         onNavigationStateChange={handleNavigationStateChange}
+        onMessage={(e) => {
+          const data = e && e.nativeEvent.data ? e.nativeEvent.data : null;
+
+          if (data !== 'https://bigboyz-blog.vercel.app/') {
+            setCanGoBack(true);
+          } else {
+            setCanGoBack(false);
+          }
+        }}
       />
       {isLoading && (
         <View style={[styles.loader, { backgroundColor: colors.background }]}>
@@ -86,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default About;
+export default Blog;
