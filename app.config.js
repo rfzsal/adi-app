@@ -11,7 +11,7 @@ export default {
     splash: {
       image: './assets/splash.png',
       resizeMode: 'contain',
-      backgroundColor: '#43a047', // Green 600
+      backgroundColor: '#ffffff', // White
     },
     updates: {
       fallbackToCacheTimeout: 0,
@@ -25,13 +25,13 @@ export default {
       googleServicesFile: IS_DEV
         ? './google-services-dev.json'
         : './google-services.json',
-      adaptiveIcon: {
-        foregroundImage: './assets/adaptive-icon.png',
-        backgroundColor: '#43a047', // Green 600
-      },
+      // adaptiveIcon: {
+      //   foregroundImage: './assets/adaptive-icon.png',
+      //   backgroundColor: '#ffffff', // White
+      // },
     },
     web: {
-      favicon: './assets/favicon.png',
+      // favicon: './assets/favicon.png',
     },
     plugins: [
       '@react-native-firebase/app',
