@@ -20,7 +20,10 @@ const Promos = ({ navigation }) => {
     if (isLoaded.current) {
       if (!productsData.error && productsData.length > 0) {
         const promosData = productsData.filter(
-          (product) => product.discounts.length > 1
+          (product) =>
+            product.discounts[0] > 0 ||
+            product.discounts[1] > 0 ||
+            product.discounts[2] > 0
         );
 
         setPromos([{ index: 0, title: 'Sedang Promo', data: promosData }]);

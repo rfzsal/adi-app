@@ -19,7 +19,12 @@ const Home = ({ navigation }) => {
 
   const promos =
     products &&
-    products[0]?.data.filter((product) => product.discounts.length > 1);
+    products[0]?.data.filter(
+      (product) =>
+        product.discounts[0] > 0 ||
+        product.discounts[1] > 0 ||
+        product.discounts[2] > 0
+    );
 
   const loadProducts = async () => {
     const productsData = await getProducts(6);
