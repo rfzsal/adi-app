@@ -11,7 +11,7 @@ export default {
     splash: {
       image: './assets/splash.png',
       resizeMode: 'contain',
-      backgroundColor: '#3949AB', // Indigo 600
+      backgroundColor: '#43a047', // Green 600
     },
     updates: {
       fallbackToCacheTimeout: 0,
@@ -27,7 +27,7 @@ export default {
         : './google-services.json',
       adaptiveIcon: {
         foregroundImage: './assets/adaptive-icon.png',
-        backgroundColor: '#3949AB', // Indigo 600
+        backgroundColor: '#43a047', // Green 600
       },
     },
     web: {

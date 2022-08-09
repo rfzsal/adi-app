@@ -32,12 +32,12 @@ const combinedDefaultTheme = {
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
-    primary: Colors.indigo600,
-    notification: Colors.indigo300,
+    primary: Colors.green600,
+    notification: Colors.green400,
     background: Colors.white,
     surface: Colors.grey100,
     bubbleIn: Colors.grey300,
-    bubbleOut: Colors.indigo50,
+    bubbleOut: Colors.green50,
   },
 };
 
