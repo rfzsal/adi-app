@@ -1,17 +1,14 @@
 import { useBackHandler } from '@react-native-community/hooks';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { ActivityIndicator, useTheme } from 'react-native-paper';
+import React, { useState, useRef } from 'react';
+import { StyleSheet } from 'react-native';
+import { useTheme, ActivityIndicator } from 'react-native-paper';
 import { WebView } from 'react-native-webview';
 
 const Faq = ({ route, navigation }) => {
   const { colors } = useTheme();
-  const [isLoading, setIsLoading] = useState(true);
   const [canGoBack, setCanGoBack] = useState(false);
   const webViewRef = useRef();
-
-  const isLoaded = useRef(true);
 
   const injectedScript = `
   document.addEventListener('DOMContentLoaded', () => {
@@ -34,18 +31,6 @@ const Faq = ({ route, navigation }) => {
     return false;
   });
 
-  const onLoadEnd = () => {
-    setTimeout(() => {
-      if (isLoaded.current) {
-        setIsLoading(false);
-      }
-    }, 100);
-  };
-
-  useEffect(() => {
-    return () => (isLoaded.current = false);
-  }, []);
-
   return (
     <>
       <StatusBar translucent={false} backgroundColor={colors.background} />
@@ -56,7 +41,16 @@ const Faq = ({ route, navigation }) => {
         bounces={false}
         originWhitelist={['https://*', 'http://*', 'gojek://*', 'shopeeid://*']}
         startInLoadingState
-        onLoadEnd={onLoadEnd}
+        renderLoading={() => (
+          <ActivityIndicator
+            style={[
+              styles.loader,
+              {
+                backgroundColor: colors.background,
+              },
+            ]}
+          />
+        )}
         allowFileAccess
         domStorageEnabled
         javaScriptEnabled
@@ -66,24 +60,12 @@ const Faq = ({ route, navigation }) => {
         allowUniversalAccessFromFileURLs
         onNavigationStateChange={handleNavigationStateChange}
       />
-      {isLoading && (
-        <View style={[styles.loader, { backgroundColor: colors.background }]}>
-          <ActivityIndicator />
-        </View>
-      )}
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  loader: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    paddingTop: 16,
-  },
+  loader: { position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 },
 });
 
 export default Faq;
