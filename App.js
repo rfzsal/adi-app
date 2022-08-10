@@ -7,6 +7,7 @@ import {
 } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   Provider as PaperProvider,
   DefaultTheme as PaperDefaultTheme,
@@ -88,7 +89,9 @@ const App = () => {
                 <ProvideOrders>
                   <ProvideTransactions>
                     <NotificationHandlerContainer>
-                      <Stacks />
+                      <GestureHandlerRootView style={{ flex: 1 }}>
+                        <Stacks />
+                      </GestureHandlerRootView>
                     </NotificationHandlerContainer>
                   </ProvideTransactions>
                 </ProvideOrders>

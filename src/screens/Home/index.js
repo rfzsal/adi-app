@@ -1,6 +1,19 @@
+import 'react-native-gesture-handler';
 import { useState, useEffect, useRef } from 'react';
-import { RefreshControl } from 'react-native';
-import { ActivityIndicator, useTheme } from 'react-native-paper';
+import {
+  RefreshControl,
+  Image,
+  Dimensions,
+  View,
+  StyleSheet,
+} from 'react-native';
+import {
+  ActivityIndicator,
+  useTheme,
+  Text,
+  TouchableRipple,
+} from 'react-native-paper';
+import Carousel from 'react-native-reanimated-carousel';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionGrid } from 'react-native-super-grid';
 
@@ -15,6 +28,7 @@ const Home = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(true);
   const [products, setProducts] = useState(null);
 
+  const WINDOW_WIDTH = Dimensions.get('window').width;
   const isLoaded = useRef(true);
 
   const promos =
@@ -53,6 +67,62 @@ const Home = ({ navigation }) => {
   const renderSectionHeader = ({ section }) => {
     return (
       <>
+        {section.index === 0 && promos && (
+          <Carousel
+            autoPlay
+            autoPlayInterval={5000}
+            pagingEnabled
+            width={WINDOW_WIDTH}
+            height={160}
+            data={promos}
+            renderItem={({ index }) => (
+              <TouchableRipple
+                onPress={() =>
+                  navigation.navigate('Product', {
+                    productId: promos[index].id,
+                    productName: promos[index].name,
+                    productPrice: promos[index].prices[0],
+                    productDiscount: promos[index].discounts[0],
+                  })
+                }
+                style={styles.carouselImageContainer}
+              >
+                <View>
+                  <Image
+                    style={styles.carouselImage}
+                    source={{ uri: promos[index].image }}
+                  />
+                  <View
+                    style={[
+                      styles.carouselOverlay,
+                      {
+                        backgroundColor: colors.backdrop,
+                      },
+                    ]}
+                  />
+                  <View style={styles.carouselTextContainer}>
+                    <View
+                      style={[
+                        styles.carouselTextBg,
+                        {
+                          backgroundColor: colors.background,
+                        },
+                      ]}
+                    >
+                      <Text style={styles.carouselTitleText}>
+                        Layanan {promos[index].name}
+                      </Text>
+                      <Text style={styles.carouselDiscountText}>
+                        🎉 Diskon {promos[index].discounts[0]}% 🎉
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </TouchableRipple>
+            )}
+          />
+        )}
+
         {section.index === 0 && promos && (
           <>
             <Divider height={16} />
@@ -113,5 +183,40 @@ const Home = ({ navigation }) => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  carouselImageContainer: { flex: 1 },
+  carouselImage: { height: 160 },
+  carouselOverlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    opacity: 0.24,
+  },
+  carouselTextContainer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  carouselTextBg: {
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+  },
+  carouselTitleText: { letterSpacing: 0.4, textAlign: 'center' },
+  carouselDiscountText: {
+    marginTop: 4,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
+    letterSpacing: 0.4,
+  },
+});
 
 export default Home;
