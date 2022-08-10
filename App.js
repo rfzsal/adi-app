@@ -37,6 +37,8 @@ const combinedDefaultTheme = {
     notification: Colors.green400,
     background: Colors.white,
     surface: Colors.grey100,
+    placeholder: Colors.grey200,
+    placeholderText: Colors.grey400,
     bubbleIn: Colors.grey300,
     bubbleOut: Colors.green50,
   },
