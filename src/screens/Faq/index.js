@@ -1,22 +1,15 @@
 import { useBackHandler } from '@react-native-community/hooks';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { useTheme, ActivityIndicator } from 'react-native-paper';
 import { WebView } from 'react-native-webview';
 
 const Faq = ({ route, navigation }) => {
   const { colors } = useTheme();
+  const [isLoaded, setIsLoaded] = useState(false);
   const [canGoBack, setCanGoBack] = useState(false);
   const webViewRef = useRef();
-
-  const injectedScript = `
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('sticky-nav').remove();
-    document.getElementById('bottom-nav').remove();
-    document.getElementById('footer').remove();
-  });
-  `;
 
   const handleNavigationStateChange = (navState) => {
     setCanGoBack(navState.canGoBack);
@@ -31,35 +24,49 @@ const Faq = ({ route, navigation }) => {
     return false;
   });
 
+  useEffect(() => {
+    const unsubscribe = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+
+    return () => clearTimeout(unsubscribe);
+  }, []);
+
   return (
     <>
       <StatusBar translucent={false} backgroundColor={colors.background} />
-      <WebView
-        source={{ uri: 'https://bigboyz-blog.vercel.app/faq' }}
-        ref={webViewRef}
-        injectedJavaScriptBeforeContentLoaded={injectedScript}
-        bounces={false}
-        originWhitelist={['https://*', 'http://*', 'gojek://*', 'shopeeid://*']}
-        startInLoadingState
-        renderLoading={() => (
-          <ActivityIndicator
-            style={[
-              styles.loader,
-              {
-                backgroundColor: colors.background,
-              },
-            ]}
-          />
-        )}
-        allowFileAccess
-        domStorageEnabled
-        javaScriptEnabled
-        geolocationEnabled
-        saveFormDataDisabled
-        allowFileAccessFromFileURLS
-        allowUniversalAccessFromFileURLs
-        onNavigationStateChange={handleNavigationStateChange}
-      />
+      {isLoaded && (
+        <WebView
+          source={{ uri: 'https://bigboyz-blog.vercel.app/faq' }}
+          ref={webViewRef}
+          bounces={false}
+          originWhitelist={[
+            'https://*',
+            'http://*',
+            'gojek://*',
+            'shopeeid://*',
+          ]}
+          startInLoadingState
+          renderLoading={() => (
+            <ActivityIndicator
+              style={[
+                styles.loader,
+                {
+                  backgroundColor: colors.background,
+                },
+              ]}
+            />
+          )}
+          allowFileAccess
+          domStorageEnabled
+          javaScriptEnabled
+          geolocationEnabled
+          saveFormDataDisabled
+          allowFileAccessFromFileURLS
+          allowUniversalAccessFromFileURLs
+          onNavigationStateChange={handleNavigationStateChange}
+        />
+      )}
     </>
   );
 };
