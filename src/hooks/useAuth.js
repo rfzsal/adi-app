@@ -13,10 +13,12 @@ import {
 const AuthContext = createContext();
 
 const useProvideAuth = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState('authenticating');
 
   const signIn = async () => {
     try {
+      setUser('authenticating');
+
       const { idToken } = await GoogleSignin.signIn();
       const credential = auth.GoogleAuthProvider.credential(idToken);
 
@@ -41,6 +43,7 @@ const useProvideAuth = () => {
 
       return true;
     } catch (error) {
+      setUser(null);
       return { error };
     }
   };
@@ -62,8 +65,6 @@ const useProvideAuth = () => {
 
   useEffect(() => {
     const unsubscribe = auth().onAuthStateChanged(async (authState) => {
-      setUser('authenticating');
-
       if (authState) {
         const userClaims = (await authState.getIdTokenResult()).claims;
 

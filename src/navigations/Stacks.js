@@ -17,13 +17,17 @@ import Tabs from './Tabs';
 
 const Stack = createNativeStackNavigator();
 
+const Auth = () => null;
+
 const Stacks = () => {
   const auth = useAuth();
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {(!auth.user || auth.user === 'authenticating') && (
-        <Stack.Screen name="Landing" component={Landing} />
+      {!auth.user && <Stack.Screen name="Landing" component={Landing} />}
+
+      {auth.user === 'authenticating' && (
+        <Stack.Screen name="Auth" component={Auth} />
       )}
 
       {auth.user?.role === 'user' && (
