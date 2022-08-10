@@ -19,6 +19,7 @@ import Variant from './components/Variant';
 
 const Product = ({ route, navigation }) => {
   const { colors } = useTheme();
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [product, setProduct] = useState(null);
   const [price, setPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
@@ -30,7 +31,7 @@ const Product = ({ route, navigation }) => {
 
   const dummyImage = (name) =>
     `https://avatars.dicebear.com/api/initials/${name}.png?b=%23${
-      colors.primary.split('#')[1]
+      colors.placeholder.split('#')[1]
     }`;
 
   useEffect(() => {
@@ -76,11 +77,26 @@ const Product = ({ route, navigation }) => {
                 ? product.image || dummyImage(product.name)
                 : dummyImage(productName),
             }}
+            onLoadEnd={() => setImageLoaded(true)}
           />
           <LinearGradient
             colors={['transparent', 'rgba(0,0,0,0.16)']}
             style={styles.imageGradient}
           />
+          {!imageLoaded && (
+            <View
+              style={[
+                styles.imagePlaceholder,
+                {
+                  backgroundColor: colors.placeholder,
+                },
+              ]}
+            >
+              <Text style={{ color: colors.placeholderText }}>
+                {productName}
+              </Text>
+            </View>
+          )}
         </View>
 
         <View
@@ -196,6 +212,16 @@ const styles = StyleSheet.create({
     height: '25%',
   },
   image: { height: 240 },
+  imagePlaceholder: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     paddingHorizontal: 16,
