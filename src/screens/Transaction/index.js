@@ -2,7 +2,7 @@ import firestore from '@react-native-firebase/firestore';
 import currency from 'currency.js';
 import { format } from 'date-fns';
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet, Alert } from 'react-native';
 import {
   Text,
   Appbar,
@@ -42,6 +42,14 @@ const Transaction = ({ route, navigation }) => {
     } catch (error) {
       return { error };
     }
+  };
+
+  const handleCancel = () => {
+    Alert.alert(
+      'Batalkan pesanan?',
+      'Apakah kamu yakin ingin membatalkan pesanan?',
+      [{ text: 'Batalkan', onPress: cancelTransaction }, { text: 'Tidak' }]
+    );
   };
 
   useEffect(() => {
@@ -116,7 +124,7 @@ const Transaction = ({ route, navigation }) => {
           {isPending && (
             <View style={styles.container}>
               <View style={styles.buttonContainer}>
-                <TouchableRipple onPress={cancelTransaction}>
+                <TouchableRipple onPress={handleCancel}>
                   <View style={styles.cancelButton}>
                     <Text
                       style={[styles.cancelButtonText, { color: colors.error }]}
