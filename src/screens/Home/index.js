@@ -7,12 +7,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import {
-  ActivityIndicator,
-  useTheme,
-  Text,
-  TouchableRipple,
-} from 'react-native-paper';
+import { ActivityIndicator, useTheme, Text } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionGrid } from 'react-native-super-grid';
@@ -76,8 +71,8 @@ const Home = ({ navigation }) => {
             height={160}
             data={promos}
             renderItem={({ index }) => (
-              <TouchableRipple
-                onPress={() =>
+              <View
+                onTouchEnd={() =>
                   navigation.navigate('Product', {
                     productId: promos[index].id,
                     productName: promos[index].name,
@@ -118,7 +113,7 @@ const Home = ({ navigation }) => {
                     </View>
                   </View>
                 </View>
-              </TouchableRipple>
+              </View>
             )}
           />
         )}
