@@ -13,7 +13,17 @@ const Landing = () => {
       <Text style={styles.title}>BigBoyz</Text>
       <Text style={styles.subtitle}>Konsultasi masalah IT dengan mudah</Text>
 
-      <Image style={styles.vectorImage} source={landing} />
+      <View
+        style={{
+          flex: 1,
+          height: 320,
+          maxHeight: 320,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Image style={styles.vectorImage} source={landing} />
+      </View>
 
       <View style={styles.container}>
         <Button
@@ -37,18 +47,21 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 32,
     letterSpacing: 1,
+    paddingHorizontal: 16,
     marginBottom: 8,
   },
-  subtitle: { textAlign: 'center', fontSize: 16 },
+  subtitle: { textAlign: 'center', fontSize: 16, paddingHorizontal: 16 },
   vectorImage: {
     height: 320,
     resizeMode: 'contain',
-    right: 1,
     bottom: 24,
   },
-  container: { paddingHorizontal: 48 },
+  container: { paddingHorizontal: 16 },
   loginButton: {
-    bottom: 24,
+    position: 'absolute',
+    right: 16,
+    left: 16,
+    bottom: 8,
   },
 });
 
