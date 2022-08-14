@@ -2,7 +2,7 @@ import { View, StyleSheet, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import landing from '../../../assets/landing.png';
+import landing from '../../../assets/images/landing.png';
 import { useAuth } from '../../hooks/useAuth';
 
 const Landing = () => {

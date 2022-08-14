@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View, StyleSheet, Image } from 'react-native';
 import { Appbar, Text, useTheme, Button } from 'react-native-paper';
 
-import noTransactions from '../../../assets/no-transactions.png';
+import noTransactions from '../../../assets/images/no-transactions.png';
 import Divider from '../../components/Divider';
 import { useTransactions } from '../../hooks/useTransactions';
 import RippleTransaction from './components/RippleTransaction';

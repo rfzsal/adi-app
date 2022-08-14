@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, View, Text, StyleSheet, Image } from 'react-native';
 import { Appbar, Button, useTheme } from 'react-native-paper';
 
-import noMessages from '../../../assets/no-messages.png';
+import noMessages from '../../../assets/images/no-messages.png';
 import Divider from '../../components/Divider';
 import { useAuth } from '../../hooks/useAuth';
 import { useMessages } from '../../hooks/useMessages';

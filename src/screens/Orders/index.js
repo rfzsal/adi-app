@@ -3,7 +3,7 @@ import React from 'react';
 import { ScrollView, View, Text, Alert, Image, StyleSheet } from 'react-native';
 import { Appbar } from 'react-native-paper';
 
-import noTransactions from '../../../assets/no-transactions.png';
+import noTransactions from '../../../assets/images/no-transactions.png';
 import Divider from '../../components/Divider';
 import { useAuth } from '../../hooks/useAuth';
 import { useOrders } from '../../hooks/useOrders';
