@@ -19,7 +19,7 @@ const Transactions = ({ navigation }) => {
     <>
       <Appbar.Header style={{ backgroundColor: colors.background }}>
         <Appbar.Content title="Transaksi" />
-        {transactions && (
+        {transactions?.length > 0 && (
           <View style={styles.appbarMenuContainer}>
             <Text
               onPress={() => navigation.navigate('TransactionsHistory')}
