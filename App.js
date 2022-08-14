@@ -24,7 +24,7 @@ import { handleNotification } from './src/utils/notifications';
 
 GoogleSignin.configure({
   webClientId:
-    '572898112377-9rerjimebd9a23kde80pbscre2tcumv6.apps.googleusercontent.com',
+    '301803574936-1vpc9g0m3pk0mjuhf78f2f52m1eqcuoh.apps.googleusercontent.com',
 });
 
 const combinedDefaultTheme = {
