@@ -17,21 +17,9 @@ export default {
       fallbackToCacheTimeout: 0,
     },
     assetBundlePatterns: ['**/*'],
-    ios: {
-      supportsTablet: true,
-    },
     android: {
       package: IS_DEV ? 'com.bigboyz.dev' : 'com.bigboyz',
-      googleServicesFile: IS_DEV
-        ? './google-services-dev.json'
-        : './google-services.json',
-      // adaptiveIcon: {
-      //   foregroundImage: './assets/adaptive-icon.png',
-      //   backgroundColor: '#ffffff', // White
-      // },
-    },
-    web: {
-      // favicon: './assets/favicon.png',
+      googleServicesFile: './google-services.json',
     },
     plugins: [
       '@react-native-firebase/app',
