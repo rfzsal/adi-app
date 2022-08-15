@@ -10,7 +10,7 @@ const OrderDetails = ({ product }) => {
   const { name, price, variant, image } = product;
 
   const dummyImage = `https://avatars.dicebear.com/api/initials/${name}.png?b=%23${
-    colors.primary.split('#')[1]
+    colors.placeholder.split('#')[1]
   }`;
 
   return (
