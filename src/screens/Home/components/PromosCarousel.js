@@ -12,6 +12,11 @@ const PromosCarousel = ({ promos, onPress }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const WINDOW_WIDTH = Dimensions.get('window').width;
 
+  const dummyImage = (name) =>
+    `https://avatars.dicebear.com/api/initials/${name}.png?b=%23${
+      colors.placeholder.split('#')[1]
+    }`;
+
   return (
     <Carousel
       autoPlay
@@ -35,7 +40,9 @@ const PromosCarousel = ({ promos, onPress }) => {
           <View>
             <Image
               style={styles.carouselImage}
-              source={{ uri: promos[index].image }}
+              source={{
+                uri: promos[index].image || dummyImage(promos[index].name),
+              }}
               onLoadEnd={() => setImageLoaded(true)}
             />
             <View
