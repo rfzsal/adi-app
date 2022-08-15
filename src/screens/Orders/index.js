@@ -1,7 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import { ScrollView, View, Text, Alert, Image, StyleSheet } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Appbar, useTheme } from 'react-native-paper';
 
 import noTransactions from '../../../assets/images/no-transactions.png';
 import Divider from '../../components/Divider';
@@ -10,6 +10,7 @@ import { useOrders } from '../../hooks/useOrders';
 import RippleOrder from './components/RippleOrder';
 
 const Orders = () => {
+  const { colors } = useTheme();
   const auth = useAuth();
   const orders = useOrders();
 
@@ -47,7 +48,7 @@ const Orders = () => {
 
   return (
     <>
-      <Appbar.Header>
+      <Appbar.Header style={{ backgroundColor: colors.background }}>
         <Appbar.Content title="Pesanan" />
       </Appbar.Header>
 
