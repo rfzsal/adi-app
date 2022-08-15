@@ -125,7 +125,7 @@ const Product = ({ route, navigation }) => {
               <Divider height={8} />
               <PriceDetails price={price} discount={discount} />
 
-              {product.variants.length > 1 && (
+              {product.variants[1] && (
                 <>
                   <Divider height={24} />
                   <Variant.Container>
