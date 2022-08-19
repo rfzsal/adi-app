@@ -222,42 +222,46 @@ const Message = ({ navigation, route }) => {
           },
         ]}
       >
-        {expiredAt && isPending && (
-          <TextInput
-            editable={false}
-            placeholder="Sesi konsultasi belum dimulai"
-            style={styles.textInput}
-            multiline
-          />
-        )}
+        {expiredAt !== null && (
+          <View>
+            {isPending && (
+              <TextInput
+                editable={false}
+                placeholder="Sesi konsultasi belum dimulai"
+                style={styles.textInput}
+                multiline
+              />
+            )}
 
-        {expiredAt && !isPending && !isExpired && (
-          <TextInput
-            onChangeText={setNewMessage}
-            value={newMessage}
-            placeholder="Tanyakan sesuatu..."
-            style={styles.textInput}
-            multiline
-          />
-        )}
+            {!isPending && !isExpired && (
+              <TextInput
+                onChangeText={setNewMessage}
+                value={newMessage}
+                placeholder="Tanyakan sesuatu..."
+                style={styles.textInput}
+                multiline
+              />
+            )}
 
-        {expiredAt && isExpired && (
-          <TextInput
-            editable={false}
-            placeholder="Sesi konsultasi telah berakhir"
-            style={styles.textInput}
-            multiline
-          />
-        )}
+            {isExpired && (
+              <TextInput
+                editable={false}
+                placeholder="Sesi konsultasi telah berakhir"
+                style={styles.textInput}
+                multiline
+              />
+            )}
 
-        {newMessage !== '' && (
-          <IconButton
-            icon="send"
-            color={colors.primary}
-            size={24}
-            style={styles.sendIcon}
-            onPress={sendMessage}
-          />
+            {newMessage !== '' && (
+              <IconButton
+                icon="send"
+                color={colors.primary}
+                size={24}
+                style={styles.sendIcon}
+                onPress={sendMessage}
+              />
+            )}
+          </View>
         )}
       </View>
     </>
