@@ -3,11 +3,14 @@ import { View, ScrollView, StyleSheet, Alert, Linking } from 'react-native';
 import { TouchableRipple, Button, Text, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import appConfig from '../../../app.config';
 import Divider from '../../components/Divider';
 import contacts from '../../configs/contacts';
 import { useAuth } from '../../hooks/useAuth';
 import ProfileAvatar from './components/ProfileAvatar';
 import RippleMenu from './components/RippleMenu';
+
+const VERSION = appConfig.expo.version;
 
 const Profile = ({ navigation }) => {
   const { colors } = useTheme();
@@ -117,6 +120,9 @@ const Profile = ({ navigation }) => {
                   </TouchableRipple>
                 </View>
               </View>
+
+              <Divider height={8} />
+              <Text style={{ textAlign: 'center' }}>v{VERSION}</Text>
             </>
           )}
         </View>
