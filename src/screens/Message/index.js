@@ -222,7 +222,7 @@ const Message = ({ navigation, route }) => {
           },
         ]}
       >
-        {isPending && (
+        {expiredAt && isPending && (
           <TextInput
             editable={false}
             placeholder="Sesi konsultasi belum dimulai"
@@ -231,7 +231,7 @@ const Message = ({ navigation, route }) => {
           />
         )}
 
-        {!isPending && !isExpired && (
+        {expiredAt && !isPending && !isExpired && (
           <TextInput
             onChangeText={setNewMessage}
             value={newMessage}
@@ -241,7 +241,7 @@ const Message = ({ navigation, route }) => {
           />
         )}
 
-        {isExpired && (
+        {expiredAt && isExpired && (
           <TextInput
             editable={false}
             placeholder="Sesi konsultasi telah berakhir"
