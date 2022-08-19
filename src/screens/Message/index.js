@@ -223,7 +223,7 @@ const Message = ({ navigation, route }) => {
         ]}
       >
         {expiredAt !== null && (
-          <View>
+          <View style={{ flex: 1 }}>
             {isPending && (
               <TextInput
                 editable={false}
@@ -235,6 +235,7 @@ const Message = ({ navigation, route }) => {
 
             {!isPending && !isExpired && (
               <TextInput
+                editable
                 onChangeText={setNewMessage}
                 value={newMessage}
                 placeholder="Tanyakan sesuatu..."
