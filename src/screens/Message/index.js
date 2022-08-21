@@ -223,7 +223,7 @@ const Message = ({ navigation, route }) => {
         ]}
       >
         {expiredAt !== null && (
-          <View style={{ flex: 1 }}>
+          <>
             {isPending && (
               <TextInput
                 editable={false}
@@ -262,7 +262,7 @@ const Message = ({ navigation, route }) => {
                 onPress={sendMessage}
               />
             )}
-          </View>
+          </>
         )}
       </View>
     </>
