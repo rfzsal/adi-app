@@ -65,7 +65,7 @@ const Home = ({ navigation }) => {
             <Divider height={16} />
 
             <SectionHeader
-              title="Lagi promo nih"
+              title="Sedang promo"
               onPress={() => navigation.navigate('Promos')}
             />
             <HorizontalProducts products={promos} />
