@@ -5,7 +5,7 @@ const contacts = (contact) => {
     case 'instagram':
       return 'https://instagram.com/alphabet.incubator';
     case 'email':
-      return 'mailto:ai_indonesia@alphabetincubator.id?subject=Help and Feedback&body=Describe your problem or feedback 🚀';
+      return 'mailto:support.bigboyz@alphabetincubator.id?subject=Help and Feedback';
   }
 };
 
