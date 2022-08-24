@@ -8,9 +8,11 @@ import Faq from '../screens/Faq';
 import Landing from '../screens/Landing';
 import Message from '../screens/Message';
 import Midtrans from '../screens/Midtrans';
+import PrivacyPolicy from '../screens/PrivacyPolicy';
 import Product from '../screens/Product';
 import Products from '../screens/Products';
 import Promos from '../screens/Promos';
+import TermsConditions from '../screens/TermsConditions';
 import Transaction from '../screens/Transaction';
 import TransactionsHistory from '../screens/TransactionsHistory';
 import Tabs from './Tabs';
@@ -80,6 +82,8 @@ const Stacks = () => {
       <Stack.Screen name="FAQ" component={Faq} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="Blog" component={Blog} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+      <Stack.Screen name="TermsConditions" component={TermsConditions} />
     </Stack.Navigator>
   );
 };

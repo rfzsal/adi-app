@@ -79,11 +79,19 @@ const Profile = ({ navigation }) => {
           <RippleMenu onPress={() => navigation.navigate('FAQ')} text="FAQ" />
           <Divider line />
           <RippleMenu onPress={() => navigation.navigate('Blog')} text="Blog" />
-          <Divider line />
           <RippleMenu
             onPress={() => navigation.navigate('About')}
             text="Tentang BigBoyz"
           />
+          <RippleMenu
+            onPress={() => navigation.navigate('PrivacyPolicy')}
+            text="Kebijakan Privasi"
+          />
+          <RippleMenu
+            onPress={() => navigation.navigate('TermsConditions')}
+            text="Syarat dan Ketentuan"
+          />
+          <Divider line />
           <Divider line />
 
           <Divider height={36} />
