@@ -3,11 +3,8 @@ import { Text, Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import landing from '../../../assets/images/landing.png';
-import { useAuth } from '../../hooks/useAuth';
 
-const Landing = () => {
-  const auth = useAuth();
-
+const Landing = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.mainContainer}>
       <Text style={styles.title}>BigBoyz</Text>
@@ -27,13 +24,11 @@ const Landing = () => {
 
       <View style={styles.container}>
         <Button
-          onPress={auth.signIn}
+          onPress={() => navigation.navigate('Register')}
           style={styles.loginButton}
           mode="contained"
-          loading={auth.user === 'authenticating'}
-          icon="google"
         >
-          Lanjutkan Dengan Google
+          Mulai Konsultasi Sekarang
         </Button>
       </View>
     </SafeAreaView>

@@ -56,7 +56,7 @@ const Profile = ({ navigation }) => {
           {auth.user && (
             <>
               <ProfileAvatar
-                name={auth.user.name}
+                name={auth.user.name || auth.user.email}
                 avatar={auth.user.avatar}
                 onPress={() => navigation.navigate('Dummy')}
               />
