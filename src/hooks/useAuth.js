@@ -48,6 +48,71 @@ const useProvideAuth = () => {
     }
   };
 
+  const signInEmail = async (email, password) => {
+    try {
+      const { user } = await auth().signInWithEmailAndPassword(email, password);
+
+      if (!user.emailVerified) {
+        return {
+          error: 'Email belum terverifikasi, silahkan cek inbox email anda.',
+        };
+      }
+
+      const updateStatus = await updateUser(user.uid, {
+        name: user.email,
+        email: user.email,
+        avatar: user.photoURL,
+      });
+
+      if (updateStatus.error) {
+        await saveUser(user.uid, {
+          name: user.email,
+          email: user.email,
+          avatar: user.photoURL,
+        });
+      }
+
+      const FCMToken = await getFCMToken();
+      addFCMToken(user.uid, FCMToken);
+
+      return true;
+    } catch (error) {
+      return { error };
+    }
+  };
+
+  const signUpEmail = async (email, password) => {
+    try {
+      const { user } = await auth().createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      user.sendEmailVerification();
+
+      const updateStatus = await updateUser(user.uid, {
+        name: user.displayName,
+        email: user.email,
+        avatar: user.photoURL,
+      });
+
+      if (updateStatus.error) {
+        await saveUser(user.uid, {
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+        });
+      }
+
+      const FCMToken = await getFCMToken();
+      addFCMToken(user.uid, FCMToken);
+
+      return true;
+    } catch (error) {
+      return { error };
+    }
+  };
+
   const signOut = async () => {
     try {
       const FCMToken = await getFCMToken();
@@ -66,6 +131,11 @@ const useProvideAuth = () => {
   useEffect(() => {
     const unsubscribe = auth().onAuthStateChanged(async (authState) => {
       if (authState) {
+        if (!authState.emailVerified) {
+          setUser(null);
+          return false;
+        }
+
         const userClaims = (await authState.getIdTokenResult()).claims;
 
         setUser({
@@ -83,7 +153,7 @@ const useProvideAuth = () => {
     return () => unsubscribe();
   }, []);
 
-  return { user, signIn, signOut };
+  return { user, signIn, signInEmail, signOut, signUpEmail };
 };
 
 export const useAuth = () => {

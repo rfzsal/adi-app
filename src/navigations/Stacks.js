@@ -6,12 +6,14 @@ import Blog from '../screens/Blog';
 import Checkout from '../screens/Checkout';
 import Faq from '../screens/Faq';
 import Landing from '../screens/Landing';
+import Login from '../screens/Login';
 import Message from '../screens/Message';
 import Midtrans from '../screens/Midtrans';
 import PrivacyPolicy from '../screens/PrivacyPolicy';
 import Product from '../screens/Product';
 import Products from '../screens/Products';
 import Promos from '../screens/Promos';
+import Register from '../screens/Register';
 import TermsConditions from '../screens/TermsConditions';
 import Transaction from '../screens/Transaction';
 import TransactionsHistory from '../screens/TransactionsHistory';
@@ -27,6 +29,10 @@ const Stacks = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {!auth.user && <Stack.Screen name="Landing" component={Landing} />}
+
+      {!auth.user && <Stack.Screen name="Login" component={Login} />}
+
+      {!auth.user && <Stack.Screen name="Register" component={Register} />}
 
       {auth.user === 'authenticating' && (
         <Stack.Screen name="Auth" component={Auth} />
