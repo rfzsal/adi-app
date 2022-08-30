@@ -52,11 +52,11 @@ const useProvideAuth = () => {
     try {
       const { user } = await auth().signInWithEmailAndPassword(email, password);
 
-      if (!user.emailVerified) {
-        return {
-          error: 'Email belum terverifikasi, silahkan cek inbox email anda.',
-        };
-      }
+      // if (!user.emailVerified) {
+      //   return {
+      //     error: 'Email belum terverifikasi, silahkan cek inbox email anda.',
+      //   };
+      // }
 
       const updateStatus = await updateUser(user.uid, {
         name: user.email,
@@ -88,7 +88,7 @@ const useProvideAuth = () => {
         password
       );
 
-      user.sendEmailVerification();
+      // user.sendEmailVerification();
 
       const updateStatus = await updateUser(user.uid, {
         name: user.displayName,
@@ -131,10 +131,10 @@ const useProvideAuth = () => {
   useEffect(() => {
     const unsubscribe = auth().onAuthStateChanged(async (authState) => {
       if (authState) {
-        if (!authState.emailVerified) {
-          setUser(null);
-          return false;
-        }
+        // if (!authState.emailVerified) {
+        //   setUser(null);
+        //   return false;
+        // }
 
         const userClaims = (await authState.getIdTokenResult()).claims;
 

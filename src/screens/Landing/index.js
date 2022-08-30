@@ -24,7 +24,7 @@ const Landing = ({ navigation }) => {
 
       <View style={styles.container}>
         <Button
-          onPress={() => navigation.navigate('Register')}
+          onPress={() => navigation.navigate('Login')}
           style={styles.loginButton}
           mode="contained"
         >

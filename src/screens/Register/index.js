@@ -36,15 +36,7 @@ const Register = ({ navigation }) => {
       );
 
       setIsLoading(false);
-      return;
     }
-
-    Alert.alert(
-      'Aktivasi Email',
-      'Link aktivasi email telah dikirim, silahkan cek inbox email anda.'
-    );
-
-    navigation.replace('Login');
   };
 
   const validateEmail = () => {
