@@ -4,7 +4,7 @@ export default {
   expo: {
     name: IS_DEV ? 'BigBoyz (Dev)' : 'BigBoyz',
     slug: 'bigboyz',
-    version: '1.0.1',
+    version: '1.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',
     userInterfaceStyle: 'light',
@@ -20,6 +20,7 @@ export default {
     android: {
       package: IS_DEV ? 'com.bigboyz.dev' : 'com.bigboyz',
       googleServicesFile: './google-services.json',
+      versionCode: 2,
     },
     plugins: [
       '@react-native-firebase/app',
