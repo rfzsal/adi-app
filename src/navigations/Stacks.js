@@ -2,11 +2,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useAuth } from '../hooks/useAuth';
 import Checkout from '../screens/Checkout';
-import Home from '../screens/Home';
 import Login from '../screens/Login';
 import Midtrans from '../screens/Midtrans';
 import ProfileUpdate from '../screens/ProfileUpdate';
 import Register from '../screens/Register';
+import Tabs from './Tabs';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +15,7 @@ const Stacks = () => {
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Main" component={Home} />
+      <Stack.Screen name="Main" component={Tabs.User} />
 
       {auth.user && <Stack.Screen name="Checkout" component={Checkout} />}
 

@@ -94,17 +94,6 @@ const Admin = () => {
 };
 
 const User = () => {
-  const messages = useMessages();
-  const transactions = useTransactions();
-
-  const isNewMessagesExist =
-    messages?.filter((message) => message.counter > 0).length > 0;
-
-  const isNewTransactionsExist =
-    transactions?.filter(
-      (transaction) => transaction.payment.status === 'Menunggu Pembayaran'
-    ).length > 0;
-
   return (
     <Tabs>
       <Tab.Screen
@@ -123,22 +112,6 @@ const User = () => {
       />
 
       <Tab.Screen
-        name="Messages"
-        component={Messages}
-        options={{
-          tabBarLabel: 'Pesan',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="message-outline"
-              color={color}
-              size={24}
-            />
-          ),
-          tabBarBadge: isNewMessagesExist,
-        }}
-      />
-
-      <Tab.Screen
         name="Transactions"
         component={Transactions}
         options={{
@@ -150,7 +123,6 @@ const User = () => {
               size={24}
             />
           ),
-          tabBarBadge: isNewTransactionsExist,
         }}
       />
 
