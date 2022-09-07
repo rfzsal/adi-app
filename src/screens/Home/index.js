@@ -13,9 +13,6 @@ import { useAuth } from '../../hooks/useAuth';
 import PromosCarousel from './components/PromosCarousel';
 
 const Home = ({ route, navigation }) => {
-  const auth = useAuth();
-  const isRegistered = route.params?.registered;
-
   return (
     <SafeAreaView>
       <ScrollView>

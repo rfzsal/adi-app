@@ -12,7 +12,7 @@ const ProfileAvatar = ({ name, avatar, onPress }) => {
 
   return (
     <View style={styles.mainContainer}>
-      <Avatar.Image size={72} source={{ uri: avatar || dummyAvatar }} />
+      <Avatar.Image size={56} source={{ uri: avatar || dummyAvatar }} />
 
       <View onTouchEnd={onPress} style={styles.textContainer}>
         <Text style={styles.nameText}>{name}</Text>

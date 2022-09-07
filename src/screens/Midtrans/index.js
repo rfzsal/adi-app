@@ -33,7 +33,7 @@ const Midtrans = ({ route, navigation }) => {
 
     if (navState.url.includes('#/406')) {
       webViewRef.current.stopLoading();
-      return navigation.navigate('Main', { registered: true });
+      return navigation.navigate('Profile', { registered: true });
     }
 
     if (navState.url.includes('#/success')) {

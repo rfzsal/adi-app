@@ -49,6 +49,7 @@ const ProfileUpdate = ({ navigation }) => {
   return (
     <>
       <Appbar.Header style={{ backgroundColor: colors.background }}>
+        <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Daftar Anggota" />
       </Appbar.Header>
 
@@ -56,10 +57,6 @@ const ProfileUpdate = ({ navigation }) => {
         <Divider height={16} />
 
         <Text>Nama</Text>
-        <TextInput mode="outlined" />
-        <Divider height={16} />
-
-        <Text>NIDN</Text>
         <TextInput mode="outlined" />
         <Divider height={16} />
 
