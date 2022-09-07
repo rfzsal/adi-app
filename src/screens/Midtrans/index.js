@@ -32,8 +32,8 @@ const Midtrans = ({ route, navigation }) => {
     }
 
     if (navState.url.includes('#/406')) {
-      setStatusBarColor('#E3EDFF');
-      setCanGoBack(false);
+      webViewRef.current.stopLoading();
+      return navigation.navigate('Main', { registered: true });
     }
 
     if (navState.url.includes('#/success')) {

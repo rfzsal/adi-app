@@ -1,12 +1,9 @@
-import notifee from '@notifee/react-native';
-import messaging from '@react-native-firebase/messaging';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {
   NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {
   Provider as PaperProvider,
@@ -15,16 +12,12 @@ import {
 } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { ProvideAuth, useAuth } from './src/hooks/useAuth';
-import { ProvideMessages } from './src/hooks/useMessages';
-import { ProvideOrders } from './src/hooks/useOrders';
-import { ProvideTransactions } from './src/hooks/useTransactions';
+import { ProvideAuth } from './src/hooks/useAuth';
 import Stacks from './src/navigations/Stacks';
-import { handleNotification } from './src/utils/notifications';
 
 GoogleSignin.configure({
   webClientId:
-    '301803574936-1vpc9g0m3pk0mjuhf78f2f52m1eqcuoh.apps.googleusercontent.com',
+    '924410929177-jqb2st4uf840oei6i73f9vj482omacj8.apps.googleusercontent.com',
 });
 
 const combinedDefaultTheme = {
@@ -33,51 +26,12 @@ const combinedDefaultTheme = {
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
-    primary: Colors.green600,
-    notification: Colors.green400,
+    primary: '#0277BD',
+    notification: Colors.blue400,
     background: Colors.white,
     surface: Colors.grey100,
-    placeholder: Colors.grey200,
-    placeholderText: Colors.grey400,
-    bubbleIn: Colors.grey300,
-    bubbleOut: Colors.green50,
+    placeholder: Colors.grey300,
   },
-};
-
-notifee.onBackgroundEvent(async ({ type, detail }) => {
-  //
-});
-
-messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  const notification = JSON.parse(remoteMessage.data.notification);
-  handleNotification(notification);
-});
-
-const NotificationHandlerContainer = ({ children }) => {
-  const auth = useAuth();
-
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      const notification = JSON.parse(remoteMessage.data.notification);
-      handleNotification(notification);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (auth.user?.role === 'admin') {
-      messaging()
-        .subscribeToTopic('new-orders')
-        .catch(() => {});
-    } else {
-      messaging()
-        .unsubscribeFromTopic('new-orders')
-        .catch(() => {});
-    }
-  }, [auth.user]);
-
-  return children;
 };
 
 const App = () => {
@@ -87,17 +41,9 @@ const App = () => {
         <PaperProvider theme={combinedDefaultTheme}>
           <NavigationContainer theme={combinedDefaultTheme}>
             <ProvideAuth>
-              <ProvideMessages>
-                <ProvideOrders>
-                  <ProvideTransactions>
-                    <NotificationHandlerContainer>
-                      <GestureHandlerRootView style={{ flex: 1 }}>
-                        <Stacks />
-                      </GestureHandlerRootView>
-                    </NotificationHandlerContainer>
-                  </ProvideTransactions>
-                </ProvideOrders>
-              </ProvideMessages>
+              <GestureHandlerRootView style={{ flex: 1 }}>
+                <Stacks />
+              </GestureHandlerRootView>
             </ProvideAuth>
           </NavigationContainer>
         </PaperProvider>

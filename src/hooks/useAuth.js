@@ -35,6 +35,7 @@ const useProvideAuth = () => {
           name: user.displayName,
           email: user.email,
           avatar: user.photoURL,
+          registered: false,
         });
       }
 
@@ -43,20 +44,15 @@ const useProvideAuth = () => {
 
       return true;
     } catch (error) {
-      setUser(null);
       return { error };
     }
   };
 
   const signInEmail = async (email, password) => {
     try {
-      const { user } = await auth().signInWithEmailAndPassword(email, password);
+      setUser('authenticating');
 
-      // if (!user.emailVerified) {
-      //   return {
-      //     error: 'Email belum terverifikasi, silahkan cek inbox email anda.',
-      //   };
-      // }
+      const { user } = await auth().signInWithEmailAndPassword(email, password);
 
       const updateStatus = await updateUser(user.uid, {
         name: user.email,
@@ -69,6 +65,7 @@ const useProvideAuth = () => {
           name: user.email,
           email: user.email,
           avatar: user.photoURL,
+          registered: false,
         });
       }
 
@@ -83,12 +80,12 @@ const useProvideAuth = () => {
 
   const signUpEmail = async (email, password) => {
     try {
+      setUser('authenticating');
+
       const { user } = await auth().createUserWithEmailAndPassword(
         email,
         password
       );
-
-      // user.sendEmailVerification();
 
       const updateStatus = await updateUser(user.uid, {
         name: user.displayName,
@@ -115,6 +112,8 @@ const useProvideAuth = () => {
 
   const signOut = async () => {
     try {
+      setUser('authenticating');
+
       const FCMToken = await getFCMToken();
       deleteFCMToken();
       removeFCMToken(user.id, FCMToken);
@@ -129,21 +128,13 @@ const useProvideAuth = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = auth().onAuthStateChanged(async (authState) => {
+    const unsubscribe = auth().onAuthStateChanged((authState) => {
       if (authState) {
-        // if (!authState.emailVerified) {
-        //   setUser(null);
-        //   return false;
-        // }
-
-        const userClaims = (await authState.getIdTokenResult()).claims;
-
         setUser({
-          id: userClaims.user_id,
-          name: userClaims.name,
-          email: userClaims.email,
-          avatar: userClaims.picture,
-          role: userClaims.admin ? 'admin' : 'user',
+          id: authState.uid,
+          name: authState.displayName,
+          email: authState.email,
+          avatar: authState.photoURL,
         });
       } else {
         setUser(null);

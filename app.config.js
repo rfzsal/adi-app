@@ -2,8 +2,8 @@ const IS_DEV = process.env.APP_VARIANT === 'development';
 
 export default {
   expo: {
-    name: IS_DEV ? 'BigBoyz (Dev)' : 'BigBoyz',
-    slug: 'bigboyz',
+    name: IS_DEV ? 'ADI (Dev)' : 'ADI',
+    slug: 'adi',
     version: '1.0.0',
     orientation: 'portrait',
     icon: './assets/icon.png',
@@ -11,16 +11,16 @@ export default {
     splash: {
       image: './assets/splash.png',
       resizeMode: 'contain',
-      backgroundColor: '#ffffff', // White
+      backgroundColor: '#0277BD', // Blue
     },
     updates: {
       fallbackToCacheTimeout: 0,
     },
     assetBundlePatterns: ['**/*'],
     android: {
-      package: IS_DEV ? 'com.bigboyz.dev' : 'com.bigboyz',
+      package: IS_DEV ? 'com.adi.dev' : 'com.adi',
       googleServicesFile: './google-services.json',
-      versionCode: 2,
+      versionCode: 1,
     },
     plugins: [
       '@react-native-firebase/app',

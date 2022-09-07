@@ -23,25 +23,15 @@ const PromosCarousel = ({ promos, onPress }) => {
       autoPlayInterval={5000}
       pagingEnabled
       width={WINDOW_WIDTH}
-      height={160}
+      height={200}
       data={promos}
       renderItem={({ index }) => (
-        <View
-          onTouchEnd={() =>
-            navigation.navigate('Product', {
-              productId: promos[index].id,
-              productName: promos[index].name,
-              productPrice: promos[index].prices[0],
-              productDiscount: promos[index].discounts[0],
-            })
-          }
-          style={styles.carouselImageContainer}
-        >
+        <View style={styles.carouselImageContainer}>
           <View>
             <Image
               style={styles.carouselImage}
               source={{
-                uri: promos[index].image || dummyImage(promos[index].name),
+                uri: promos[index] || dummyImage('aaa'),
               }}
               onLoadEnd={() => setImageLoaded(true)}
             />
@@ -63,23 +53,6 @@ const PromosCarousel = ({ promos, onPress }) => {
                 ]}
               />
             )}
-            <View style={styles.carouselTextContainer}>
-              <View
-                style={[
-                  styles.carouselTextBg,
-                  {
-                    backgroundColor: colors.background,
-                  },
-                ]}
-              >
-                <Text style={styles.carouselTitleText}>
-                  Layanan {promos[index].name}
-                </Text>
-                <Text style={styles.carouselDiscountText}>
-                  🎉 Diskon {promos[index].discounts[0]}% 🎉
-                </Text>
-              </View>
-            </View>
           </View>
         </View>
       )}
@@ -89,7 +62,7 @@ const PromosCarousel = ({ promos, onPress }) => {
 
 const styles = StyleSheet.create({
   carouselImageContainer: { flex: 1 },
-  carouselImage: { height: 160 },
+  carouselImage: { height: 200 },
   carouselOverlay: {
     position: 'absolute',
     top: 0,
@@ -130,13 +103,7 @@ const styles = StyleSheet.create({
 });
 
 PromosCarousel.propTypes = {
-  promos: propTypes.arrayOf(
-    propTypes.shape({
-      name: propTypes.string.isRequired,
-      discounts: propTypes.arrayOf(propTypes.number).isRequired,
-      image: propTypes.string,
-    })
-  ).isRequired,
+  promos: propTypes.arrayOf(propTypes.string).isRequired,
 };
 
 export default PromosCarousel;

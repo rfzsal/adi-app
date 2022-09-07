@@ -27,49 +27,23 @@ const Checkout = ({ route, navigation }) => {
 
   const isLoaded = useRef(true);
 
-  const discount = product.discount && product.price * (product.discount / 100);
-  const totalPrice = discount ? product.price - discount : product.price;
-
   const handleCheckout = async () => {
     if (!auth.user || isPressed) return;
-
     setIsPressed(true);
-
     const { id, name, email } = auth.user;
-
-    const item_details = discount
-      ? [
-          {
-            id: product.id,
-            price: currency(product.price, { precision: 0 }),
-            quantity: 1,
-            name: product.name,
-            category: product.category,
-            merchant_name: 'BigBoyz',
-          },
-          {
-            id: `${product.id}-discount`,
-            price: currency(-discount, { precision: 0 }),
-            quantity: 1,
-            name: `${product.name} - Discount`,
-            merchant_name: 'BigBoyz',
-          },
-        ]
-      : [
-          {
-            id: product.id,
-            price: currency(product.price, { precision: 0 }),
-            quantity: 1,
-            name: product.name,
-            category: product.category,
-            merchant_name: 'BigBoyz',
-          },
-        ];
-
+    const item_details = [
+      {
+        id: `REG-${id}`,
+        price: currency(product.price, { precision: 0 }),
+        quantity: 1,
+        name: 'Registrasi Anggota',
+        merchant_name: 'Asosiasi Dosen Indonesia (ADI)',
+      },
+    ];
     const parameter = {
       transaction_details: {
         order_id: '',
-        gross_amount: currency(totalPrice, { precision: 0 }),
+        gross_amount: currency(product.price, { precision: 0 }),
       },
       item_details,
       customer_details: {
@@ -78,16 +52,11 @@ const Checkout = ({ route, navigation }) => {
       },
       enabled_payments: [payments[selectedPayment].value],
     };
-
     const transaction = {
       product: {
-        id: product.id,
-        name: product.name,
+        id: `REG-${id}`,
+        name: 'Registrasi Anggota',
         price: currency(product.price, { precision: 0 }),
-        discount: product.discount,
-        variant: product.variant,
-        duration: product.duration,
-        image: product.image,
       },
       user: {
         id,
@@ -102,9 +71,7 @@ const Checkout = ({ route, navigation }) => {
         expiredAt: 0,
       },
     };
-
     const paymentLink = await getPaymentLink(parameter, transaction);
-
     if (paymentLink && !paymentLink.error && isLoaded.current) {
       setIsPressed(false);
       navigation.navigate('Midtrans', { paymentLink });
@@ -205,7 +172,7 @@ const Checkout = ({ route, navigation }) => {
               <Text style={styles.totalPayment}>Total Pembayaran</Text>
 
               <Text style={styles.totalPrice}>
-                {currency(totalPrice, {
+                {currency(product.price, {
                   symbol: 'Rp ',
                   precision: 0,
                 }).format()}
