@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Alert, Linking } from 'react-native';
+import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import {
   TouchableRipple,
   Button,
@@ -11,7 +11,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import appConfig from '../../../app.config';
 import Divider from '../../components/Divider';
-import contacts from '../../configs/contacts';
 import { useAuth } from '../../hooks/useAuth';
 import { useUser } from '../../hooks/useUser';
 import ProfileAvatar from './components/ProfileAvatar';
@@ -19,7 +18,7 @@ import RippleMenu from './components/RippleMenu';
 
 const VERSION = appConfig.expo.version;
 
-const Profile = ({ route, navigation }) => {
+const Profile = ({ navigation }) => {
   const { colors } = useTheme();
   const auth = useAuth();
   const user = useUser();
@@ -32,31 +31,6 @@ const Profile = ({ route, navigation }) => {
       'Apakah kamu yakin ingin keluar dari akun?',
       [{ text: 'Keluar', onPress: auth.signOut }, { text: 'Tidak' }]
     );
-  };
-
-  const handleOpenContact = async (contact) => {
-    let app;
-    switch (contact) {
-      case 'whatsapp':
-        app = 'WhatsApp';
-        break;
-      case 'instagram':
-        app = 'Instagram';
-        break;
-      case 'email':
-        app = 'Email';
-        break;
-    }
-
-    try {
-      await Linking.openURL(contacts(contact));
-    } catch (error) {
-      Alert.alert(
-        `Gagal membuka ${app}`,
-        `Pastikan aplikasi ${app} sudah terinstal pada perangkat kamu`
-      );
-      return { error };
-    }
   };
 
   return (
@@ -107,7 +81,9 @@ const Profile = ({ route, navigation }) => {
             >
               <TouchableRipple
                 onPress={() => {
-                  navigation.navigate('ViewCard', { user });
+                  if (auth.user && auth.user !== 'authenticating') {
+                    navigation.navigate('ViewCard', { user });
+                  }
                 }}
                 style={styles.selectorButton}
               >
@@ -134,15 +110,9 @@ const Profile = ({ route, navigation }) => {
           <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Akun</Text>
-          <RippleMenu
-            onPress={() => navigation.navigate('FAQ')}
-            text="Ubah Profil"
-          />
+          <RippleMenu onPress={() => {}} text="Ubah Profil" />
           <Divider line />
-          <RippleMenu
-            onPress={() => navigation.navigate('FAQ')}
-            text="Daftar Transaksi"
-          />
+          <RippleMenu onPress={() => {}} text="Daftar Transaksi" />
 
           <Divider height={16} />
           <View style={{ backgroundColor: Colors.grey100 }}>
@@ -151,17 +121,11 @@ const Profile = ({ route, navigation }) => {
           <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Tentang</Text>
-          <RippleMenu onPress={() => navigation.navigate('FAQ')} text="FAQ" />
+          <RippleMenu onPress={() => {}} text="FAQ" />
           <Divider line />
-          <RippleMenu
-            onPress={() => navigation.navigate('TermsConditions')}
-            text="Syarat dan Ketentuan"
-          />
+          <RippleMenu onPress={() => {}} text="Syarat dan Ketentuan" />
           <Divider line />
-          <RippleMenu
-            onPress={() => navigation.navigate('PrivacyPolicy')}
-            text="Kebijakan Privasi"
-          />
+          <RippleMenu onPress={() => {}} text="Kebijakan Privasi" />
 
           <Divider height={16} />
           <View style={{ backgroundColor: Colors.grey100 }}>
@@ -170,7 +134,7 @@ const Profile = ({ route, navigation }) => {
           <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Hubungi Kami</Text>
-          <RippleMenu onPress={() => handleOpenContact('email')} text="Email" />
+          <RippleMenu onPress={() => {}} text="Email" />
 
           {auth.user && auth.user !== 'authenticating' && (
             <>

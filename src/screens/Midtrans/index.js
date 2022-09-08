@@ -33,7 +33,7 @@ const Midtrans = ({ route, navigation }) => {
 
     if (navState.url.includes('#/406')) {
       webViewRef.current.stopLoading();
-      return navigation.navigate('Profile', { registered: true });
+      return navigation.navigate('Transactions');
     }
 
     if (navState.url.includes('#/success')) {
@@ -48,12 +48,12 @@ const Midtrans = ({ route, navigation }) => {
 
     if (navState.url.includes('?finish')) {
       webViewRef.current.stopLoading();
-      return navigation.navigate('Messages');
+      return navigation.navigate('ViewCard');
     }
 
     if (navState.url.includes('&pin=654321')) {
       webViewRef.current.stopLoading();
-      return navigation.navigate('Messages');
+      return navigation.navigate('ViewCard');
     }
   };
 
