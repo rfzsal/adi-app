@@ -6,6 +6,7 @@ import Login from '../screens/Login';
 import Midtrans from '../screens/Midtrans';
 import ProfileUpdate from '../screens/ProfileUpdate';
 import Register from '../screens/Register';
+import ViewCard from '../screens/ViewCard';
 import Tabs from './Tabs';
 
 const Stack = createNativeStackNavigator();
@@ -20,6 +21,8 @@ const Stacks = () => {
       {auth.user && <Stack.Screen name="Checkout" component={Checkout} />}
 
       {auth.user && <Stack.Screen name="Midtrans" component={Midtrans} />}
+
+      {auth.user && <Stack.Screen name="ViewCard" component={ViewCard} />}
 
       {auth.user && (
         <Stack.Screen name="ProfileUpdate" component={ProfileUpdate} />

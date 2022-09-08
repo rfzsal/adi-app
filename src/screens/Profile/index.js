@@ -101,7 +101,12 @@ const Profile = ({ route, navigation }) => {
                 { borderColor: Colors.grey400 },
               ]}
             >
-              <TouchableRipple onPress={() => {}} style={styles.selectorButton}>
+              <TouchableRipple
+                onPress={() => {
+                  navigation.navigate('ViewCard');
+                }}
+                style={styles.selectorButton}
+              >
                 <Text style={styles.selectorButtonText}>Kartu ADI</Text>
               </TouchableRipple>
             </View>
