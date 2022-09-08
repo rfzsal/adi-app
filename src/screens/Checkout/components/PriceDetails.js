@@ -7,9 +7,9 @@ import { Text } from 'react-native-paper';
 import Divider from '../../../components/Divider';
 
 const PriceDetails = ({ product }) => {
-  const { price } = product;
+  const { price, discount } = product;
 
-  const totalDiscount = 51000;
+  const totalDiscount = discount;
   const totalPrice = totalDiscount ? price - totalDiscount : price;
 
   return (

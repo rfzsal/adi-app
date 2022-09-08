@@ -2,10 +2,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useAuth } from '../hooks/useAuth';
 import Checkout from '../screens/Checkout';
-import Login from '../screens/Login';
+import InputProfile from '../screens/InputProfile';
 import Midtrans from '../screens/Midtrans';
-import ProfileUpdate from '../screens/ProfileUpdate';
-import Register from '../screens/Register';
 import ViewCard from '../screens/ViewCard';
 import Tabs from './Tabs';
 
@@ -25,12 +23,8 @@ const Stacks = () => {
       {auth.user && <Stack.Screen name="ViewCard" component={ViewCard} />}
 
       {auth.user && (
-        <Stack.Screen name="ProfileUpdate" component={ProfileUpdate} />
+        <Stack.Screen name="InputProfile" component={InputProfile} />
       )}
-
-      {!auth.user && <Stack.Screen name="Login" component={Login} />}
-
-      {!auth.user && <Stack.Screen name="Register" component={Register} />}
     </Stack.Navigator>
   );
 };

@@ -7,7 +7,7 @@ import { Text, useTheme } from 'react-native-paper';
 const OrderDetails = ({ product }) => {
   const { colors } = useTheme();
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { name, price, variant, image } = product;
+  const { name, price, discount, image } = product;
 
   const dummyImage = `https://avatars.dicebear.com/api/initials/${name}.png?b=%23${
     colors.placeholder.split('#')[1]
@@ -49,13 +49,11 @@ const OrderDetails = ({ product }) => {
 
         <View style={styles.priceContainer}>
           <Text style={styles.price}>
-            {currency(price - 51000, {
+            {currency(price - discount, {
               symbol: 'Rp ',
               precision: 0,
             }).format()}
           </Text>
-
-          {variant && <Text style={styles.variant}>{`Paket ${variant}`}</Text>}
         </View>
       </View>
     </View>

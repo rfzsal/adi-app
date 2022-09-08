@@ -23,9 +23,16 @@ const Checkout = ({ route, navigation }) => {
   const [payments, setPayments] = useState(null);
   const [selectedPayment, setSelectedPayment] = useState(0);
   const [isPressed, setIsPressed] = useState(false);
-  const { product } = route.params;
+
+  const { user } = route.params;
 
   const isLoaded = useRef(true);
+
+  const product = {
+    name: 'Registrasi Anggota',
+    price: 150000,
+    discount: 51000,
+  };
 
   const handleCheckout = async () => {
     if (!auth.user || isPressed) return;
@@ -36,14 +43,14 @@ const Checkout = ({ route, navigation }) => {
         id: `REG-${id}`,
         price: currency(product.price, { precision: 0 }),
         quantity: 1,
-        name: 'Registrasi Anggota',
+        name: product.name,
         merchant_name: 'Asosiasi Dosen Indonesia (ADI)',
       },
       {
-        id: `REG-${id}D`,
-        price: -51000,
+        id: `REG-${id}-D`,
+        price: -product.discount,
         quantity: 1,
-        name: 'Diskon Registrasi Anggota',
+        name: `Diskon ${product.name}`,
         merchant_name: 'Asosiasi Dosen Indonesia (ADI)',
       },
     ];
@@ -51,7 +58,9 @@ const Checkout = ({ route, navigation }) => {
     const parameter = {
       transaction_details: {
         order_id: '',
-        gross_amount: currency(product.price - 51000, { precision: 0 }),
+        gross_amount: currency(product.price - product.discount, {
+          precision: 0,
+        }),
       },
       item_details,
       customer_details: {
@@ -60,15 +69,18 @@ const Checkout = ({ route, navigation }) => {
       },
       enabled_payments: [payments[selectedPayment].value],
     };
+
     const transaction = {
       product: {
         id: `REG-${id}`,
-        name: 'Registrasi Anggota',
+        name: product.name,
         price: currency(product.price, { precision: 0 }),
+        discount: currency(product.discount, { precision: 0 }),
       },
       user: {
         id,
-        name,
+        name: user.name,
+        university: user.university,
         email,
       },
       payment: {
@@ -79,8 +91,10 @@ const Checkout = ({ route, navigation }) => {
         expiredAt: 0,
       },
     };
+
     const paymentLink = await getPaymentLink(parameter, transaction);
     console.log(paymentLink);
+
     if (paymentLink && !paymentLink.error && isLoaded.current) {
       setIsPressed(false);
       navigation.navigate('Midtrans', { paymentLink });

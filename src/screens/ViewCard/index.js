@@ -26,7 +26,11 @@ const ViewCard = ({ route, navigation }) => {
 
       <Divider height={16} />
 
-      <Card registered={registered} user={user} />
+      <Card
+        registered={registered}
+        user={user}
+        onPress={() => navigation.navigate('InputProfile')}
+      />
 
       <Divider height={8} />
       <Text style={{ textAlign: 'center' }}>

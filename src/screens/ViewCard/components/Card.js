@@ -1,11 +1,8 @@
-import { useNavigation } from '@react-navigation/native';
 import propTypes from 'prop-types';
 import { View, Image, StyleSheet } from 'react-native';
 import { Text, Colors, Button } from 'react-native-paper';
 
-const Card = ({ user, registered }) => {
-  const navigation = useNavigation();
-
+const Card = ({ user, registered, onPress }) => {
   return (
     <View style={styles.container}>
       <View
@@ -55,12 +52,7 @@ const Card = ({ user, registered }) => {
             <Text style={styles.cardRegistrationText}>
               Kamu belum terdaftar sebagai anggota
             </Text>
-            <Button
-              onPress={() => {
-                navigation.navigate('ProfileUpdate');
-              }}
-              mode="contained"
-            >
+            <Button onPress={onPress} mode="contained">
               Daftar Anggota
             </Button>
           </View>
@@ -111,6 +103,8 @@ const styles = StyleSheet.create({
 
 Card.propTypes = {
   registered: propTypes.bool,
+  user: propTypes.any,
+  onPress: propTypes.func,
 };
 
 export default Card;
