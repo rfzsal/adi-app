@@ -35,7 +35,6 @@ const useProvideAuth = () => {
           name: user.displayName,
           email: user.email,
           avatar: user.photoURL,
-          registered: false,
         });
       }
 
@@ -65,7 +64,6 @@ const useProvideAuth = () => {
           name: user.email,
           email: user.email,
           avatar: user.photoURL,
-          registered: false,
         });
       }
 
