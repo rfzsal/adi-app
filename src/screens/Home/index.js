@@ -56,6 +56,11 @@ const Home = () => {
                   Indonesia Internasional"
           />
           <Divider height={16} />
+          <NewsBox
+            image="https://adi.or.id/images/berita/44.jpg"
+            text="Diskusi Rutin ADI dengan Indonesia Diaspora Network United"
+          />
+          <Divider height={16} />
         </View>
       </ScrollView>
     </SafeAreaView>
