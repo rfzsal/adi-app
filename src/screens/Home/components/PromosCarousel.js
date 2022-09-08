@@ -1,21 +1,14 @@
 import 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
 import propTypes from 'prop-types';
 import { useState } from 'react';
 import { Image, Dimensions, View, StyleSheet } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper';
 import Carousel from 'react-native-reanimated-carousel';
 
-const PromosCarousel = ({ promos, onPress }) => {
-  const navigation = useNavigation();
+const PromosCarousel = ({ promos }) => {
   const { colors } = useTheme();
   const [imageLoaded, setImageLoaded] = useState(false);
   const WINDOW_WIDTH = Dimensions.get('window').width;
-
-  const dummyImage = (name) =>
-    `https://avatars.dicebear.com/api/initials/${name}.png?b=%23${
-      colors.placeholder.split('#')[1]
-    }`;
 
   return (
     <Carousel
@@ -31,7 +24,7 @@ const PromosCarousel = ({ promos, onPress }) => {
             <Image
               style={styles.carouselImage}
               source={{
-                uri: promos[index] || dummyImage('aaa'),
+                uri: promos[index],
               }}
               onLoadEnd={() => setImageLoaded(true)}
             />
@@ -77,28 +70,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-  },
-  carouselTextContainer: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  carouselTextBg: {
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    borderRadius: 8,
-  },
-  carouselTitleText: { letterSpacing: 0.4, textAlign: 'center' },
-  carouselDiscountText: {
-    marginTop: 4,
-    textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 16,
-    letterSpacing: 0.4,
   },
 });
 
