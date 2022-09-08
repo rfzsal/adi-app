@@ -9,7 +9,7 @@ import Divider from '../../../components/Divider';
 const PriceDetails = ({ product }) => {
   const { price, discount } = product;
 
-  const totalDiscount = discount && price * (discount / 100);
+  const totalDiscount = discount;
   const totalPrice = totalDiscount ? price - totalDiscount : price;
 
   return (

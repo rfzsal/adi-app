@@ -17,7 +17,7 @@ const RippleTransaction = ({
 }) => {
   const { colors } = useTheme();
 
-  const totalPrice = discount ? price - price * (discount / 100) : price;
+  const totalPrice = discount ? price - discount : price;
 
   const dummyImage = `https://avatars.dicebear.com/api/initials/${name}.png?b=%23${
     colors.primary.split('#')[1]

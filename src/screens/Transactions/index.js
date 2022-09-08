@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View, StyleSheet, Image } from 'react-native';
-import { Appbar, Text, useTheme, Button } from 'react-native-paper';
+import { Appbar, Text, useTheme } from 'react-native-paper';
 
 import noTransactions from '../../../assets/images/no-transactions.png';
 import Divider from '../../components/Divider';
@@ -36,9 +36,6 @@ const Transactions = ({ navigation }) => {
           <Image style={styles.vectorImage} source={noTransactions} />
 
           <Text style={styles.vectorText}>Belum ada transaksi saat ini</Text>
-          <Button onPress={() => navigation.navigate('Home')} mode="contained">
-            Konsultasi Sekarang
-          </Button>
         </View>
       )}
 

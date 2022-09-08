@@ -25,7 +25,7 @@ const Transaction = ({ route, navigation }) => {
   const product = transaction.product;
   const payment = transaction.payment;
 
-  const discount = product.discount && product.price * (product.discount / 100);
+  const discount = product.discount;
   const totalPrice = discount ? product.price - discount : product.price;
 
   const isExpired = paymentStatus === 'Transaksi Kadaluarsa';
@@ -180,19 +180,14 @@ const Transaction = ({ route, navigation }) => {
           ]}
         >
           <Button
-            onPress={() =>
-              navigation.navigate('Product', {
-                productId: product.id,
-                productName: product.name,
-                productPrice: product.price,
-                productDiscount: product.discount,
-              })
-            }
+            onPress={() => {
+              navigation.push('Main', { screen: 'Profile' });
+            }}
             style={styles.paymentButton}
             labelStyle={styles.paymentLabel}
             mode="contained"
           >
-            PESAN LAGI
+            Lihat Profil
           </Button>
         </View>
       )}

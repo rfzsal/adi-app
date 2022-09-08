@@ -13,6 +13,7 @@ import {
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ProvideAuth } from './src/hooks/useAuth';
+import { ProvideTransactions } from './src/hooks/useTransactions';
 import { ProvideUser } from './src/hooks/useUser';
 import Stacks from './src/navigations/Stacks';
 
@@ -43,9 +44,11 @@ const App = () => {
           <NavigationContainer theme={combinedDefaultTheme}>
             <ProvideAuth>
               <ProvideUser>
-                <GestureHandlerRootView style={{ flex: 1 }}>
-                  <Stacks />
-                </GestureHandlerRootView>
+                <ProvideTransactions>
+                  <GestureHandlerRootView style={{ flex: 1 }}>
+                    <Stacks />
+                  </GestureHandlerRootView>
+                </ProvideTransactions>
               </ProvideUser>
             </ProvideAuth>
           </NavigationContainer>

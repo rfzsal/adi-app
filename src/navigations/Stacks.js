@@ -4,6 +4,8 @@ import { useAuth } from '../hooks/useAuth';
 import Checkout from '../screens/Checkout';
 import InputProfile from '../screens/InputProfile';
 import Midtrans from '../screens/Midtrans';
+import Transaction from '../screens/Transaction';
+import TransactionsHistory from '../screens/TransactionsHistory';
 import ViewCard from '../screens/ViewCard';
 import Tabs from './Tabs';
 
@@ -21,6 +23,15 @@ const Stacks = () => {
       {auth.user && <Stack.Screen name="Midtrans" component={Midtrans} />}
 
       {auth.user && <Stack.Screen name="ViewCard" component={ViewCard} />}
+
+      {auth.user && <Stack.Screen name="Transaction" component={Transaction} />}
+
+      {auth.user && (
+        <Stack.Screen
+          name="TransactionsHistory"
+          component={TransactionsHistory}
+        />
+      )}
 
       {auth.user && (
         <Stack.Screen name="InputProfile" component={InputProfile} />
