@@ -13,6 +13,7 @@ import appConfig from '../../../app.config';
 import Divider from '../../components/Divider';
 import contacts from '../../configs/contacts';
 import { useAuth } from '../../hooks/useAuth';
+import { useUser } from '../../hooks/useUser';
 import ProfileAvatar from './components/ProfileAvatar';
 import RippleMenu from './components/RippleMenu';
 
@@ -21,6 +22,9 @@ const VERSION = appConfig.expo.version;
 const Profile = ({ route, navigation }) => {
   const { colors } = useTheme();
   const auth = useAuth();
+  const user = useUser();
+
+  const registered = user?.ADIMember >= Date.now();
 
   const handleSignOut = () => {
     Alert.alert(
@@ -74,7 +78,7 @@ const Profile = ({ route, navigation }) => {
             <>
               <ProfileAvatar
                 name={auth.user.name || auth.user.email}
-                chip="Anggota ADI"
+                chip={registered ? 'Anggota ADI' : null}
                 avatar={auth.user.avatar}
               />
 
@@ -103,7 +107,7 @@ const Profile = ({ route, navigation }) => {
             >
               <TouchableRipple
                 onPress={() => {
-                  navigation.navigate('ViewCard');
+                  navigation.navigate('ViewCard', { user });
                 }}
                 style={styles.selectorButton}
               >

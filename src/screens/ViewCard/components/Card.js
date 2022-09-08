@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { View, Image, StyleSheet } from 'react-native';
 import { Text, Colors, Button } from 'react-native-paper';
 
-const Card = ({ auth, registered }) => {
+const Card = ({ user, registered }) => {
   const navigation = useNavigation();
 
   return (
@@ -24,16 +24,13 @@ const Card = ({ auth, registered }) => {
 
         <View style={styles.photoContainer}>
           <View style={styles.photo}>
-            <Image
-              style={{ height: '100%' }}
-              source={{ uri: auth.user.avatar }}
-            />
+            <Image style={{ height: '100%' }} source={{ uri: user.avatar }} />
           </View>
         </View>
 
         <View style={styles.textContainer}>
-          <Text style={styles.text}>Muhammad Faizal Fazri</Text>
-          <Text style={styles.text}>Universitas Raharja</Text>
+          <Text style={styles.text}>{user.name}</Text>
+          <Text style={styles.text}>{user.university}</Text>
           <Text style={styles.text}>0123456</Text>
         </View>
       </View>

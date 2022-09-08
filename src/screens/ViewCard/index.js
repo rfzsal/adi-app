@@ -8,12 +8,14 @@ import {
 } from 'react-native-paper';
 
 import Divider from '../../components/Divider';
-import { useAuth } from '../../hooks/useAuth';
+import { useUser } from '../../hooks/useUser';
 import Card from './components/Card';
 
-const ViewCard = ({ navigation }) => {
-  const auth = useAuth();
+const ViewCard = ({ route, navigation }) => {
+  const user = useUser();
   const { colors } = useTheme();
+
+  const registered = user?.ADIMember >= Date.now();
 
   return (
     <>
@@ -24,7 +26,7 @@ const ViewCard = ({ navigation }) => {
 
       <Divider height={16} />
 
-      <Card registered auth={auth} />
+      <Card registered={registered} user={user} />
 
       <Divider height={8} />
       <Text style={{ textAlign: 'center' }}>

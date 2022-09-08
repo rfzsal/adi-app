@@ -13,6 +13,7 @@ import {
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ProvideAuth } from './src/hooks/useAuth';
+import { ProvideUser } from './src/hooks/useUser';
 import Stacks from './src/navigations/Stacks';
 
 GoogleSignin.configure({
@@ -41,9 +42,11 @@ const App = () => {
         <PaperProvider theme={combinedDefaultTheme}>
           <NavigationContainer theme={combinedDefaultTheme}>
             <ProvideAuth>
-              <GestureHandlerRootView style={{ flex: 1 }}>
-                <Stacks />
-              </GestureHandlerRootView>
+              <ProvideUser>
+                <GestureHandlerRootView style={{ flex: 1 }}>
+                  <Stacks />
+                </GestureHandlerRootView>
+              </ProvideUser>
             </ProvideAuth>
           </NavigationContainer>
         </PaperProvider>
