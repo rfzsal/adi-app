@@ -13,7 +13,6 @@ import appConfig from '../../../app.config';
 import Divider from '../../components/Divider';
 import contacts from '../../configs/contacts';
 import { useAuth } from '../../hooks/useAuth';
-import Card from './components/Card';
 import ProfileAvatar from './components/ProfileAvatar';
 import RippleMenu from './components/RippleMenu';
 
