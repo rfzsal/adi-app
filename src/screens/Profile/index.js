@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Alert,
-  Linking,
-  Image,
-} from 'react-native';
+import { View, ScrollView, StyleSheet, Alert, Linking } from 'react-native';
 import {
   TouchableRipple,
   Button,
@@ -20,6 +13,7 @@ import appConfig from '../../../app.config';
 import Divider from '../../components/Divider';
 import contacts from '../../configs/contacts';
 import { useAuth } from '../../hooks/useAuth';
+import Card from './components/Card';
 import ProfileAvatar from './components/ProfileAvatar';
 import RippleMenu from './components/RippleMenu';
 
@@ -28,7 +22,6 @@ const VERSION = appConfig.expo.version;
 const Profile = ({ route, navigation }) => {
   const { colors } = useTheme();
   const auth = useAuth();
-  const isRegistered = route.params?.registered;
 
   const handleSignOut = () => {
     Alert.alert(
@@ -74,7 +67,7 @@ const Profile = ({ route, navigation }) => {
                   Masuk
                 </Button>
               </View>
-              <Divider height={16} />
+              <Divider height={24} />
             </>
           )}
 
@@ -82,101 +75,55 @@ const Profile = ({ route, navigation }) => {
             <>
               <ProfileAvatar
                 name={auth.user.name || auth.user.email}
+                chip="Anggota ADI"
                 avatar={auth.user.avatar}
               />
+
+              <Divider height={16} />
+              <View style={{ backgroundColor: Colors.grey100 }}>
+                <Divider height={8} />
+              </View>
               <Divider height={16} />
             </>
           )}
 
-          {auth.user && auth.user !== 'authenticating' && (
-            <>
-              <View style={{ paddingHorizontal: 16 }}>
-                <View
-                  style={{
-                    aspectRatio: 9 / 5.5,
-                    borderRadius: 8,
-                    overflow: 'hidden',
-                    alignItems: 'center',
-                    borderColor: Colors.grey400,
-                    borderWidth: 1,
-                  }}
-                >
-                  <Image
-                    resizeMode="contain"
-                    style={{ height: '100%' }}
-                    source={require('../../../assets/images/adi.jpg')}
-                  />
+          <Text style={styles.menuHeadingText}>Anggota ADI</Text>
+          <View
+            style={{
+              flex: 2,
+              flexDirection: 'row',
+              paddingHorizontal: 16,
+              marginTop: 8,
+            }}
+          >
+            <View
+              style={[
+                styles.selectorButtonContainer,
+                { borderColor: Colors.grey400 },
+              ]}
+            >
+              <TouchableRipple onPress={() => {}} style={styles.selectorButton}>
+                <Text style={styles.selectorButtonText}>Kartu ADI</Text>
+              </TouchableRipple>
+            </View>
+            <View style={{ width: 16 }} />
+            <View
+              style={[
+                styles.selectorButtonContainer,
+                { borderColor: Colors.grey400 },
+              ]}
+            >
+              <TouchableRipple onPress={() => {}} style={styles.selectorButton}>
+                <Text style={styles.selectorButtonText}>Kode QR</Text>
+              </TouchableRipple>
+            </View>
+          </View>
 
-                  <View
-                    style={{
-                      backgroundColor: 'pink',
-                      position: 'absolute',
-                      top: 72,
-                      right: 24,
-                    }}
-                  >
-                    <View
-                      style={{
-                        aspectRatio: 3 / 4,
-                        height: 96,
-                        backgroundColor: Colors.red50,
-                      }}
-                    >
-                      <Image
-                        style={{ height: '100%' }}
-                        source={{ uri: auth.user.avatar }}
-                      />
-                    </View>
-                  </View>
-
-                  <View style={{ position: 'absolute', top: 80, left: 16 }}>
-                    <Text style={{ fontSize: 12 }}>Muhammad Faizal Fazri</Text>
-                    <Text style={{ fontSize: 12 }}>Universitas Raharja</Text>
-                    <Text style={{ fontSize: 12 }}>0812345</Text>
-                  </View>
-                </View>
-
-                {!isRegistered && (
-                  <View
-                    style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      left: 16,
-                      right: 16,
-                      top: 0,
-                      borderRadius: 8,
-                      backgroundColor: Colors.red50,
-                    }}
-                  >
-                    <View
-                      style={{
-                        borderRadius: 8,
-                        borderWidth: 1,
-                        borderStyle: 'dashed',
-                        height: '100%',
-                        borderColor: Colors.red600,
-                        justifyContent: 'center',
-                        paddingHorizontal: 16,
-                      }}
-                    >
-                      <Text style={{ textAlign: 'center', marginBottom: 8 }}>
-                        Kamu belum terdaftar sebagai anggota
-                      </Text>
-                      <Button
-                        onPress={() => {
-                          navigation.navigate('ProfileUpdate');
-                        }}
-                        mode="contained"
-                      >
-                        Daftar Anggota
-                      </Button>
-                    </View>
-                  </View>
-                )}
-              </View>
-              <Divider height={36} />
-            </>
-          )}
+          <Divider height={24} />
+          <View style={{ backgroundColor: Colors.grey100 }}>
+            <Divider height={8} />
+          </View>
+          <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Akun</Text>
           <RippleMenu
@@ -184,8 +131,16 @@ const Profile = ({ route, navigation }) => {
             text="Ubah Profil"
           />
           <Divider line />
+          <RippleMenu
+            onPress={() => navigation.navigate('FAQ')}
+            text="Daftar Transaksi"
+          />
 
-          <Divider height={36} />
+          <Divider height={16} />
+          <View style={{ backgroundColor: Colors.grey100 }}>
+            <Divider height={8} />
+          </View>
+          <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Tentang</Text>
           <RippleMenu onPress={() => navigation.navigate('FAQ')} text="FAQ" />
@@ -199,17 +154,19 @@ const Profile = ({ route, navigation }) => {
             onPress={() => navigation.navigate('PrivacyPolicy')}
             text="Kebijakan Privasi"
           />
-          <Divider line />
 
-          <Divider height={36} />
+          <Divider height={16} />
+          <View style={{ backgroundColor: Colors.grey100 }}>
+            <Divider height={8} />
+          </View>
+          <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Hubungi Kami</Text>
           <RippleMenu onPress={() => handleOpenContact('email')} text="Email" />
-          <Divider line />
 
           {auth.user && auth.user !== 'authenticating' && (
             <>
-              <Divider height={48} />
+              <Divider height={24} />
               <View style={styles.container}>
                 <View style={styles.logoutButtonContainer}>
                   <TouchableRipple onPress={handleSignOut}>
@@ -229,6 +186,7 @@ const Profile = ({ route, navigation }) => {
 
               <Divider height={8} />
               <Text style={{ textAlign: 'center' }}>v{VERSION}</Text>
+              <Divider height={24} />
             </>
           )}
         </View>
@@ -246,6 +204,9 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     letterSpacing: 0.4,
   },
+  selectorButtonContainer: { flex: 1, borderWidth: 1, borderRadius: 8 },
+  selectorButton: { paddingVertical: 16 },
+  selectorButtonText: { textAlign: 'center', fontWeight: 'bold' },
   loginButtonContainer: { paddingHorizontal: 16 },
   container: {
     paddingHorizontal: 16,
