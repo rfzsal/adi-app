@@ -49,7 +49,7 @@ const OrderDetails = ({ product }) => {
 
         <View style={styles.priceContainer}>
           <Text style={styles.price}>
-            {currency(price, {
+            {currency(price - 51000, {
               symbol: 'Rp ',
               precision: 0,
             }).format()}

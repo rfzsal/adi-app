@@ -71,7 +71,7 @@ const ProfileUpdate = ({ navigation }) => {
             navigation.navigate('Checkout', {
               product: {
                 name: 'Registrasi Anggota',
-                price: 250000,
+                price: 150000,
               },
             });
           }}

@@ -39,11 +39,19 @@ const Checkout = ({ route, navigation }) => {
         name: 'Registrasi Anggota',
         merchant_name: 'Asosiasi Dosen Indonesia (ADI)',
       },
+      {
+        id: `REG-${id}D`,
+        price: -51000,
+        quantity: 1,
+        name: 'Diskon Registrasi Anggota',
+        merchant_name: 'Asosiasi Dosen Indonesia (ADI)',
+      },
     ];
+
     const parameter = {
       transaction_details: {
         order_id: '',
-        gross_amount: currency(product.price, { precision: 0 }),
+        gross_amount: currency(product.price - 51000, { precision: 0 }),
       },
       item_details,
       customer_details: {
@@ -72,6 +80,7 @@ const Checkout = ({ route, navigation }) => {
       },
     };
     const paymentLink = await getPaymentLink(parameter, transaction);
+    console.log(paymentLink);
     if (paymentLink && !paymentLink.error && isLoaded.current) {
       setIsPressed(false);
       navigation.navigate('Midtrans', { paymentLink });
@@ -172,7 +181,7 @@ const Checkout = ({ route, navigation }) => {
               <Text style={styles.totalPayment}>Total Pembayaran</Text>
 
               <Text style={styles.totalPrice}>
-                {currency(product.price, {
+                {currency(product.price - 51000, {
                   symbol: 'Rp ',
                   precision: 0,
                 }).format()}

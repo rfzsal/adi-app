@@ -7,9 +7,9 @@ import { Text } from 'react-native-paper';
 import Divider from '../../../components/Divider';
 
 const PriceDetails = ({ product }) => {
-  const { price, discount } = product;
+  const { price } = product;
 
-  const totalDiscount = discount > 0 && price * (discount / 100);
+  const totalDiscount = 51000;
   const totalPrice = totalDiscount ? price - totalDiscount : price;
 
   return (
@@ -68,7 +68,6 @@ const styles = StyleSheet.create({
 PriceDetails.propTypes = {
   product: propTypes.shape({
     price: propTypes.number.isRequired,
-    discount: propTypes.number,
   }),
 };
 
