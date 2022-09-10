@@ -33,7 +33,7 @@ const Midtrans = ({ route, navigation }) => {
 
     if (navState.url.includes('#/406')) {
       webViewRef.current.stopLoading();
-      return navigation.navigate('Transactions');
+      return navigation.navigate('Main', { screen: 'Transactions' });
     }
 
     if (navState.url.includes('#/success')) {
@@ -43,17 +43,17 @@ const Midtrans = ({ route, navigation }) => {
 
     if (navState.url.includes('&transaction_status=pending')) {
       webViewRef.current.stopLoading();
-      return navigation.navigate('Transactions');
+      return navigation.navigate('Main', { screen: 'Transactions' });
     }
 
     if (navState.url.includes('?finish')) {
       webViewRef.current.stopLoading();
-      return navigation.navigate('ViewCard');
+      return navigation.navigate('Main', { screen: 'Profile' });
     }
 
     if (navState.url.includes('&pin=654321')) {
       webViewRef.current.stopLoading();
-      return navigation.navigate('ViewCard');
+      return navigation.navigate('Main', { screen: 'Profile' });
     }
   };
 
