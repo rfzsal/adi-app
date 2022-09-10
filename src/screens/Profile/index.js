@@ -8,6 +8,7 @@ import {
   Colors,
 } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import appConfig from '../../../app.config';
 import Divider from '../../components/Divider';
@@ -58,28 +59,12 @@ const Profile = ({ navigation }) => {
 
               <Divider height={16} />
               <Divider line />
-              <Divider height={8} />
 
-              <View style={{ paddingHorizontal: 16 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <Text style={{ fontWeight: 'bold' }}>Status</Text>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      paddingHorizontal: 8,
-                      right: -8,
-                    }}
-                    onPress={() => navigation.navigate('MemberStatus')}
-                  >
-                    Lihat Detail
-                  </Text>
-                </View>
-              </View>
+              <RippleMenu
+                icon="account-outline"
+                onPress={() => navigation.navigate('MemberStatus')}
+                text="Status Anggota"
+              />
 
               <Divider height={16} />
               <View style={{ backgroundColor: Colors.grey100 }}>
@@ -112,7 +97,15 @@ const Profile = ({ navigation }) => {
                 }}
                 style={styles.selectorButton}
               >
-                <Text style={styles.selectorButtonText}>Kartu ADI</Text>
+                <View style={styles.selectorContainer}>
+                  <MaterialCommunityIcons
+                    style={styles.selectorIcon}
+                    color={Colors.grey800}
+                    name="card-account-details-outline"
+                    size={24}
+                  />
+                  <Text style={styles.selectorButtonText}>Kartu ADI</Text>
+                </View>
               </TouchableRipple>
             </View>
             <View style={{ width: 16 }} />
@@ -123,7 +116,15 @@ const Profile = ({ navigation }) => {
               ]}
             >
               <TouchableRipple onPress={() => {}} style={styles.selectorButton}>
-                <Text style={styles.selectorButtonText}>Kode QR</Text>
+                <View style={styles.selectorContainer}>
+                  <MaterialCommunityIcons
+                    style={styles.selectorIcon}
+                    color={Colors.grey800}
+                    name="qrcode"
+                    size={24}
+                  />
+                  <Text style={styles.selectorButtonText}>Kode QR</Text>
+                </View>
               </TouchableRipple>
             </View>
           </View>
@@ -135,9 +136,17 @@ const Profile = ({ navigation }) => {
           <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Akun</Text>
-          <RippleMenu onPress={() => {}} text="Ubah Profil" />
+          <RippleMenu
+            icon="account-edit-outline"
+            onPress={() => {}}
+            text="Ubah Profil"
+          />
           <Divider line />
-          <RippleMenu onPress={() => {}} text="Daftar Transaksi" />
+          <RippleMenu
+            icon="wallet-outline"
+            onPress={() => {}}
+            text="Daftar Transaksi"
+          />
 
           <Divider height={16} />
           <View style={{ backgroundColor: Colors.grey100 }}>
@@ -146,11 +155,23 @@ const Profile = ({ navigation }) => {
           <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Tentang</Text>
-          <RippleMenu onPress={() => {}} text="FAQ" />
+          <RippleMenu
+            icon="help-circle-outline"
+            onPress={() => {}}
+            text="FAQ"
+          />
           <Divider line />
-          <RippleMenu onPress={() => {}} text="Syarat dan Ketentuan" />
+          <RippleMenu
+            icon="file-document-outline"
+            onPress={() => {}}
+            text="Syarat dan Ketentuan"
+          />
           <Divider line />
-          <RippleMenu onPress={() => {}} text="Kebijakan Privasi" />
+          <RippleMenu
+            icon="shield-lock-outline"
+            onPress={() => {}}
+            text="Kebijakan Privasi"
+          />
 
           <Divider height={16} />
           <View style={{ backgroundColor: Colors.grey100 }}>
@@ -159,7 +180,7 @@ const Profile = ({ navigation }) => {
           <Divider height={16} />
 
           <Text style={styles.menuHeadingText}>Hubungi Kami</Text>
-          <RippleMenu onPress={() => {}} text="Email" />
+          <RippleMenu icon="email-outline" onPress={() => {}} text="Email" />
 
           {auth.user && auth.user !== 'authenticating' && (
             <>
@@ -201,7 +222,22 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     letterSpacing: 0.4,
   },
+  statusDetailContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 8,
+  },
+  statusText: { fontWeight: 'bold' },
+  statusDetailText: {
+    fontSize: 12,
+  },
   selectorButtonContainer: { flex: 1, borderWidth: 1, borderRadius: 8 },
+  selectorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selectorIcon: { marginRight: 8, top: 1 },
   selectorButton: { paddingVertical: 16 },
   selectorButtonText: { textAlign: 'center', fontWeight: 'bold' },
   loginButtonContainer: { paddingHorizontal: 16 },

@@ -11,10 +11,10 @@ const ProfileAvatar = ({ name, avatar, chip, onPress }) => {
   }`;
 
   return (
-    <View style={styles.mainContainer}>
+    <View onTouchEnd={onPress} style={styles.mainContainer}>
       <Avatar.Image size={56} source={{ uri: avatar || dummyAvatar }} />
 
-      <View onTouchEnd={onPress} style={styles.textContainer}>
+      <View style={styles.textContainer}>
         <Text style={styles.nameText}>{name}</Text>
         {chip && (
           <View
@@ -23,14 +23,13 @@ const ProfileAvatar = ({ name, avatar, chip, onPress }) => {
             }}
           >
             <Text
-              style={{
-                paddingHorizontal: 8,
-                paddingVertical: 2,
-                fontSize: 12,
-                borderRadius: 8,
-                backgroundColor: colors.primary,
-                color: colors.background,
-              }}
+              style={[
+                styles.chip,
+                {
+                  backgroundColor: colors.primary,
+                  color: colors.background,
+                },
+              ]}
             >
               {chip}
             </Text>
@@ -54,6 +53,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   chip: {
+    marginTop: 2,
     paddingHorizontal: 8,
     paddingVertical: 2,
     fontSize: 12,
