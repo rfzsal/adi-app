@@ -8,6 +8,7 @@ import InputProfile from '../screens/InputProfile';
 import Login from '../screens/Login';
 import MemberStatus from '../screens/MemberStatus';
 import Midtrans from '../screens/Midtrans';
+import Register from '../screens/Register';
 import Transaction from '../screens/Transaction';
 import TransactionsHistory from '../screens/TransactionsHistory';
 import ViewCard from '../screens/ViewCard';
@@ -32,6 +33,8 @@ const Stacks = () => {
       <Stack.Screen name="Main" component={Tabs.User} />
 
       <Stack.Screen name="Login" component={Login} />
+
+      <Stack.Screen name="Register" component={Register} />
 
       <Stack.Screen name="MemberStatus" component={MemberStatus} />
 

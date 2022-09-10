@@ -45,7 +45,7 @@ const Profile = ({ navigation }) => {
                 <Button
                   style={{ flex: 1 }}
                   mode="contained"
-                  onPress={auth.signIn}
+                  onPress={() => navigation.navigate('Login')}
                 >
                   Masuk
                 </Button>
@@ -53,7 +53,7 @@ const Profile = ({ navigation }) => {
                 <Button
                   style={{ flex: 1 }}
                   mode="contained"
-                  onPress={auth.signIn}
+                  onPress={() => navigation.navigate('Register')}
                 >
                   Daftar
                 </Button>
