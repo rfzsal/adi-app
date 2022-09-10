@@ -1,11 +1,14 @@
 import { View, StyleSheet, Image, ScrollView } from 'react-native';
-import { Text, Colors, Appbar, useTheme } from 'react-native-paper';
+import { Text, Colors, Appbar, useTheme, Button } from 'react-native-paper';
 
 import Divider from '../../components/Divider';
+import { useAuth } from '../../hooks/useAuth';
 import Benefit from './components/Benefit';
 
 const MemberStatus = ({ route, navigation }) => {
+  const auth = useAuth();
   const { colors } = useTheme();
+  const { registered } = route.params;
 
   return (
     <>
@@ -34,7 +37,14 @@ const MemberStatus = ({ route, navigation }) => {
 
         <Divider height={8} />
 
-        <Text style={styles.header}>Kamu adalah anggota resmi ADI</Text>
+        {registered ? (
+          <Text style={styles.header}>Kamu adalah anggota resmi ADI</Text>
+        ) : (
+          <Text style={styles.header}>
+            Daftar menjadi anggota ADI sekarang!
+          </Text>
+        )}
+
         <Text style={[styles.subheader, { color: Colors.grey600 }]}>
           Nikmati layanan dan akses lengkap yang diberikan oleh ADI
         </Text>
@@ -65,54 +75,78 @@ const MemberStatus = ({ route, navigation }) => {
           image={require('../../../assets/images/workshop.png')}
         />
 
-        <Divider height={32} />
-        <Divider line />
-        <Divider height={32} />
+        {registered && (
+          <>
+            <Divider height={32} />
+            <Divider line />
+            <Divider height={32} />
 
-        <Text style={styles.header}>Status Keanggotaan</Text>
+            <Text style={styles.header}>Status Keanggotaan</Text>
 
-        <Divider height={16} />
+            <Divider height={16} />
 
-        <View style={styles.container}>
-          <Text style={styles.boldText}>Tanggal Aktif</Text>
-          <Text
-            style={[
-              styles.statusText,
-              { backgroundColor: Colors.green50, color: Colors.green800 },
-            ]}
-          >
-            10 September 2022
-          </Text>
+            <View style={styles.container}>
+              <Text style={styles.boldText}>Tanggal Aktif</Text>
+              <Text
+                style={[
+                  styles.statusText,
+                  { backgroundColor: Colors.green50, color: Colors.green800 },
+                ]}
+              >
+                10 September 2022
+              </Text>
 
-          <Divider height={16} />
+              <Divider height={16} />
 
-          <Text style={styles.boldText}>Tanggal Berakhir</Text>
-          <Text
-            style={[
-              styles.statusText,
-              {
-                backgroundColor: Colors.red50,
-                color: Colors.red800,
-              },
-            ]}
-          >
-            10 September 2023
-          </Text>
+              <Text style={styles.boldText}>Tanggal Berakhir</Text>
+              <Text
+                style={[
+                  styles.statusText,
+                  {
+                    backgroundColor: Colors.red50,
+                    color: Colors.red800,
+                  },
+                ]}
+              >
+                10 September 2023
+              </Text>
 
-          <Divider height={16} />
-        </View>
+              <Divider height={16} />
+            </View>
+          </>
+        )}
+
+        {!registered && (
+          <>
+            <Divider height={32} />
+            <View style={styles.container}>
+              <Button
+                onPress={() => {
+                  if (auth.user) {
+                    navigation.navigate('InputProfile');
+                  } else {
+                    navigation.navigate('Login');
+                  }
+                }}
+                mode="contained"
+              >
+                Daftar Sekarang
+              </Button>
+            </View>
+          </>
+        )}
       </ScrollView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: { borderTopRightRadius: 24, borderTopLeftRadius: 24 },
+  mainContainer: { borderTopRightRadius: 24, borderTopLeftRadius: 24, flex: 1 },
   container: { paddingHorizontal: 16 },
   imageContainer: {
     flex: 1,
-    height: 240,
-    maxHeight: 240,
+    height: 160,
+    maxHeight: 160,
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'center',

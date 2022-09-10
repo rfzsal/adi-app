@@ -43,6 +43,7 @@ const useProvideAuth = () => {
 
       return true;
     } catch (error) {
+      setUser(null);
       return { error };
     }
   };

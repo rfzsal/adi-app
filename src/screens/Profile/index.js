@@ -25,7 +25,7 @@ const Profile = ({ navigation }) => {
   const auth = useAuth();
   const user = useUser();
 
-  const registered = user?.ADIMember >= Date.now();
+  const registered = user ? user?.ADIMember >= Date.now() : 'loading';
 
   const handleSignOut = () => {
     Alert.alert(
@@ -66,7 +66,9 @@ const Profile = ({ navigation }) => {
             <>
               <ProfileAvatar
                 name={auth.user.name || auth.user.email}
-                chip={registered ? 'Anggota ADI' : null}
+                chip={
+                  registered && registered !== 'loading' ? 'Anggota ADI' : null
+                }
                 avatar={auth.user.avatar}
               />
 
@@ -75,11 +77,13 @@ const Profile = ({ navigation }) => {
 
               <RippleMenu
                 icon="account-outline"
-                onPress={() => navigation.navigate('MemberStatus')}
+                onPress={() =>
+                  navigation.navigate('MemberStatus', { registered })
+                }
                 text="Status Anggota"
               />
 
-              {!registered && (
+              {!registered && registered !== 'loading' && (
                 <>
                   <Divider height={16} />
                   <View style={{ backgroundColor: Colors.grey100 }}>
@@ -87,7 +91,13 @@ const Profile = ({ navigation }) => {
                   </View>
                   <Divider height={16} />
 
-                  <BenefitBanner />
+                  <BenefitBanner
+                    onPress={() =>
+                      navigation.navigate('MemberStatus', {
+                        registered: false,
+                      })
+                    }
+                  />
                 </>
               )}
 
@@ -97,7 +107,7 @@ const Profile = ({ navigation }) => {
               </View>
               <Divider height={16} />
 
-              {registered && (
+              {registered && registered !== 'loading' && (
                 <>
                   <Text style={styles.menuHeadingText}>Anggota ADI</Text>
                   <View
@@ -190,7 +200,13 @@ const Profile = ({ navigation }) => {
               </View>
               <Divider height={16} />
 
-              <BenefitBanner />
+              <BenefitBanner
+                onPress={() =>
+                  navigation.navigate('MemberStatus', {
+                    registered: false,
+                  })
+                }
+              />
             </>
           )}
 
@@ -250,7 +266,6 @@ const Profile = ({ navigation }) => {
 
               <Divider height={8} />
               <Text style={{ textAlign: 'center' }}>v{VERSION}</Text>
-              <Divider height={24} />
             </>
           )}
         </View>

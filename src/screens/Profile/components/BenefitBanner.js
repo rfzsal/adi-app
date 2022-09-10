@@ -1,12 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Text, Colors, useTheme } from 'react-native-paper';
 
-const BenefitBanner = () => {
+const BenefitBanner = ({ onPress }) => {
   const { colors } = useTheme();
 
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.8}
+      style={styles.container}
+    >
       <View
         style={{
           flexDirection: 'row',
@@ -57,3 +62,7 @@ const styles = StyleSheet.create({
 });
 
 export default BenefitBanner;
+
+BenefitBanner.propTypes = {
+  onPress: PropTypes.func,
+};
