@@ -125,7 +125,7 @@ const MemberStatus = ({ route, navigation }) => {
                   if (auth.user) {
                     navigation.navigate('InputProfile');
                   } else {
-                    navigation.navigate('Login');
+                    navigation.navigate('Register');
                   }
                 }}
                 mode="contained"
