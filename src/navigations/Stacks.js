@@ -25,6 +25,8 @@ const Stacks = () => {
   useEffect(() => {
     if (auth.user === 'authenticating') {
       navigation.navigate('Auth');
+    } else {
+      navigation.navigate('Main');
     }
   }, [auth.user]);
 
