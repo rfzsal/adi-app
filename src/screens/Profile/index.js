@@ -57,6 +57,31 @@ const Profile = ({ navigation }) => {
               />
 
               <Divider height={16} />
+              <Divider line />
+              <Divider height={8} />
+
+              <View style={{ paddingHorizontal: 16 }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Text style={{ fontWeight: 'bold' }}>Status</Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      paddingHorizontal: 8,
+                      right: -8,
+                    }}
+                    onPress={() => navigation.navigate('MemberStatus')}
+                  >
+                    Lihat Detail
+                  </Text>
+                </View>
+              </View>
+
+              <Divider height={16} />
               <View style={{ backgroundColor: Colors.grey100 }}>
                 <Divider height={8} />
               </View>

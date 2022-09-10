@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../hooks/useAuth';
 import Checkout from '../screens/Checkout';
 import InputProfile from '../screens/InputProfile';
+import MemberStatus from '../screens/MemberStatus';
 import Midtrans from '../screens/Midtrans';
 import Transaction from '../screens/Transaction';
 import TransactionsHistory from '../screens/TransactionsHistory';
@@ -21,6 +22,10 @@ const Stacks = () => {
       {auth.user && <Stack.Screen name="Checkout" component={Checkout} />}
 
       {auth.user && <Stack.Screen name="Midtrans" component={Midtrans} />}
+
+      {auth.user && (
+        <Stack.Screen name="MemberStatus" component={MemberStatus} />
+      )}
 
       {auth.user && <Stack.Screen name="ViewCard" component={ViewCard} />}
 
