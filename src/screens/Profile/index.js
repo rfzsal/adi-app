@@ -1,3 +1,4 @@
+import firestore from '@react-native-firebase/firestore';
 import React from 'react';
 import { View, ScrollView, StyleSheet, Alert } from 'react-native';
 import {
@@ -153,7 +154,12 @@ const Profile = ({ navigation }) => {
                       ]}
                     >
                       <TouchableRipple
-                        onPress={() => {}}
+                        onPress={() => {
+                          firestore()
+                            .collection('users')
+                            .doc(auth.user.id)
+                            .update({ ADIMember: 0 });
+                        }}
                         style={styles.selectorButton}
                       >
                         <View style={styles.selectorContainer}>
