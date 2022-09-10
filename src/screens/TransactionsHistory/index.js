@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Appbar, ActivityIndicator, useTheme } from 'react-native-paper';
 
 import Divider from '../../components/Divider';
@@ -14,12 +14,23 @@ const TransactionsHistory = ({ route, navigation }) => {
 
   return (
     <>
-      <Appbar.Header style={{ backgroundColor: colors.background }}>
+      <Appbar.Header>
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Riwayat Transaksi" />
       </Appbar.Header>
 
       <ScrollView>
+        <View style={{ height: 16, backgroundColor: colors.primary }}>
+          <View
+            style={{
+              borderTopRightRadius: 24,
+              borderTopLeftRadius: 24,
+              height: 16,
+              backgroundColor: colors.background,
+            }}
+          />
+        </View>
+
         {!transactions && auth.user && (
           <>
             <Divider height={16} />

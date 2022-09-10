@@ -17,13 +17,13 @@ const Transactions = ({ navigation }) => {
 
   return (
     <>
-      <Appbar.Header style={{ backgroundColor: colors.background }}>
+      <Appbar.Header>
         <Appbar.Content title="Transaksi" />
         {transactions?.length > 0 && (
           <View style={styles.appbarMenuContainer}>
             <Text
               onPress={() => navigation.navigate('TransactionsHistory')}
-              style={styles.appBarMen}
+              style={[styles.appBarMenu, { color: colors.background }]}
             >
               Riwayat Transaksi
             </Text>

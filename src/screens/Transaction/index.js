@@ -65,12 +65,23 @@ const Transaction = ({ route, navigation }) => {
 
   return (
     <>
-      <Appbar.Header style={{ backgroundColor: colors.background }}>
+      <Appbar.Header>
         <Appbar.BackAction onPress={navigation.goBack} />
         <Appbar.Content title="Ringkasan Transaksi" />
       </Appbar.Header>
 
       <ScrollView>
+        <View style={{ height: 16, backgroundColor: colors.primary }}>
+          <View
+            style={{
+              borderTopRightRadius: 24,
+              borderTopLeftRadius: 24,
+              height: 16,
+              backgroundColor: colors.notification,
+            }}
+          />
+        </View>
+
         <View
           style={[
             styles.bannerContainer,
@@ -196,7 +207,7 @@ const Transaction = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  bannerContainer: { padding: 16 },
+  bannerContainer: { paddingHorizontal: 16, paddingBottom: 16 },
   mainContainer: { paddingVertical: 16 },
   bannerTitle: {
     fontSize: 16,
