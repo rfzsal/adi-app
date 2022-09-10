@@ -14,6 +14,7 @@ import appConfig from '../../../app.config';
 import Divider from '../../components/Divider';
 import { useAuth } from '../../hooks/useAuth';
 import { useUser } from '../../hooks/useUser';
+import BenefitBanner from './components/BenefitBanner';
 import ProfileAvatar from './components/ProfileAvatar';
 import RippleMenu from './components/RippleMenu';
 
@@ -41,11 +42,23 @@ const Profile = ({ navigation }) => {
           {(!auth.user || auth.user === 'authenticating') && (
             <>
               <View style={styles.loginButtonContainer}>
-                <Button mode="contained" onPress={auth.signIn}>
+                <Button
+                  style={{ flex: 1 }}
+                  mode="contained"
+                  onPress={auth.signIn}
+                >
                   Masuk
                 </Button>
+                <View style={{ width: 16 }} />
+                <Button
+                  style={{ flex: 1 }}
+                  mode="contained"
+                  onPress={auth.signIn}
+                >
+                  Daftar
+                </Button>
               </View>
-              <Divider height={24} />
+              <Divider height={16} />
             </>
           )}
 
@@ -66,87 +79,120 @@ const Profile = ({ navigation }) => {
                 text="Status Anggota"
               />
 
+              {!registered && (
+                <>
+                  <Divider height={16} />
+                  <View style={{ backgroundColor: Colors.grey100 }}>
+                    <Divider height={8} />
+                  </View>
+                  <Divider height={16} />
+
+                  <BenefitBanner />
+                </>
+              )}
+
               <Divider height={16} />
               <View style={{ backgroundColor: Colors.grey100 }}>
                 <Divider height={8} />
               </View>
               <Divider height={16} />
+
+              {registered && (
+                <>
+                  <Text style={styles.menuHeadingText}>Anggota ADI</Text>
+                  <View
+                    style={{
+                      flex: 2,
+                      flexDirection: 'row',
+                      paddingHorizontal: 16,
+                      marginTop: 8,
+                    }}
+                  >
+                    <View
+                      style={[
+                        styles.selectorButtonContainer,
+                        { borderColor: Colors.grey400 },
+                      ]}
+                    >
+                      <TouchableRipple
+                        onPress={() => {
+                          if (auth.user && auth.user !== 'authenticating') {
+                            navigation.navigate('ViewCard', { user });
+                          }
+                        }}
+                        style={styles.selectorButton}
+                      >
+                        <View style={styles.selectorContainer}>
+                          <MaterialCommunityIcons
+                            style={styles.selectorIcon}
+                            color={Colors.grey800}
+                            name="card-account-details-outline"
+                            size={24}
+                          />
+                          <Text style={styles.selectorButtonText}>
+                            Kartu ADI
+                          </Text>
+                        </View>
+                      </TouchableRipple>
+                    </View>
+                    <View style={{ width: 16 }} />
+                    <View
+                      style={[
+                        styles.selectorButtonContainer,
+                        { borderColor: Colors.grey400 },
+                      ]}
+                    >
+                      <TouchableRipple
+                        onPress={() => {}}
+                        style={styles.selectorButton}
+                      >
+                        <View style={styles.selectorContainer}>
+                          <MaterialCommunityIcons
+                            style={styles.selectorIcon}
+                            color={Colors.grey800}
+                            name="qrcode"
+                            size={24}
+                          />
+                          <Text style={styles.selectorButtonText}>Kode QR</Text>
+                        </View>
+                      </TouchableRipple>
+                    </View>
+                  </View>
+
+                  <Divider height={24} />
+                  <View style={{ backgroundColor: Colors.grey100 }}>
+                    <Divider height={8} />
+                  </View>
+                  <Divider height={16} />
+                </>
+              )}
+
+              <Text style={styles.menuHeadingText}>Akun</Text>
+              <RippleMenu
+                icon="account-edit-outline"
+                onPress={() => {}}
+                text="Ubah Profil"
+              />
+              <Divider line />
+              <RippleMenu
+                icon="wallet-outline"
+                onPress={() => {}}
+                text="Daftar Transaksi"
+              />
+              <Divider height={16} />
             </>
           )}
 
-          <Text style={styles.menuHeadingText}>Anggota ADI</Text>
-          <View
-            style={{
-              flex: 2,
-              flexDirection: 'row',
-              paddingHorizontal: 16,
-              marginTop: 8,
-            }}
-          >
-            <View
-              style={[
-                styles.selectorButtonContainer,
-                { borderColor: Colors.grey400 },
-              ]}
-            >
-              <TouchableRipple
-                onPress={() => {
-                  if (auth.user && auth.user !== 'authenticating') {
-                    navigation.navigate('ViewCard', { user });
-                  }
-                }}
-                style={styles.selectorButton}
-              >
-                <View style={styles.selectorContainer}>
-                  <MaterialCommunityIcons
-                    style={styles.selectorIcon}
-                    color={Colors.grey800}
-                    name="card-account-details-outline"
-                    size={24}
-                  />
-                  <Text style={styles.selectorButtonText}>Kartu ADI</Text>
-                </View>
-              </TouchableRipple>
-            </View>
-            <View style={{ width: 16 }} />
-            <View
-              style={[
-                styles.selectorButtonContainer,
-                { borderColor: Colors.grey400 },
-              ]}
-            >
-              <TouchableRipple onPress={() => {}} style={styles.selectorButton}>
-                <View style={styles.selectorContainer}>
-                  <MaterialCommunityIcons
-                    style={styles.selectorIcon}
-                    color={Colors.grey800}
-                    name="qrcode"
-                    size={24}
-                  />
-                  <Text style={styles.selectorButtonText}>Kode QR</Text>
-                </View>
-              </TouchableRipple>
-            </View>
-          </View>
+          {(!auth.user || auth.user === 'authenticating') && (
+            <>
+              <View style={{ backgroundColor: Colors.grey100 }}>
+                <Divider height={8} />
+              </View>
+              <Divider height={16} />
 
-          <Divider height={24} />
-          <View style={{ backgroundColor: Colors.grey100 }}>
-            <Divider height={8} />
-          </View>
-          <Divider height={16} />
-
-          <Text style={styles.menuHeadingText}>Akun</Text>
-          <RippleMenu
-            icon="account-edit-outline"
-            onPress={() => {}}
-            text="Ubah Profil"
-          />
-          <Divider line />
-          <RippleMenu
-            icon="wallet-outline"
-            onPress={() => {}}
-            text="Daftar Transaksi"
-          />
+              <BenefitBanner />
+            </>
+          )}
 
           <Divider height={16} />
           <View style={{ backgroundColor: Colors.grey100 }}>
@@ -240,7 +286,11 @@ const styles = StyleSheet.create({
   selectorIcon: { marginRight: 8, top: 1 },
   selectorButton: { paddingVertical: 16 },
   selectorButtonText: { textAlign: 'center', fontWeight: 'bold' },
-  loginButtonContainer: { paddingHorizontal: 16 },
+  loginButtonContainer: {
+    paddingHorizontal: 16,
+    flex: 1,
+    flexDirection: 'row',
+  },
   container: {
     paddingHorizontal: 16,
   },
