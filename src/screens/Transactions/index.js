@@ -41,6 +41,17 @@ const Transactions = ({ navigation }) => {
 
       {pendingTransactions?.length > 0 && (
         <ScrollView>
+          <View style={{ height: 16, backgroundColor: colors.primary }}>
+            <View
+              style={{
+                borderTopRightRadius: 24,
+                borderTopLeftRadius: 24,
+                height: 16,
+                backgroundColor: colors.background,
+              }}
+            />
+          </View>
+
           {pendingTransactions?.map((transaction) => {
             return (
               <React.Fragment key={transaction.id}>
