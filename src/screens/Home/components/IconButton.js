@@ -6,6 +6,7 @@ const IconButton = ({ icon, label }) => {
   return (
     <View style={styles.conatiner}>
       <TouchableOpacity
+        activeOpacity={0.8}
         style={[
           {
             borderColor: Colors.grey400,
