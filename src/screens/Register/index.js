@@ -22,7 +22,7 @@ const Login = ({ navigation }) => {
   const { colors } = useTheme();
   const auth = useAuth();
 
-  const handleSignIn = async () => {
+  const handleSignUp = async () => {
     Keyboard.dismiss();
 
     if (!validateEmail()) return false;
@@ -31,12 +31,15 @@ const Login = ({ navigation }) => {
 
     setIsLoading(true);
 
-    const status = await auth.signInEmail(email, password);
+    const status = await auth.signUpEmail(email, password);
 
-    if (status.error) {
+    if (
+      status.error?.message ===
+      '[auth/email-already-in-use] The email address is already in use by another account.'
+    ) {
       Alert.alert(
-        'Gagal Masuk',
-        'Email atau kata sandi salah, silahkan coba lagi.'
+        'Gagal Registrasi',
+        'Email tersebut telah digunakan, silahkan gunakan email yang lain.'
       );
 
       setIsLoading(false);
@@ -132,6 +135,7 @@ const Login = ({ navigation }) => {
           <View style={styles.mainContainer}>
             <Text>Email</Text>
             <TextInput
+              placeholder="Email"
               error={error?.email}
               value={email}
               mode="outlined"
@@ -148,6 +152,7 @@ const Login = ({ navigation }) => {
 
             <Text>Kata Sandi</Text>
             <TextInput
+              placeholder="Kata Sandi"
               error={error?.password}
               value={password}
               mode="outlined"
@@ -163,7 +168,7 @@ const Login = ({ navigation }) => {
             <Divider height={32} />
             <Button
               disabled={isLoading}
-              onPress={handleSignIn}
+              onPress={handleSignUp}
               mode="contained"
               style={{ paddingVertical: 4 }}
             >

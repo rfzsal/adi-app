@@ -132,6 +132,7 @@ const Login = ({ navigation }) => {
           <View style={styles.mainContainer}>
             <Text>Email</Text>
             <TextInput
+              placeholder="Email"
               error={error?.email}
               value={email}
               mode="outlined"
@@ -148,6 +149,7 @@ const Login = ({ navigation }) => {
 
             <Text>Kata Sandi</Text>
             <TextInput
+              placeholder="Kata Sandi"
               error={error?.password}
               value={password}
               mode="outlined"
