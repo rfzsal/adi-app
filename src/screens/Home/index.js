@@ -159,6 +159,69 @@ const Home = ({ navigation }) => {
 
           <Divider height={24} />
 
+          {!auth.user && (
+            <View
+              style={{ backgroundColor: colors.primary, paddingHorizontal: 16 }}
+            >
+              <Divider height={16} />
+              <View
+                style={{
+                  backgroundColor: colors.background,
+                  borderRadius: 8,
+                  padding: 16,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('MemberStatus', { registered: false })
+                  }
+                  activeOpacity={0.8}
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
+                  <View
+                    style={{
+                      height: 72,
+                      aspectRatio: 4 / 3,
+                      marginRight: 16,
+                    }}
+                  >
+                    <Image
+                      style={{ height: '100%', borderRadius: 8 }}
+                      source={{
+                        uri: 'https://i.postimg.cc/sgSVQTRz/ADI-DISKON-50.png',
+                      }}
+                    />
+                  </View>
+
+                  <View
+                    style={{
+                      flex: 1,
+                    }}
+                  >
+                    <Text style={{ fontWeight: 'bold' }}>
+                      Promo! HUT 24 Tahun Asosiasi Dosen Indonesia
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        color: Colors.grey600,
+                        marginTop: 2,
+                      }}
+                    >
+                      Hemat 50% untuk pendaftaran anggota Asosiasi Dosen
+                      Indonesia{' '}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+              <Divider height={16} />
+            </View>
+          )}
+
           {!registered && registered !== 'loading' && (
             <View
               style={{ backgroundColor: colors.primary, paddingHorizontal: 16 }}
