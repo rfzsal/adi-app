@@ -4,7 +4,7 @@ import { Text, Colors, Button } from 'react-native-paper';
 
 const Card = ({ user, registered, onPress }) => {
   return (
-    <View style={styles.container}>
+    <>
       <View
         style={[
           {
@@ -58,12 +58,11 @@ const Card = ({ user, registered, onPress }) => {
           </View>
         </View>
       )}
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { paddingHorizontal: 16 },
   cardBackground: {
     aspectRatio: 9 / 5.5,
     borderRadius: 8,

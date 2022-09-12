@@ -26,6 +26,10 @@ export default {
       '@react-native-firebase/app',
       '@react-native-google-signin/google-signin',
       '@notifee/react-native',
+      'expo-media-library',
+      {
+        isAccessMediaLocationEnabled: true,
+      },
     ],
   },
 };

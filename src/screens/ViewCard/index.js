@@ -1,3 +1,5 @@
+import { shareAsync } from 'expo-sharing';
+import { useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 import {
   Text,
@@ -7,6 +9,7 @@ import {
   TouchableRipple,
 } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ViewShot from 'react-native-view-shot';
 
 import Divider from '../../components/Divider';
 import { useUser } from '../../hooks/useUser';
@@ -16,7 +19,19 @@ const ViewCard = ({ route, navigation }) => {
   const user = useUser();
   const { colors } = useTheme();
 
+  const ref = useRef();
+
   const registered = user?.ADIMember >= Date.now();
+
+  const handleShare = async () => {
+    try {
+      const uri = await ref.current.capture();
+
+      await shareAsync(uri);
+    } catch (error) {
+      return { error };
+    }
+  };
 
   return (
     <>
@@ -36,11 +51,18 @@ const ViewCard = ({ route, navigation }) => {
         />
       </View>
 
-      <Card
-        registered={registered}
-        user={user}
-        onPress={() => navigation.navigate('InputProfile')}
-      />
+      <View style={{ paddingHorizontal: 16 }}>
+        <ViewShot
+          ref={ref}
+          options={{ fileName: 'ADI', format: 'jpg', quality: 0.9 }}
+        >
+          <Card
+            registered={registered}
+            user={user}
+            onPress={() => navigation.navigate('InputProfile')}
+          />
+        </ViewShot>
+      </View>
 
       <Divider height={8} />
       <Text style={{ textAlign: 'center' }}>
@@ -82,7 +104,10 @@ const ViewCard = ({ route, navigation }) => {
               { borderColor: Colors.grey400 },
             ]}
           >
-            <TouchableRipple onPress={() => {}} style={styles.selectorButton}>
+            <TouchableRipple
+              onPress={handleShare}
+              style={styles.selectorButton}
+            >
               <View style={styles.selectorContainer}>
                 <MaterialCommunityIcons
                   style={styles.selectorIcon}
