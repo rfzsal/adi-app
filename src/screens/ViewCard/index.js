@@ -1,6 +1,7 @@
+import * as Clipboard from 'expo-clipboard';
 import { shareAsync } from 'expo-sharing';
 import { useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import {
   Text,
   Colors,
@@ -64,10 +65,59 @@ const ViewCard = ({ route, navigation }) => {
         </ViewShot>
       </View>
 
-      <Divider height={8} />
+      {/* <Divider height={8} />
       <Text style={{ textAlign: 'center' }}>
-        Sentuh kartu untuk melihat lebih besar
-      </Text>
+      Sentuh kartu untuk melihat lebih besar
+    </Text> */}
+
+      <Divider height={16} />
+
+      <View style={{ paddingHorizontal: 16 }}>
+        <View
+          style={{
+            borderWidth: 1,
+            borderColor: Colors.grey200,
+            backgroundColor: Colors.blue50,
+            borderRadius: 8,
+            paddingVertical: 4,
+          }}
+        >
+          <View>
+            <Text style={{ textAlign: 'center' }}>Nomor Anggota</Text>
+            <Text style={{ textAlign: 'center', fontWeight: 'bold' }}>
+              0123456
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={async () => {
+              try {
+                await Clipboard.setStringAsync('0123456', {});
+              } catch (error) {
+                console.log(error);
+              }
+            }}
+            activeOpacity={0.8}
+            style={{
+              height: 32,
+              width: 32,
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'absolute',
+              right: 8,
+              top: 4,
+              bottom: 4,
+            }}
+          >
+            <MaterialCommunityIcons
+              color={Colors.grey800}
+              name="content-copy"
+              size={24}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+
       <Divider height={16} />
 
       <View style={{ flexDirection: 'row' }}>
