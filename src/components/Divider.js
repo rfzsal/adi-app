@@ -3,11 +3,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Colors } from 'react-native-paper';
 
-const Divider = ({ line, height }) => {
+const Divider = ({ line, height, lineColor }) => {
   return (
     <View style={styles.dividerContainer}>
       {line ? (
-        <View style={styles.dividerLine} />
+        <View style={[styles.dividerLine, { backgroundColor: lineColor }]} />
       ) : (
         <View style={[{ height }]} />
       )}
@@ -17,7 +17,7 @@ const Divider = ({ line, height }) => {
 
 const styles = StyleSheet.create({
   dividerContainer: { paddingHorizontal: 16 },
-  dividerLine: { height: 1, backgroundColor: Colors.grey100 },
+  dividerLine: { height: 1 },
 });
 
 Divider.propTypes = {
@@ -28,6 +28,7 @@ Divider.propTypes = {
 Divider.defaultProps = {
   line: false,
   height: 24,
+  lineColor: Colors.grey100,
 };
 
 export default Divider;

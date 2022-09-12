@@ -1,6 +1,15 @@
+import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { View, StyleSheet, Alert, Keyboard } from 'react-native';
-import { Text, Button, TextInput, Appbar, useTheme } from 'react-native-paper';
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  Alert,
+  Keyboard,
+  Image,
+} from 'react-native';
+import { Text, Button, TextInput, useTheme, Colors } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Divider from '../../components/Divider';
 import { useAuth } from '../../hooks/useAuth';
@@ -60,98 +69,161 @@ const Login = ({ navigation }) => {
 
   return (
     <>
-      <Appbar.Header style={{ backgroundColor: colors.background }}>
-        <Appbar.Content title="Masuk" />
+      <StatusBar translucent />
 
-        <View style={styles.appbarMenuContainer}>
-          <Text
-            onPress={() => navigation.replace('Register')}
-            style={styles.appBarMenu}
-          >
-            Daftar
-          </Text>
-        </View>
-      </Appbar.Header>
-
-      <View style={styles.mainContainer}>
-        <Divider height={16} />
-
-        <Text>Email</Text>
-        <TextInput
-          error={error?.email}
-          value={email}
-          mode="outlined"
-          onChangeText={setEmail}
-          onBlur={validateEmail}
-        />
-        {error?.email && (
-          <Text style={[styles.errorText, { color: colors.error }]}>
-            {error.email}
-          </Text>
-        )}
-
-        <Divider height={16} />
-
-        <Text>Kata Sandi</Text>
-        <TextInput
-          error={error?.password}
-          value={password}
-          mode="outlined"
-          onChangeText={setPassword}
-          secureTextEntry
-        />
-        {error?.password && (
-          <Text style={[styles.errorText, { color: colors.error }]}>
-            {error.password}
-          </Text>
-        )}
-
-        <Divider height={16} />
-
-        <Button disabled={isLoading} onPress={handleSignIn} mode="contained">
-          Masuk
-        </Button>
-
-        {/* <Divider height={16} />
-
-        <View>
-          <Text
+      <ScrollView style={{ backgroundColor: Colors.blue50 }}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <Divider height={16} />
+          <View
             style={{
-              position: 'absolute',
-              padding: 0,
-              paddingHorizontal: 8,
-              right: -8,
-              color: colors.primary,
+              height: 160,
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
-            Lupa kata sandi?
-          </Text>
-        </View> */}
-      </View>
+            <Image
+              style={{ right: 4 }}
+              source={require('../../../assets/images/myadi.png')}
+            />
+          </View>
+          <Divider height={16} />
 
-      <Divider height={32} />
-      <Divider line />
-      <View style={styles.otherMethodTextContainer}>
-        <Text
-          style={[
-            {
-              color: colors.placeholderText,
-              backgroundColor: colors.background,
-            },
-            styles.otherMethodText,
-          ]}
-        >
-          atau masuk dengan
-        </Text>
-      </View>
+          <Divider height={16} />
+          <View style={styles.mainContainer}>
+            <Button
+              icon={({ size }) => (
+                <Image
+                  source={require('../../../assets/images/google.png')}
+                  style={{ width: size, height: size }}
+                />
+              )}
+              disabled={isLoading}
+              onPress={auth.signIn}
+              mode="contained"
+              labelStyle={{ color: colors.text }}
+              style={{
+                paddingVertical: 4,
+                backgroundColor: colors.background,
+                borderColor: colors.background,
+              }}
+            >
+              Masuk Dengan Google
+            </Button>
+          </View>
 
-      <Divider height={12} />
+          <Divider height={32} />
+          <Divider line lineColor={Colors.grey400} />
 
-      <View style={styles.mainContainer}>
-        <Button disabled={isLoading} onPress={auth.signIn} mode="outlined">
-          Google
-        </Button>
-      </View>
+          <View style={styles.otherMethodTextContainer}>
+            <Text
+              style={[
+                {
+                  backgroundColor: Colors.blue50,
+                },
+                styles.otherMethodText,
+              ]}
+            >
+              atau
+            </Text>
+          </View>
+
+          <Divider height={8} />
+
+          <View style={styles.mainContainer}>
+            <Text>Email</Text>
+            <TextInput
+              error={error?.email}
+              value={email}
+              mode="outlined"
+              onChangeText={setEmail}
+              onBlur={validateEmail}
+            />
+            {error?.email && (
+              <Text style={[styles.errorText, { color: colors.error }]}>
+                {error.email}
+              </Text>
+            )}
+
+            <Divider height={16} />
+
+            <Text>Kata Sandi</Text>
+            <TextInput
+              error={error?.password}
+              value={password}
+              mode="outlined"
+              onChangeText={setPassword}
+              secureTextEntry
+            />
+            {error?.password && (
+              <Text style={[styles.errorText, { color: colors.error }]}>
+                {error.password}
+              </Text>
+            )}
+
+            <Divider height={16} />
+            <View>
+              <Text
+                style={{
+                  position: 'absolute',
+                  padding: 0,
+                  paddingHorizontal: 8,
+                  right: -8,
+                  color: colors.primary,
+                }}
+              >
+                Lupa kata sandi?
+              </Text>
+            </View>
+
+            <Divider height={48} />
+            <Button
+              disabled={isLoading}
+              onPress={handleSignIn}
+              mode="contained"
+              style={{ paddingVertical: 4 }}
+            >
+              Masuk
+            </Button>
+
+            <Divider height={24} />
+
+            <Text
+              style={{
+                alignSelf: 'center',
+                paddingHorizontal: 8,
+              }}
+              onPress={() => navigation.replace('Register')}
+            >
+              Belum punya akun?{' '}
+              <Text
+                style={{
+                  color: colors.primary,
+                }}
+              >
+                Daftar sekarang
+              </Text>
+            </Text>
+          </View>
+
+          <Divider height={72} />
+
+          <View>
+            <Text style={{ textAlign: 'center' }}>
+              Asosiasi Dosen Indonesia 1.0.0
+            </Text>
+            <Text
+              style={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+              }}
+            >
+              All Right Reserved
+            </Text>
+          </View>
+
+          <Divider height={16} />
+        </SafeAreaView>
+      </ScrollView>
     </>
   );
 };
@@ -161,7 +233,7 @@ const styles = StyleSheet.create({
   appBarMenu: { paddingVertical: 4 },
   mainContainer: { paddingHorizontal: 16 },
   errorText: { fontSize: 12 },
-  otherMethodText: { textAlign: 'center', paddingHorizontal: 8 },
+  otherMethodText: { textAlign: 'center', paddingHorizontal: 16 },
   otherMethodTextContainer: { alignItems: 'center', bottom: 12 },
 });
 
