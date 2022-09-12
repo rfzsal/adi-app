@@ -50,7 +50,13 @@ const Home = ({ navigation }) => {
           </View>
 
           <View style={{ paddingHorizontal: 16 }}>
-            {!auth.user && <RegisterBanner />}
+            {!auth.user && (
+              <RegisterBanner
+                onPress={() =>
+                  navigation.navigate('MemberStatus', { registered: false })
+                }
+              />
+            )}
 
             {auth.user && auth.user !== 'authenticating' && (
               <View
